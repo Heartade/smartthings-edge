@@ -70,4 +70,42 @@ function M.new_session(encoded, seq)
   return session
 end
 
+-- Receive the device's learned IR message. All chunks must arrive in order;
+-- callers should abandon this object on a transport timeout.
+function M.new_capture(max_bytes)
+  local capture = { max_bytes = max_bytes or 8192 }
+  function capture:begin(seq, length, metadata)
+    assert(not self.seq and type(seq) == "number" and seq >= 0 and seq <= 65535,
+      "capture already active or invalid sequence")
+    assert(type(length) == "number" and length % 1 == 0 and length > 0
+      and length <= self.max_bytes, "invalid capture length")
+    self.seq, self.length, self.position, self.parts = seq, length, 0, {}
+    metadata = metadata or {}
+    return { { cmd = 0x01, payload = {
+      zero = 0, seq = seq, length = length, unk1 = metadata.unk1 or 0,
+      unk2 = metadata.unk2 or 0, unk3 = metadata.unk3 or 0,
+      cmd = metadata.cmd or 0, unk4 = metadata.unk4 or 0
+    } }, { cmd = 0x02, payload = { seq = seq, position = 0, maxlen = 0x38 } } }
+  end
+  function capture:part(seq, position, bytes, checksum)
+    assert(self.seq == seq and self.position == position, "unexpected capture position or sequence")
+    assert(type(bytes) == "string" and #bytes > 0 and
+      position + #bytes <= self.length, "capture chunk out of bounds")
+    assert(M.checksum(bytes) == checksum, "capture checksum mismatch")
+    self.parts[#self.parts + 1] = bytes
+    self.position = position + #bytes
+    if self.position < self.length then
+      return 0x02, { seq = seq, position = self.position, maxlen = 0x38 }
+    end
+    return 0x04, { zero0 = 0, seq = seq, zero1 = 0 }
+  end
+  function capture:finish(seq)
+    assert(self.seq == seq and self.position == self.length, "incomplete capture")
+    local code = base64(table.concat(self.parts))
+    self.seq, self.parts = nil, nil
+    return code
+  end
+  return capture
+end
+
 return M
