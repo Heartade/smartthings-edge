@@ -45,7 +45,7 @@ The controller validates a proposed state, encodes it, queues the resulting one 
 
 The TS1201 transfer uses 0xED00 command 00 to announce an encoded message, responds to device chunk requests (02) with checked pieces (03), and completes via 04/05. Learning uses 0xE004 control and receives a bounded multi-chunk code through the reverse sequence. Keep a separate sequence, timeout, and queue for each physical parent. A child's persisted fields contain its configuration and learned codes; transfer buffers remain transient. The parent serializes access because learning and transmitting cannot safely share the same device session.
 
-The currently implemented codec handles base64 timing encoding, send/receive session primitives, and raw Zosung command payload serialization. The SmartThings Zigbee address/ZCL adapter and dispatch, timeouts, queueing, persistence, and hardware behavior still require implementation and tests.
+The currently implemented codec handles base64 timing encoding, send/receive session primitives, raw Zosung command payload serialization, and a per-parent transfer controller with timeout and learning cancellation. The SmartThings Zigbee address/ZCL adapter and dispatch, scheduling of expiry checks, queueing, persistence, and hardware behavior still require implementation and tests.
 
 ## Protocol catalog
 
