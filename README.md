@@ -4,7 +4,9 @@ An in-progress SmartThings Edge driver for TS1201 (Moes/Zosung) IR blasters. Eac
 
 ## Status
 
-This repository currently contains the AC state engine, TS1201 send-side timing/packet primitives, and a minimal Edge package with parent fingerprint/profile/entry point. **Packaging and pairing have not been verified; it cannot yet transmit IR.** The TS1201 Zigbee message integration and receive/learning handler, child creation controls, custom capability definitions, and a verified encoder for a specific AC protocol are still required. In particular, a Galaxy Home Mini controlling an AC does not identify the manufacturer's IR protocol or expose its encoded frames.
+The repository contains an AC state engine and encoder registry, a learned-state code table, TS1201 send/receive primitives, and a minimal Edge package with parent/child profiles. The parent Settings page has an interim `unique-token|profile|name` field that requests a child device (for example `bedroom|ac-protocol|Bedroom AC`). **Packaging and pairing have not been verified; child controls do not transmit IR.** Zigbee message integration, guided learning, Routine presentations, and a verified AC protocol encoder remain to be implemented. A Galaxy Home Mini controlling an AC does not identify its IR protocol or expose its frames.
+
+Read [the driver design](docs/driver-design.md) for profiles, setup, features, requirements, and acceptance checks. [Protocol sources](docs/protocol-sources.md) covers encoder references.
 
 ## AC protocol behavior
 
@@ -15,7 +17,7 @@ An encoder is registered per supported AC protocol. Unknown protocols must fail 
 ## Next implementation gates
 
 1. Wire the tested Zosung send/receive primitives to Edge Zigbee messages; add transport timeout and learning control, against the [Zigbee2MQTT converter](https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/src/lib/zosung.ts).
-2. Add parent controls to create child devices with a chosen profile, and persist child-specific configuration and state. Removal through SmartThings must clean up stored data.
+2. Validate the child creation flow on a hub; add persistent child configuration and cleanup on removal, then replace the interim Settings request with a better control.
 3. Define and register custom SmartThings capabilities/presentations where standard capabilities cannot expose Routine actions. Verify available actions in the mobile app; the Edge profile alone does not guarantee an action is shown.
 4. Identify the user's AC model and protocol. Implement a verified encoder and compare generated frames with captured original-remote frames before allowing transmission.
 5. Package through the SmartThings CLI, install to a development channel and test on the physical hub/blaster/AC.

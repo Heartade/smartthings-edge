@@ -1,0 +1,18 @@
+name: ac-learned-state
+components:
+  - id: main
+    capabilities:
+      - id: switch
+        version: 1
+      - id: thermostatMode
+        version: 1
+      - id: thermostatCoolingSetpoint
+        version: 1
+      - id: thermostatHeatingSetpoint
+        version: 1
+      - id: thermostatFanMode
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: AirConditioner
