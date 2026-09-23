@@ -4,7 +4,7 @@ An in-progress SmartThings Edge driver for TS1201 (Moes/Zosung) IR blasters. Eac
 
 ## Status
 
-This repository currently contains the first AC state engine and the Edge package scaffold. **It is not yet installable or able to transmit IR.** The TS1201 Zigbee transfer handler, child creation controls, custom capability definitions, and a verified encoder for a specific AC protocol are still required. In particular, a Galaxy Home Mini controlling an AC does not identify the manufacturer's IR protocol or expose its encoded frames.
+This repository currently contains the AC state engine, TS1201 send-side timing/packet primitives, and the Edge package scaffold. **It is not yet installable or able to transmit IR.** The TS1201 Zigbee message integration and receive/learning handler, child creation controls, custom capability definitions, and a verified encoder for a specific AC protocol are still required. In particular, a Galaxy Home Mini controlling an AC does not identify the manufacturer's IR protocol or expose its encoded frames.
 
 ## AC protocol behavior
 
