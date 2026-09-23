@@ -4,7 +4,7 @@ An in-progress SmartThings Edge driver for TS1201 (Moes/Zosung) IR blasters. Eac
 
 ## Status
 
-The repository contains an AC state engine and encoder registry, a learned-state code table, TS1201 send/receive primitives, and a minimal Edge package with parent/child profiles. The parent Settings page has an interim `unique-token|profile|name` field that requests a child device (for example `bedroom|ac-protocol|Bedroom AC`). **Packaging and pairing have not been verified; child controls do not transmit IR.** Zigbee message integration, guided learning, Routine presentations, and a verified AC protocol encoder remain to be implemented. A Galaxy Home Mini controlling an AC does not identify its IR protocol or expose its frames.
+The repository contains an AC state engine and encoder registry, a learned-state code table, TS1201 send/receive and command-payload primitives, and a minimal Edge package with parent/child profiles. The parent Settings page has an interim `unique-token|profile|name` field that requests a child device (for example `bedroom|ac-protocol|Bedroom AC`). **Packaging and pairing have not been verified; child controls do not transmit IR.** Zigbee message integration, guided learning, Routine presentations, and a verified AC protocol encoder remain to be implemented. A Galaxy Home Mini controlling an AC does not identify its IR protocol or expose its frames.
 
 Read [the driver design](docs/driver-design.md) for profiles, setup, features, requirements, and acceptance checks. [Protocol sources](docs/protocol-sources.md) covers encoder references.
 
