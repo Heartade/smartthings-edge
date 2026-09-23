@@ -1,0 +1,10 @@
+zigbeeGeneric:
+  - id: zosung-ir-transport
+    deviceLabel: IR Blaster (development)
+    deviceProfileName: ir-blaster
+    zigbeeProfiles:
+      - 0x0104
+    clusters:
+      server:
+        - 0xED00
+        - 0xE004
