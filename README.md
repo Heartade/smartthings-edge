@@ -4,7 +4,7 @@ An in-progress SmartThings Edge driver for TS1201 (Moes/Zosung) IR blasters. Eac
 
 ## Status
 
-This repository currently contains the AC state engine, TS1201 send-side timing/packet primitives, and the Edge package scaffold. **It is not yet installable or able to transmit IR.** The TS1201 Zigbee message integration and receive/learning handler, child creation controls, custom capability definitions, and a verified encoder for a specific AC protocol are still required. In particular, a Galaxy Home Mini controlling an AC does not identify the manufacturer's IR protocol or expose its encoded frames.
+This repository currently contains the AC state engine, TS1201 send-side timing/packet primitives, and a minimal Edge package with parent fingerprint/profile/entry point. **Packaging and pairing have not been verified; it cannot yet transmit IR.** The TS1201 Zigbee message integration and receive/learning handler, child creation controls, custom capability definitions, and a verified encoder for a specific AC protocol are still required. In particular, a Galaxy Home Mini controlling an AC does not identify the manufacturer's IR protocol or expose its encoded frames.
 
 ## AC protocol behavior
 
@@ -14,7 +14,7 @@ An encoder is registered per supported AC protocol. Unknown protocols must fail 
 
 ## Next implementation gates
 
-1. Implement and test Zosung TS1201 transfer, including chunk requests, CRC, sequence isolation, timeout, and learning, against the [Zigbee2MQTT converter](https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/src/lib/zosung.ts).
+1. Wire the tested Zosung send/receive primitives to Edge Zigbee messages; add transport timeout and learning control, against the [Zigbee2MQTT converter](https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/src/lib/zosung.ts).
 2. Add parent controls to create child devices with a chosen profile, and persist child-specific configuration and state. Removal through SmartThings must clean up stored data.
 3. Define and register custom SmartThings capabilities/presentations where standard capabilities cannot expose Routine actions. Verify available actions in the mobile app; the Edge profile alone does not guarantee an action is shown.
 4. Identify the user's AC model and protocol. Implement a verified encoder and compare generated frames with captured original-remote frames before allowing transmission.
