@@ -4,23 +4,64 @@ An in-progress SmartThings Edge driver for TS1201 (Moes/Zosung) IR blasters. Eac
 
 ## Status
 
-The repository contains an AC state engine and encoder registry, a learned-state code table, TS1201 send/receive payloads and a per-parent transfer controller, and a minimal Edge package with parent/child profiles. The parent Settings page has an interim `unique-token|profile|name` field that requests a child device (for example `bedroom|ac-protocol|Bedroom AC`). **Packaging and pairing have not been verified; child controls do not transmit IR.** Zigbee message integration, guided learning, Routine presentations, and a verified AC protocol encoder remain to be implemented. A Galaxy Home Mini controlling an AC does not identify its IR protocol or expose its frames.
+The repository contains an AC state engine and encoder registry, a learned-state code table, TS1201 send/receive payloads and a per-parent transfer controller, and a minimal Edge package with parent/child profiles. The parent Settings page has an interim `unique-token|profile|name` field that requests a child device (for example `bedroom|ac-protocol|Bedroom AC`). **The driver is not yet functional as an IR remote:** Zigbee message integration, guided learning, Routine presentations, and a verified AC protocol encoder remain to be implemented. Packaging and pairing have not been verified; child controls do not transmit IR. A Galaxy Home Mini controlling an AC does not identify its IR protocol or expose its frames.
 
-Read [the driver design](docs/driver-design.md) for profiles, setup, features, requirements, and acceptance checks. [Protocol sources](docs/protocol-sources.md) covers encoder references.
+See [the driver design](docs/driver-design.md) for the intended behavior and acceptance checks, [the implementation plan](docs/implementation-plan.md) for the remaining work, and [protocol sources](docs/protocol-sources.md) for encoder references.
 
-## AC protocol behavior
+## How to run
 
-`src/ac/state.lua` maintains a complete desired state: power, mode, temperature, fan, and vertical/horizontal swing. A command applies a validated patch atomically. The transport should encode and transmit the resulting complete state, never a relative temperature command. SmartThings Routines should ultimately expose individual settable capabilities for power, mode, temperature, fan, and swing, plus one full-state command for atomic multi-field actions. Separate Routine commands should be coalesced briefly before encoding, with a generation counter to discard stale timers. State is desired/last transmitted state, not measured room or AC state.
+Run commands from the repository root.
 
-An encoder is registered per supported AC protocol. Unknown protocols must fail closed: no guessed frame should be sent. On restart, restore the desired state without automatically replaying it. Before committing a new state, validate that the configured encoder supports the requested mode, temperature, fan, and swing combination.
+### Run the local Lua checks
 
-## Next implementation gates
+Install a Lua interpreter, then run the standalone checks individually:
 
-1. Wire the tested Zosung send/receive primitives to Edge Zigbee messages; add transport timeout and learning control, against the [Zigbee2MQTT converter](https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/src/lib/zosung.ts).
-2. Validate the child creation flow on a hub; add persistent child configuration and cleanup on removal, then replace the interim Settings request with a better control.
-3. Define and register custom SmartThings capabilities/presentations where standard capabilities cannot expose Routine actions. Verify available actions in the mobile app; the Edge profile alone does not guarantee an action is shown.
-4. Identify the user's AC model and protocol. Implement a verified encoder and compare generated frames with captured original-remote frames before allowing transmission.
-5. Package through the SmartThings CLI, install to a development channel and test on the physical hub/blaster/AC.
+```sh
+lua tests/ac_state.lua
+lua tests/ac_registry.lua
+lua tests/ac_learned_state.lua
+lua tests/children.lua
+lua tests/edge_lifecycle.lua
+lua tests/ir_controller.lua
+lua tests/zosung.lua
+lua tests/zosung_wire.lua
+```
+
+These scripts exercise the current state, child-request, and Zosung codec/controller code. They do not test the SmartThings runtime or physical hardware.
+
+### Package and install on a development hub
+
+You need a SmartThings account, the [SmartThings CLI](https://github.com/SmartThingsCommunity/smartthings-cli#installation), a compatible SmartThings hub, and a driver channel that the hub has joined. Sign in through the CLI when prompted.
+
+1. List your hubs and copy the development hub ID:
+
+   ```sh
+   smartthings devices --type=HUB
+   ```
+
+2. If you do not already have a driver channel, create one and follow the prompts:
+
+   ```sh
+   smartthings edge:channels:create
+   ```
+
+3. Enroll the hub in that channel, using the IDs from the previous steps:
+
+   ```sh
+   smartthings edge:channels:enroll <hub-id> --channel <channel-id>
+   ```
+
+4. Build and upload this driver package, then install it to the enrolled hub:
+
+   ```sh
+   smartthings edge:drivers:package . --install --channel <channel-id> --hub <hub-id>
+   ```
+
+   The CLI may prompt for values if flags are omitted. Re-run the package command after code changes to publish and install an updated version.
+
+5. In the SmartThings app, add the supported TS1201 device using **Add device → Scan nearby**.
+
+The current package is a development scaffold. Its parent refresh handler only logs that transport integration is pending; the child request setting can create child metadata, but child controls do not send IR. Pairing and package installation are not yet verified. See the [implementation plan](docs/implementation-plan.md) before treating any feature as complete. For the full driver workflow, see the official [Edge driver packaging and deployment guide](https://developer.smartthings.com/docs/devices/hub-connected/edge-architecture) and [driver channel guide](https://developer.smartthings.com/docs/devices/hub-connected/driver-channels).
 
 ## References
 

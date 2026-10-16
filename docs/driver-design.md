@@ -1,6 +1,6 @@
 # Driver design and requirements
 
-Status: design contract and incremental implementation plan. The current package does **not** control an IR blaster yet. See [README](../README.md) for implemented pieces.
+Status: design contract. The current package does **not** control an IR blaster yet. See [README](../README.md) for implemented pieces and [implementation plan](implementation-plan.md) for the remaining work.
 
 ## Goal and device model
 
@@ -60,13 +60,6 @@ The catalog can list every candidate in IRremoteESP8266, but only registered, te
 - For `ac-protocol`, compare generated frames to upstream fixtures and original remote captures, including on/off, mode, fan, swing, min/max temperature and unsupported values.
 - In the SmartThings Routine editor, confirm separate temperature, mode, fan, swing, and power actions, and an atomic state action if the custom presentation is supported. A multi-action Routine should send only its final state when coalesced; its order-independent semantics must be documented where coalescing cannot guarantee that.
 - Test parent and child deletion, hub/driver restart, repeated creation requests, queue overflow, and failed Zigbee delivery.
-
-## Implementation stages
-
-1. **Package and model:** profiles, child lifecycle, desired state, persistence. The parent scaffold and pure state model are present; child lifecycle is next.
-2. **Transport:** Edge Zigbee message adapter around the tested Zosung primitives, learning, serialization queue, timeouts, integration tests, physical TS1201 smoke test.
-3. **Learned remotes:** TV/fan/generic and `ac-button`; guided `ac-learned-state` with coverage checks.
-4. **AC protocol:** encoder registry, model selection, ports with fixtures, Routine-compatible capabilities/presentations, physical AC verification. This is a core release requirement, not a deferred optional enhancement.
 
 ## Platform references
 
