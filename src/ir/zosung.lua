@@ -43,13 +43,13 @@ function M.checksum(s)
   return sum
 end
 
--- A session is private to one parent blaster; queue other transmissions until
--- the device acknowledges command 04. Positions are zero-based byte offsets.
+-- A session is private to one parent blaster; callers must reject or queue
+-- other transmissions until command 04. Positions are zero-based byte offsets.
 function M.new_session(encoded, seq)
   assert(type(encoded) == "string" and #encoded > 0, "empty IR code")
   assert(type(seq) == "number" and seq >= 0 and seq <= 65535 and seq % 1 == 0,
     "invalid sequence")
-  local session = { code = encoded, seq = seq, complete = false }
+  local session = { code = encoded, seq = seq, complete = false, position = 0 }
   function session:start()
     return 0x00, { seq = self.seq, length = #self.code,
       unk1 = 0, unk2 = 0xE004, unk3 = 1, cmd = 2, unk4 = 0 }
@@ -58,12 +58,20 @@ function M.new_session(encoded, seq)
     assert(not self.complete and request_seq == self.seq, "unexpected sequence")
     assert(type(position) == "number" and position >= 0 and position < #self.code
       and position % 1 == 0, "invalid part position")
+    if self.last_position == position then
+      return 0x03, { zero = 0, seq = self.seq, position = position,
+        msgpart = self.last_part, msgpartcrc = M.checksum(self.last_part) }
+    end
+    assert(position == self.position, "unexpected part position")
     local part = self.code:sub(position + 1, position + 0x32)
+    self.last_position, self.last_part = position, part
+    self.position = position + #part
     return 0x03, { zero = 0, seq = self.seq, position = position,
       msgpart = part, msgpartcrc = M.checksum(part) }
   end
   function session:acknowledge(request_seq)
     assert(not self.complete and request_seq == self.seq, "unexpected sequence")
+    assert(self.position == #self.code, "IR code transfer is incomplete")
     self.complete = true
     return 0x05, { seq = self.seq, zero = 0 }
   end
