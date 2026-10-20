@@ -1,0 +1,158 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{creationStatus.value}}",
+        "alternatives": [
+          {
+            "key": "idle",
+            "value": "{{i18n.attributes.creationStatus.i18n.value.idle.label}}",
+            "type": "inactive"
+          },
+          {
+            "key": "creating",
+            "value": "{{i18n.attributes.creationStatus.i18n.value.creating.label}}",
+            "type": "active"
+          },
+          {
+            "key": "created",
+            "value": "{{i18n.attributes.creationStatus.i18n.value.created.label}}",
+            "type": "active"
+          },
+          {
+            "key": "error",
+            "value": "{{i18n.attributes.creationStatus.i18n.value.error.label}}",
+            "type": "active"
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.attributes.remoteType.label}}",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setRemoteType",
+          "alternatives": [
+            {
+              "key": "remote-tv",
+              "value": "{{i18n.attributes.remoteType.i18n.value.remote-tv.label}}",
+              "type": "active"
+            },
+            {
+              "key": "remote-fan",
+              "value": "{{i18n.attributes.remoteType.i18n.value.remote-fan.label}}",
+              "type": "active"
+            },
+            {
+              "key": "remote-generic",
+              "value": "{{i18n.attributes.remoteType.i18n.value.remote-generic.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ac-learned-state",
+              "value": "{{i18n.attributes.remoteType.i18n.value.ac-learned-state.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ac-protocol",
+              "value": "{{i18n.attributes.remoteType.i18n.value.ac-protocol.label}}",
+              "type": "active"
+            }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "remoteType.value",
+          "valueType": "string",
+          "alternatives": [
+            {
+              "key": "remote-tv",
+              "value": "{{i18n.attributes.remoteType.i18n.value.remote-tv.label}}",
+              "type": "active"
+            },
+            {
+              "key": "remote-fan",
+              "value": "{{i18n.attributes.remoteType.i18n.value.remote-fan.label}}",
+              "type": "active"
+            },
+            {
+              "key": "remote-generic",
+              "value": "{{i18n.attributes.remoteType.i18n.value.remote-generic.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ac-learned-state",
+              "value": "{{i18n.attributes.remoteType.i18n.value.ac-learned-state.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ac-protocol",
+              "value": "{{i18n.attributes.remoteType.i18n.value.ac-protocol.label}}",
+              "type": "active"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "{{i18n.attributes.remoteName.label}}",
+      "displayType": "textField",
+      "textField": {
+        "command": "setRemoteName",
+        "value": "remoteName.value"
+      }
+    },
+    {
+      "label": "{{i18n.commands.createRemote.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "createRemote"
+      }
+    },
+    {
+      "label": "{{i18n.attributes.creationStatus.label}}",
+      "displayType": "state",
+      "state": {
+        "label": "{{creationStatus.value}}",
+        "alternatives": [
+          {
+            "key": "idle",
+            "value": "{{i18n.attributes.creationStatus.i18n.value.idle.label}}",
+            "type": "inactive"
+          },
+          {
+            "key": "creating",
+            "value": "{{i18n.attributes.creationStatus.i18n.value.creating.label}}",
+            "type": "active"
+          },
+          {
+            "key": "created",
+            "value": "{{i18n.attributes.creationStatus.i18n.value.created.label}}",
+            "type": "active"
+          },
+          {
+            "key": "error",
+            "value": "{{i18n.attributes.creationStatus.i18n.value.error.label}}",
+            "type": "active"
+          }
+        ]
+      }
+    },
+    {
+      "label": "{{i18n.attributes.statusMessage.label}}",
+      "displayType": "state",
+      "state": {
+        "label": "{{statusMessage.value}}"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  },
+  "version": 1
+}

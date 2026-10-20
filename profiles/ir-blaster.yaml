@@ -4,6 +4,8 @@ components:
     capabilities:
       - id: refresh
         version: 1
+      - id: againmusic09479.irRemoteCreation
+        version: 1
     categories:
       - name: RemoteController
 preferences:

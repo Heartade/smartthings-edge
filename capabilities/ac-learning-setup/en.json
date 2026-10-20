@@ -1,0 +1,24 @@
+{
+  "tag": "en",
+  "label": "AC learning setup",
+  "attributes": {
+    "setupMode": {
+      "label": "Edit capture state without sending",
+      "i18n": {
+        "value": {
+          "off": {
+            "label": "Normal control"
+          },
+          "on": {
+            "label": "Preparing capture state"
+          }
+        }
+      }
+    }
+  },
+  "commands": {
+    "setSetupMode": {
+      "label": "Set AC learning setup"
+    }
+  }
+}

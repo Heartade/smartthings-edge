@@ -12,6 +12,8 @@ local socket = require "socket"
 local controller = require "ir.controller"
 local edge_zigbee = require "ir.edge_zigbee"
 local zosung = require "ir.zosung"
+local gui_module = require "gui"
+local gui
 
 for id, encoder in pairs(lg_encoders.encoders) do
   ac_registry.register(id, encoder)
@@ -45,6 +47,12 @@ local function cancel_timeout(driver, state)
   end
 end
 
+local function report_transfer(state, status, detail)
+  if not gui then return end
+  local target = state.learn_target or (state.send_target and state.send_target.gui_test and state.send_target)
+  if target then gui.status(target.device, status, detail) end
+end
+
 local function schedule_timeout(driver, device, state)
   cancel_timeout(driver, state)
   local active = state.controller.active
@@ -57,11 +65,13 @@ local function schedule_timeout(driver, device, state)
     state.timer = nil
     local ok, expired = pcall(state.controller.expire, state.controller)
     if not ok then
+      report_transfer(state, "error", "IR timeout cleanup failed")
       state.controller:abort()
       state.learn_target = nil
       state.send_target = nil
       device.log.warn("IR transfer timeout cleanup failed: " .. tostring(expired))
     elseif expired then
+      report_transfer(state, "timeout", "IR transfer timed out")
       state.learn_target = nil
       state.send_target = nil
       device.log.warn("IR transfer timed out")
@@ -70,6 +80,7 @@ local function schedule_timeout(driver, device, state)
     end
   end, "zosung-transfer-timeout-" .. device.id)
   if not ok or not timer then
+    report_transfer(state, "error", "Could not schedule IR transfer timeout")
     state.controller:abort()
     state.learn_target = nil
     state.send_target = nil
@@ -94,8 +105,16 @@ end
 
 local function begin_transfer(driver, device, method, argument)
   local state = state_for(driver, device)
+  local expired_ok, expired = pcall(state.controller.expire, state.controller)
+  if not expired_ok or expired then
+    report_transfer(state, expired_ok and "timeout" or "error", "Previous IR operation expired")
+    state.controller:abort()
+    state.learn_target, state.send_target = nil, nil
+    cancel_timeout(driver, state)
+  end
   local ok, result, err = pcall(state.controller[method], state.controller, argument)
   if not ok then
+    report_transfer(state, "error", tostring(result))
     state.controller:abort()
     state.learn_target = nil
     state.send_target = nil
@@ -159,6 +178,10 @@ local function publish_ac_state(device, current)
     min_temperature = 16, max_temperature = 30,
     swing_modes = { "off", "vertical", "horizontal", "all" }
   }
+  if device:get_field("gui_ac_draft") then
+    features = { min_temperature = 16, max_temperature = 30,
+      swing_modes = { "off", "vertical", "horizontal", "all" } }
+  end
 
   if capabilities.switch then
     emit_event(device, current.power and capabilities.switch.switch.on()
@@ -189,7 +212,20 @@ local function publish_ac_state(device, current)
     emit_event(device, capabilities.fanOscillationMode.supportedFanOscillationModes(features.swing_modes))
     emit_event(device, capabilities.fanOscillationMode.availableFanOscillationModes(features.swing_modes))
   end
+  if gui then gui.refresh(device) end
 end
+
+gui = gui_module.new(capabilities, {
+  is_ac = is_ac_device, desired_state = ac_state_for,
+  publish_ac = publish_ac_state, now = now,
+  busy = function(device)
+    local parent = gui.parent(device)
+    local state = parent and states[parent.id]
+    if not state or not state.controller.active then return nil end
+    local target = state.learn_target or state.send_target
+    return { kind = state.controller.active.kind, owner = target and target.device.id }
+  end
+})
 
 local function ac_payload_for(device, current, patch)
   local selection = device.preferences and device.preferences.acProtocol or "learned_state"
@@ -212,6 +248,8 @@ local function ac_payload_for(device, current, patch)
 end
 
 local function send_ac_patch(driver, device, patch)
+  if not is_ac_device(device) then return nil, "not an AC child" end
+  if gui.edit_ac(device, patch) then return true end
   local current = ac_state_for(device)
   local next_state, payload = ac_payload_for(device, current, patch)
   if not next_state then
@@ -252,8 +290,17 @@ local function zosung_message(driver, device, zb_rx)
     return
   end
 
+  local expired_ok, expired = pcall(state.controller.expire, state.controller)
+  if not expired_ok or expired then
+    report_transfer(state, expired_ok and "timeout" or "error", "IR operation expired")
+    state.controller:abort()
+    state.learn_target, state.send_target = nil, nil
+    cancel_timeout(driver, state)
+    return
+  end
   local ok, result, detail = pcall(state.controller.receive, state.controller, command, raw)
   if not ok then
+    report_transfer(state, "error", "Invalid IR transfer response: " .. tostring(result))
     state.controller:abort()
     state.learn_target = nil
     state.send_target = nil
@@ -269,11 +316,12 @@ local function zosung_message(driver, device, zb_rx)
     if state.send_target then
       local target = state.send_target
       state.send_target = nil
-      local event = target.value and capabilities.switch.switch.on()
-        or capabilities.switch.switch.off()
-      local emitted, err = pcall(target.device.emit_event, target.device, event)
-      if not emitted then
-        target.device.log.warn("IR sent but switch state event failed: " .. tostring(err))
+      if target.gui_test then gui.status(target.device, "sent", "Transfer completed") end
+      if target.value ~= nil then
+        local event = target.value and capabilities.switch.switch.on()
+          or capabilities.switch.switch.off()
+        local emitted, err = pcall(target.device.emit_event, target.device, event)
+        if not emitted then target.device.log.warn("IR sent but switch state event failed: " .. tostring(err)) end
       end
     end
   elseif result == "learned" then
@@ -298,14 +346,17 @@ local function zosung_message(driver, device, zb_rx)
         return saved_key, save_err
       end)
       if not saved then
+        gui.status(target.device, "error", "Could not save learned signal: " .. tostring(key))
         target.device.log.warn("Could not save learned IR code: " .. tostring(key))
       elseif key then
+        gui.status(target.device, "learned", "Signal saved")
         if target.state then
           target.device.log.info("Learned AC state saved: " .. key)
         else
           target.device.log.info("Learned IR action saved: " .. target.action)
         end
       else
+        gui.status(target.device, "error", "Could not save learned signal: " .. tostring(err))
         target.device.log.warn("Could not save learned IR code: " .. tostring(err))
       end
     else
@@ -376,23 +427,23 @@ local function child_info_changed(driver, device)
   end
 end
 
-local function initialize_device(_, device)
-  if not is_ac_device(device) then return end
+local function initialize_device(driver, device)
+  gui.child_added(driver, device)
   -- Existing children must select the new profile revision to receive the new
   -- capabilities. Keep their model, preferences and learned-state fields.
-  local profile = device.model
-  if (profile == "ac-protocol" or profile == "ac-learned-state") and
-      capabilities.airConditionerMode and device.try_update_metadata and
-      not device:supports_capability(capabilities.airConditionerMode) then
-    if device:get_field("ac_ui_migration_requested") then return end
+  local profile = gui.profile(device)
+  if profile and gui.needs_profile(device, profile) then
+    if device:get_field("gui_profile_migration_requested") then return end
     local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
     if ok then
-      device:set_field("ac_ui_migration_requested", true)
+      device:set_field("gui_profile_migration_requested", true)
       return -- infoChanged publishes the new capability events after migration.
     end
-    device.log.warn("Could not update AC controls: " .. tostring(err))
+    device.log.warn("Could not update setup controls: " .. tostring(err))
     return
   end
+  gui.initialize(driver, device)
+  if not is_ac_device(device) then return end
   local current = ac_state_for(device)
   if device:get_field("ac_desired_state") == nil then
     device:set_field("ac_desired_state", current, { persist = true })
@@ -407,7 +458,7 @@ local function initialize_device(_, device)
     emit_event(device, capabilities.fanMode.supportedFanModes(
       { "auto", "low", "medium", "high" }))
   end
-  publish_ac_state(device, current)
+  publish_ac_state(device, gui.display_state(device))
 end
 
 local function info_changed(driver, device, _, args)
@@ -428,6 +479,7 @@ local function info_changed(driver, device, _, args)
 end
 
 local function removed(driver, device)
+  gui.removed(driver, device)
   local state = states[device.id]
   if not state and device.get_parent_device then
     local ok, parent = pcall(device.get_parent_device, device)
@@ -445,6 +497,7 @@ local function removed(driver, device)
     return
   end
   if not state then return end
+  report_transfer(state, "error", "IR blaster removed")
   state.controller:abort()
   state.learn_target = nil
   state.send_target = nil
@@ -454,7 +507,9 @@ end
 
 local function driver_lifecycle(driver, event)
   if event ~= "shutdown" then return end
+  gui.shutdown(driver)
   for _, state in pairs(states) do
+    report_transfer(state, "error", "Driver stopped")
     state.controller:abort()
     state.learn_target = nil
     state.send_target = nil
@@ -501,8 +556,9 @@ local capability_handlers = {
   },
   [capabilities.refresh.ID] = {
     [capabilities.refresh.commands.refresh.NAME] = function(_, device)
+      gui.refresh(device)
       if is_ac_device(device) then
-        publish_ac_state(device, ac_state_for(device))
+        publish_ac_state(device, gui.display_state(device))
       else
         device.log.info("IR status is maintained by captured-command transfers")
       end
@@ -511,12 +567,20 @@ local capability_handlers = {
 }
 
 local function add_capability_handler(capability_name, command_name, handler)
-  local capability = capabilities[capability_name]
-  local command = capability and capability.commands and capability.commands[command_name]
+  local available, capability, command = pcall(function()
+    local cap = capabilities[capability_name]
+    return cap, cap and cap.commands and cap.commands[command_name]
+  end)
+  if not available then return end
   if not capability or not command then return end
   capability_handlers[capability.ID] = capability_handlers[capability.ID] or {}
   capability_handlers[capability.ID][command.NAME] = handler
 end
+gui.register(function(name, command, handler)
+  for role, id in pairs(gui_module.IDS) do
+    if name == id and gui.caps[role] then add_capability_handler(name, command, handler); return end
+  end
+end)
 
 local function send_ac_thermostat_mode(driver, device, mode)
   if not is_ac_device(device) then return end
@@ -588,14 +652,16 @@ for command_name, fan in pairs({
   end)
 end
 
+local supported_capabilities = {
+  capabilities.refresh, capabilities.switch, capabilities.thermostatMode,
+  capabilities.thermostatCoolingSetpoint, capabilities.thermostatHeatingSetpoint,
+  capabilities.fanMode, capabilities.airConditionerMode,
+  capabilities.temperatureSetpoint, capabilities.fanOscillationMode
+}
+for _, cap in pairs(gui.caps) do supported_capabilities[#supported_capabilities + 1] = cap end
 local driver = ZigbeeDriver("generic-ir-remote", {
   health_check = false,
-  supported_capabilities = {
-    capabilities.refresh, capabilities.switch, capabilities.thermostatMode,
-    capabilities.thermostatCoolingSetpoint, capabilities.thermostatHeatingSetpoint,
-    capabilities.fanMode, capabilities.airConditionerMode,
-    capabilities.temperatureSetpoint, capabilities.fanOscillationMode
-  },
+  supported_capabilities = supported_capabilities,
   zigbee_handlers = {
     cluster = { [zosung.TRANSMIT_CLUSTER] = cluster_handlers }
   },
@@ -609,11 +675,12 @@ local driver = ZigbeeDriver("generic-ir-remote", {
 
 -- Parent-level entry points for child command handlers. Callers must resolve
 -- and pass the physical Zigbee parent so every child shares one transfer lock.
-function driver:send_ir_code(parent, code, target_device, switch_value)
+function driver:send_ir_code(parent, code, target_device, switch_value, options)
   local state = state_for(self, parent)
   local result, err = begin_transfer(self, parent, "send_code", code)
   if result and target_device then
-    state.send_target = { device = target_device, value = switch_value }
+    state.send_target = { device = target_device, value = switch_value,
+      gui_test = options and options.gui_test }
   end
   return result, err
 end
@@ -624,7 +691,10 @@ function driver:start_ir_learning(parent, target_device, action)
   end
   local state = state_for(self, parent)
   local result, err = begin_transfer(self, parent, "start_learning")
-  if result then state.learn_target = { device = target_device, action = action } end
+  if result then
+    state.learn_target = { device = target_device, action = action }
+    gui.status(target_device, "learning", "Press the original remote button")
+  end
   return result, err
 end
 
@@ -637,7 +707,10 @@ function driver:start_ir_state_learning(parent, target_device, target_state)
   local state = state_for(self, parent)
   local result
   result, err = begin_transfer(self, parent, "start_learning")
-  if result then state.learn_target = { device = target_device, state = validated } end
+  if result then
+    state.learn_target = { device = target_device, state = validated }
+    gui.status(target_device, "learning", "Press the original remote button for the prepared AC state")
+  end
   return result, err
 end
 
@@ -657,6 +730,7 @@ function driver:cancel_ir_learning(parent, target_device)
     return nil, tostring(result)
   end
   if result then
+    gui.status(target_device or state.learn_target.device, "cancelled", "Learning cancelled")
     state.learn_target = nil
     cancel_timeout(self, state)
   end

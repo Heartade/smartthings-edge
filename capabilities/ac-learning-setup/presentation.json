@@ -1,0 +1,43 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.attributes.setupMode.label}}",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setSetupMode",
+          "on": "on",
+          "off": "off",
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "setupMode.value",
+          "on": "on",
+          "off": "off",
+          "valueType": "string",
+          "alternatives": [
+            {
+              "key": "off",
+              "value": "{{i18n.attributes.setupMode.i18n.value.off.label}}",
+              "type": "inactive"
+            },
+            {
+              "key": "on",
+              "value": "{{i18n.attributes.setupMode.i18n.value.on.label}}",
+              "type": "active"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  },
+  "version": 1
+}

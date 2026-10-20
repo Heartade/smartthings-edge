@@ -6,6 +6,8 @@ components:
         version: 1
       - id: refresh
         version: 1
+      - id: againmusic09479.irSignalLearning
+        version: 1
     categories:
       - name: RemoteController
 preferences:

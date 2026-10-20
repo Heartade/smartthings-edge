@@ -5,6 +5,8 @@ assert(spec.key == "remote-living-ac" and spec.profile == "ac-protocol")
 assert(children.parse("x|unknown|Test") == nil)
 assert(children.parse("x|ac-protocol| ") == nil)
 assert(children.parse("x|ac-protocol|a|b") == nil)
+assert(children.parse("ko|remote-tv|" .. string.rep("방", 60)))
+assert(children.parse("ko|remote-tv|" .. string.rep("방", 61)) == nil)
 local saved, calls = {}, {}
 local parent = {
   id = "parent-id", device_network_id = "zigbee-ieee",

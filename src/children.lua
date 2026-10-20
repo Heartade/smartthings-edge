@@ -9,20 +9,21 @@ local profiles = {
 function M.parse(request)
   if type(request) ~= "string" then return nil, "missing request" end
   local token, profile, label = request:match("^([%w%-]+)|([%w%-]+)|(.+)$")
+  local valid_utf8, length = pcall(utf8.len, label or "")
   if not token or #token > 24 or not profiles[profile] or
-    #label > 60 or label:find("|", 1, true) or not label:match("%S") then
+    not valid_utf8 or not length or length > 60 or label:find("|", 1, true) or not label:match("%S") then
     return nil, "expected unique-token|profile|display name"
   end
   return { key = "remote-" .. token, profile = profile, label = label }
 end
 
-function M.create(driver, parent, request)
+function M.create(driver, parent, request, retry)
   local spec, err = M.parse(request)
   if not spec then return nil, err end
   if parent:get_child_by_parent_assigned_key(spec.key) then
     return spec, "already exists"
   end
-  if parent:get_field("last_child_request") == request then
+  if not retry and parent:get_field("last_child_request") == request then
     return spec, "already requested"
   end
   local metadata = {

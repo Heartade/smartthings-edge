@@ -1,0 +1,118 @@
+{
+  "name": "IR Remote Creation",
+  "attributes": {
+    "remoteType": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "remote-tv",
+              "remote-fan",
+              "remote-generic",
+              "ac-learned-state",
+              "ac-protocol"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "setter": "setRemoteType"
+    },
+    "remoteName": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 60
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "setter": "setRemoteName"
+    },
+    "creationStatus": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "idle",
+              "creating",
+              "created",
+              "error"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    },
+    "statusMessage": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 160
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "commands": {
+    "setRemoteType": {
+      "arguments": [
+        {
+          "name": "remoteType",
+          "optional": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "remote-tv",
+              "remote-fan",
+              "remote-generic",
+              "ac-learned-state",
+              "ac-protocol"
+            ]
+          }
+        }
+      ],
+      "name": "setRemoteType"
+    },
+    "setRemoteName": {
+      "arguments": [
+        {
+          "name": "name",
+          "optional": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60,
+            "pattern": "^(?=.*\\S)[^|]+$"
+          }
+        }
+      ],
+      "name": "setRemoteName"
+    },
+    "createRemote": {
+      "arguments": [],
+      "name": "createRemote"
+    }
+  }
+}

@@ -8,6 +8,25 @@ The driver includes exact learned-state control, LG/LG2 encoders, and eight addi
 
 See [the driver design](docs/driver-design.md) for the intended behavior and acceptance checks, [the implementation plan](docs/implementation-plan.md) for the remaining work, and [protocol sources](docs/protocol-sources.md) for encoder references.
 
+## Create remotes and learn signals in the app
+
+After installing this version, reopen the blaster page. Choose **Remote type**,
+enter **Remote name**, and tap **Create remote**. The creation status confirms
+when the child is added. Existing devices request the updated GUI profiles on
+startup, keeping their saved codes and preferences.
+
+On a TV, fan or generic remote, choose **Power on** or **Power off**, tap **Learn
+selected signal**, then press the original remote button. **Cancel**, **Test**,
+**Delete**, saved-signal status and learning/timeout/error status appear on that
+page. Test completion means the blaster transfer finished.
+
+For AC capture, enable **Edit capture state without sending**. Set power, mode,
+temperature, fan and swing using the usual controls; these edit an isolated draft
+without IR transmission. Set the original remote to the same state, tap **Learn**,
+and send its command. Use **Test** to transmit the saved state. Disable setup mode
+to restore normal controls; captures remain saved. Legacy token-based Settings
+requests continue to work. See the [GUI guide](capabilities/README.md).
+
 ## How to run
 
 Run commands from the repository root.
@@ -36,6 +55,7 @@ These scripts exercise state, child controls, Zosung transport and 338 waveform 
 ```sh
 lua tests/edge_zigbee_sdk.lua
 lua tests/edge_ac_controls_sdk.lua
+lua tests/gui_sdk.lua
 ```
 
 The SDK tests serialize complete on/off payload transfers for all 11 protocol choices and check the AC mode, single temperature, swing, persisted state and profile migration paths. They do not confirm physical AC reception.
@@ -115,6 +135,10 @@ This first hardware check assumes a TS1201-compatible Zigbee IR blaster, a Smart
 If pairing succeeds but learning or sending fails, save the logcat output and note the blaster's exact model/revision, hub model, and which step failed. This helps distinguish a fingerprint mismatch from a receive/transmit or protocol issue.
 
 ## References
+
+The child-creation and learning GUI uses the registered custom capabilities
+listed in [capabilities/](capabilities/README.md), with English/Korean presentations.
+That guide includes the complete setup workflow and registration instructions.
 
 - [SmartThings Edge package structure](https://developer.smartthings.com/docs/devices/hub-connected/driver-components-and-structure)
 - [Edge child-device API](https://developer.smartthings.com/docs/edge-device-drivers/driver.html)

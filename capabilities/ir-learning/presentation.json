@@ -1,0 +1,231 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{learningStatus.value}}",
+        "alternatives": [
+          {
+            "key": "idle",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.idle.label}}",
+            "type": "inactive"
+          },
+          {
+            "key": "learning",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.learning.label}}",
+            "type": "active"
+          },
+          {
+            "key": "learned",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.learned.label}}",
+            "type": "active"
+          },
+          {
+            "key": "testing",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.testing.label}}",
+            "type": "active"
+          },
+          {
+            "key": "sent",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.sent.label}}",
+            "type": "active"
+          },
+          {
+            "key": "cancelled",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.cancelled.label}}",
+            "type": "active"
+          },
+          {
+            "key": "timeout",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.timeout.label}}",
+            "type": "active"
+          },
+          {
+            "key": "busy",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.busy.label}}",
+            "type": "active"
+          },
+          {
+            "key": "error",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.error.label}}",
+            "type": "active"
+          },
+          {
+            "key": "deleted",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.deleted.label}}",
+            "type": "active"
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.attributes.action.label}}",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "selectAction",
+          "alternatives": [
+            {
+              "key": "power_on",
+              "value": "{{i18n.attributes.action.i18n.value.power_on.label}}",
+              "type": "active"
+            },
+            {
+              "key": "power_off",
+              "value": "{{i18n.attributes.action.i18n.value.power_off.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ac_state",
+              "value": "{{i18n.attributes.action.i18n.value.ac_state.label}}",
+              "type": "active"
+            }
+          ],
+          "argumentType": "string",
+          "supportedValues": "supportedActions.value"
+        },
+        "state": {
+          "value": "action.value",
+          "valueType": "string",
+          "alternatives": [
+            {
+              "key": "power_on",
+              "value": "{{i18n.attributes.action.i18n.value.power_on.label}}",
+              "type": "active"
+            },
+            {
+              "key": "power_off",
+              "value": "{{i18n.attributes.action.i18n.value.power_off.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ac_state",
+              "value": "{{i18n.attributes.action.i18n.value.ac_state.label}}",
+              "type": "active"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "{{i18n.attributes.signalStatus.label}}",
+      "displayType": "state",
+      "state": {
+        "label": "{{signalStatus.value}}",
+        "alternatives": [
+          {
+            "key": "empty",
+            "value": "{{i18n.attributes.signalStatus.i18n.value.empty.label}}",
+            "type": "inactive"
+          },
+          {
+            "key": "saved",
+            "value": "{{i18n.attributes.signalStatus.i18n.value.saved.label}}",
+            "type": "active"
+          }
+        ]
+      }
+    },
+    {
+      "label": "{{i18n.commands.learn.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "learn"
+      }
+    },
+    {
+      "label": "{{i18n.commands.cancel.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "cancel"
+      }
+    },
+    {
+      "label": "{{i18n.commands.test.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "test"
+      }
+    },
+    {
+      "label": "{{i18n.commands.deleteSignal.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "deleteSignal"
+      }
+    },
+    {
+      "label": "{{i18n.attributes.learningStatus.label}}",
+      "displayType": "state",
+      "state": {
+        "label": "{{learningStatus.value}}",
+        "alternatives": [
+          {
+            "key": "idle",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.idle.label}}",
+            "type": "inactive"
+          },
+          {
+            "key": "learning",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.learning.label}}",
+            "type": "active"
+          },
+          {
+            "key": "learned",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.learned.label}}",
+            "type": "active"
+          },
+          {
+            "key": "testing",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.testing.label}}",
+            "type": "active"
+          },
+          {
+            "key": "sent",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.sent.label}}",
+            "type": "active"
+          },
+          {
+            "key": "cancelled",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.cancelled.label}}",
+            "type": "active"
+          },
+          {
+            "key": "timeout",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.timeout.label}}",
+            "type": "active"
+          },
+          {
+            "key": "busy",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.busy.label}}",
+            "type": "active"
+          },
+          {
+            "key": "error",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.error.label}}",
+            "type": "active"
+          },
+          {
+            "key": "deleted",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.deleted.label}}",
+            "type": "active"
+          }
+        ]
+      }
+    },
+    {
+      "label": "{{i18n.attributes.statusMessage.label}}",
+      "displayType": "state",
+      "state": {
+        "label": "{{statusMessage.value}}"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  },
+  "version": 1
+}

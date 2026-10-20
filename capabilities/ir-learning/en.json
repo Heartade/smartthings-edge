@@ -1,0 +1,95 @@
+{
+  "tag": "en",
+  "label": "Learn IR signal",
+  "attributes": {
+    "action": {
+      "label": "Signal to learn",
+      "i18n": {
+        "value": {
+          "power_on": {
+            "label": "Power on"
+          },
+          "power_off": {
+            "label": "Power off"
+          },
+          "ac_state": {
+            "label": "Current AC state"
+          }
+        }
+      }
+    },
+    "supportedActions": {
+      "label": "Supported signals"
+    },
+    "learningStatus": {
+      "label": "Learning status",
+      "i18n": {
+        "value": {
+          "idle": {
+            "label": "Ready"
+          },
+          "learning": {
+            "label": "Press the original remote button"
+          },
+          "learned": {
+            "label": "Signal learned"
+          },
+          "testing": {
+            "label": "Testing signal"
+          },
+          "sent": {
+            "label": "Transfer completed"
+          },
+          "cancelled": {
+            "label": "Cancelled"
+          },
+          "timeout": {
+            "label": "Learning timed out"
+          },
+          "busy": {
+            "label": "IR blaster busy"
+          },
+          "error": {
+            "label": "Error"
+          },
+          "deleted": {
+            "label": "Saved signal deleted"
+          }
+        }
+      }
+    },
+    "signalStatus": {
+      "label": "Saved signal",
+      "i18n": {
+        "value": {
+          "empty": {
+            "label": "No saved signal"
+          },
+          "saved": {
+            "label": "Signal saved"
+          }
+        }
+      }
+    },
+    "statusMessage": {
+      "label": "Details"
+    }
+  },
+  "commands": {
+    "selectAction": {
+      "label": "Select signal"
+    },
+    "learn": {
+      "label": "Learn selected signal"
+    },
+    "cancel": {
+      "label": "Cancel learning"
+    },
+    "test": {
+      "label": "Test saved signal"
+    },
+    "deleteSignal": {
+      "label": "Delete selected signal"
+    }
+  }
+}

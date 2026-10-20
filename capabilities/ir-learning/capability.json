@@ -1,0 +1,144 @@
+{
+  "name": "IR Signal Learning",
+  "attributes": {
+    "action": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "power_on",
+              "power_off",
+              "ac_state"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "setter": "selectAction"
+    },
+    "supportedActions": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "power_on",
+                "power_off",
+                "ac_state"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    },
+    "learningStatus": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "idle",
+              "learning",
+              "learned",
+              "testing",
+              "sent",
+              "cancelled",
+              "timeout",
+              "busy",
+              "error",
+              "deleted"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    },
+    "signalStatus": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "empty",
+              "saved"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    },
+    "statusMessage": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 160
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "commands": {
+    "selectAction": {
+      "arguments": [
+        {
+          "name": "action",
+          "optional": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "power_on",
+              "power_off",
+              "ac_state"
+            ]
+          }
+        }
+      ],
+      "name": "selectAction"
+    },
+    "learn": {
+      "arguments": [],
+      "name": "learn"
+    },
+    "cancel": {
+      "arguments": [],
+      "name": "cancel"
+    },
+    "test": {
+      "arguments": [],
+      "name": "test"
+    },
+    "deleteSignal": {
+      "arguments": [],
+      "name": "deleteSignal"
+    }
+  }
+}

@@ -4,6 +4,8 @@ This is the outstanding work required to turn the current development scaffold i
 
 Code-level AC support is now present for desired-state persistence, exact learned-state capture and lookup, 11 experimental protocol variants across seven protocol families, and standard power, AC mode, single temperature, fan and supported swing commands. Automated validation includes 338 upstream waveform vectors and native SDK capability/complete-transfer tests. The unchecked items below remain open until their automated, SmartThings, or hardware acceptance criteria are completed.
 
+Native child creation and learning GUI handlers are now integrated with the registered custom capabilities. Software tests cover creation confirmation/retries, signal ownership, timeout/error status, test/delete, draft-only AC controls and existing-profile migration. The server presentations and Korean translations have been read back successfully; mobile rendering and physical capture still require a hub check.
+
 ## 1. Confirm device compatibility and finish child lifecycle
 
 - [ ] Test a TS1201 on a development hub. Record its manufacturer/model values, endpoints, server clusters, and relevant command framing; confirm the existing `0xED00` and `0xE004` fingerprint matches the intended hardware.

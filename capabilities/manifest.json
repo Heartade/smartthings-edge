@@ -1,0 +1,51 @@
+{
+  "capabilities": [
+    {
+      "key": "remoteCreation",
+      "registeredId": "againmusic09479.irRemoteCreation",
+      "registeredVersion": 1,
+      "definition": "remote-creation/capability.json",
+      "presentation": "remote-creation/presentation.json",
+      "translations": {
+        "en": "remote-creation/en.json",
+        "ko": "remote-creation/ko.json"
+      },
+      "profiles": [
+        "ir-blaster"
+      ]
+    },
+    {
+      "key": "irLearning",
+      "registeredId": "againmusic09479.irSignalLearning",
+      "registeredVersion": 1,
+      "definition": "ir-learning/capability.json",
+      "presentation": "ir-learning/presentation.json",
+      "translations": {
+        "en": "ir-learning/en.json",
+        "ko": "ir-learning/ko.json"
+      },
+      "profiles": [
+        "remote-tv",
+        "remote-fan",
+        "remote-generic",
+        "ac-learned-state",
+        "ac-protocol"
+      ]
+    },
+    {
+      "key": "acLearningSetup",
+      "registeredId": "againmusic09479.acLearningSetup",
+      "registeredVersion": 1,
+      "definition": "ac-learning-setup/capability.json",
+      "presentation": "ac-learning-setup/presentation.json",
+      "translations": {
+        "en": "ac-learning-setup/en.json",
+        "ko": "ac-learning-setup/ko.json"
+      },
+      "profiles": [
+        "ac-learned-state",
+        "ac-protocol"
+      ]
+    }
+  ]
+}
