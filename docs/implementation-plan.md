@@ -2,6 +2,8 @@
 
 This is the outstanding work required to turn the current development scaffold into a usable SmartThings IR remote. Tasks are ordered by dependency. A feature is not complete until its code, automated checks, and applicable SmartThings or hardware acceptance checks pass. See [driver design](driver-design.md) for the behavior contract and acceptance criteria.
 
+Code-level AC support is now present for desired-state persistence, exact learned-state capture and lookup, 11 experimental protocol variants across seven protocol families, and standard power, AC mode, single temperature, fan and supported swing commands. Automated validation includes 338 upstream waveform vectors and native SDK capability/complete-transfer tests. The unchecked items below remain open until their automated, SmartThings, or hardware acceptance criteria are completed.
+
 ## 1. Confirm device compatibility and finish child lifecycle
 
 - [ ] Test a TS1201 on a development hub. Record its manufacturer/model values, endpoints, server clusters, and relevant command framing; confirm the existing `0xED00` and `0xE004` fingerprint matches the intended hardware.
@@ -59,8 +61,8 @@ This is the outstanding work required to turn the current development scaffold i
 
 - [x] Connect TV, fan, and generic child switch `on`/`off` commands to their captured power actions and emit switch state only after the transfer completes.
 - [ ] Connect child capabilities to the state/learned-code controllers and implement handlers for every command shown by each child profile.
-- [ ] Confirm standard switch, thermostat mode, cooling/heating setpoint, and fan capabilities have semantics that match the selected encoder; use custom capabilities for unsupported standard actions such as swing.
-- [ ] Define and register capability presentations needed for swing and, if the app supports it, a single atomic full-state action.
+- [ ] Confirm the app and Routines correctly expose switch, airConditionerMode, temperatureSetpoint, fanMode and fanOscillationMode for the selected encoder.
+- [ ] Check the standard swing presentation on hardware and, if the app supports it, add a single atomic full-state action.
 - [ ] Inspect each child in the SmartThings mobile app and verify each intended control appears in the Routine editor and invokes the expected handler.
 - [ ] Coalesce separate Routine commands with a bounded delay where appropriate; use a generation counter to discard stale callbacks and document that separate Routine actions are not guaranteed to be atomic.
 - [ ] Validate all state combinations before changing desired state or queuing an IR frame; report unsupported settings visibly and send nothing.

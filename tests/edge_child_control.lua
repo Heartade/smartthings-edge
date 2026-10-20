@@ -102,9 +102,9 @@ assert(#sent == duplicate_count)
 template.capability_handlers.switch.on(driver_object, child, {})
 local initial = sent[#sent]
 assert(initial.cluster == 0xED00 and initial.command == 0)
-assert(initial.payload:find('"key_code":"YWJj"', 1, true))
 local send_meta = wire.decode(0, initial.payload)
 local ir_payload = '{"key_num":1,"delay":300,"key1":{"num":1,"freq":38000,"type":1,"key_code":"YWJj"}}'
+assert(send_meta.length == #ir_payload) -- Command 00 carries metadata; command 03 carries JSON chunks.
 local position = 0
 while position < #ir_payload do
   receive(2, wire.encode(2, { seq = send_meta.seq, position = position, maxlen = 0x38 }))

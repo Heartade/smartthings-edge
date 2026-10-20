@@ -24,8 +24,9 @@ local function valid(s, limits)
   if not SWING[s.swing_vertical] or not SWING[s.swing_horizontal] then
     return false, "unsupported swing"
   end
-  if limits.supports and not limits.supports(s) then
-    return false, "state unsupported by encoder"
+  if limits.supports then
+    local supported, reason = limits.supports(s)
+    if not supported then return false, reason or "state unsupported by encoder" end
   end
   return true
 end

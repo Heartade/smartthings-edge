@@ -28,11 +28,17 @@ local messages = {
   ZigbeeMessageTx = function(fields) return fields end
 }
 local zcl = {
-  FrameCtrl = callable(FrameCtrl),
   ZclHeader = function(fields) return fields end,
   ZclMessageBody = function(fields) return fields end
 }
 package.preload["st.zigbee.messages"] = function() return messages end
+package.preload["st.zigbee.zcl.frame_ctrl"] = function() return callable(FrameCtrl) end
+package.preload["st.zigbee.generic_body"] = function()
+  return { GenericBody = function(bytes)
+    return { body_bytes = bytes, _serialize = function(self) return self.body_bytes end,
+      get_length = function(self) return #self.body_bytes end }
+  end }
+end
 package.preload["st.zigbee.zcl"] = function() return zcl end
 package.preload["st.zigbee.data_types"] = function()
   return { Uint8 = value_type, ZCLCommandId = value_type }
@@ -59,12 +65,12 @@ assert(tx.address_header.dest_addr == 0x1234 and tx.address_header.dest_endpoint
 assert(tx.address_header.profile == 0x0104 and tx.address_header.cluster == 0xED00)
 assert(tx.body.zcl_header.cmd.value == 0x03 and tx.body.zcl_header.seqno.value == 0)
 assert(tx.body.zcl_header.frame_ctrl.value == 0x11)
-assert(tx.body.zcl_body:serialize() == raw and tx.body.zcl_body:get_length() == #raw)
+assert(tx.body.zcl_body:_serialize() == raw and tx.body.zcl_body:get_length() == #raw)
 
 adapter.send(device, 0xE004, 0x00, '{"study":0}')
 assert(device.sent[2].address_header.cluster == 0xE004)
 assert(device.sent[2].body.zcl_header.seqno.value == 1)
-assert(device.sent[2].body.zcl_body:serialize() == '{"study":0}')
+assert(device.sent[2].body.zcl_body:_serialize() == '{"study":0}')
 
 local command, payload = adapter.received({ body = {
   zcl_header = { cmd = { value = 0x03 } },

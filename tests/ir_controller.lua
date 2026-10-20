@@ -28,6 +28,7 @@ clock = 11
 assert(c:expire() and c.active == nil)
 assert(c:send_code("XYZ"))
 assert(c:cancel_learning() == nil)
+assert(c:receive(2, wire.encode(2, {seq = 2, position = 0, maxlen = 56})) == "in progress")
 assert(c:receive(4, wire.encode(4, {zero0 = 0, seq = 2, zero1 = 0})) == "sent")
 assert(c:start_learning())
 clock = 22

@@ -1,34 +1,13 @@
 -- SmartThings Edge adapter for raw Zosung ZCL command bodies.
 local messages = require "st.zigbee.messages"
 local zcl = require "st.zigbee.zcl"
+local FrameCtrl = require "st.zigbee.zcl.frame_ctrl"
+local GenericBody = (require "st.zigbee.generic_body").GenericBody
 local data_types = require "st.zigbee.data_types"
 local constants = require "st.zigbee.constants"
 
 local M = {}
 local zcl_sequence = 0
-
-local RawBody = {}
-RawBody.__index = RawBody
-
-function RawBody.new(bytes)
-  return setmetatable({ bytes = bytes }, RawBody)
-end
-
-function RawBody:serialize()
-  return self.bytes
-end
-
-function RawBody:get_length()
-  return #self.bytes
-end
-
-function RawBody:get_fields()
-  return { self.bytes }
-end
-
-function RawBody:pretty_print()
-  return string.format("ZosungRawBody: %d bytes", #self.bytes)
-end
 
 local function next_zcl_sequence()
   local seq = zcl_sequence
@@ -42,9 +21,8 @@ function M.send(device, cluster, command, payload)
   assert(type(command) == "number" and command % 1 == 0, "invalid command")
   assert(type(payload) == "string", "Zosung payload must be bytes")
 
-  local frame_ctrl = zcl.FrameCtrl(0)
-  frame_ctrl:set_cluster_specific()
-  frame_ctrl:set_disable_default_response()
+  -- 0x11 means cluster-specific and disables the default response.
+  local frame_ctrl = FrameCtrl(0x11)
 
   local zcl_header = zcl.ZclHeader({
     frame_ctrl = frame_ctrl,
@@ -61,7 +39,7 @@ function M.send(device, cluster, command, payload)
   )
   local body = zcl.ZclMessageBody({
     zcl_header = zcl_header,
-    zcl_body = RawBody.new(payload)
+    zcl_body = GenericBody(payload)
   })
   device:send(messages.ZigbeeMessageTx({
     address_header = address_header,

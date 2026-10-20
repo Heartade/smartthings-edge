@@ -3,16 +3,38 @@ local ZigbeeDriver = require "st.zigbee"
 local capabilities = require "st.capabilities"
 local children = require "children"
 local learned_actions = require "ir.learned_actions"
+local ac_state = require "ac.state"
+local ac_learned_state = require "ac.learned_state"
+local ac_registry = require "ac.registry"
+local lg_encoders = require "ac.protocol_lg"
+local irremote_encoders = require "ac.protocol_irremote"
 local socket = require "socket"
 local controller = require "ir.controller"
 local edge_zigbee = require "ir.edge_zigbee"
 local zosung = require "ir.zosung"
 
+for id, encoder in pairs(lg_encoders.encoders) do
+  ac_registry.register(id, encoder)
+end
+for id, encoder in pairs(irremote_encoders.encoders) do
+  ac_registry.register(id, encoder)
+end
+
 local TRANSFER_TIMEOUT_SECONDS = 15
 local states = {}
+local AC_PROTOCOLS = {
+  learned_state = "learned-state",
+  lg_28 = "lg-28",
+  lg2_28 = "lg2-28",
+  lg2_akb74955603 = "lg2-akb74955603",
+  toshiba_72_a = "toshiba-72-a", toshiba_72_b = "toshiba-72-b",
+  mitsubishi_144 = "mitsubishi-144",
+  gree_yaw1f = "gree-yaw1f", gree_ybofb = "gree-ybofb", gree_yx1fsf = "gree-yx1fsf",
+  kelvinator_128 = "kelvinator-128", electra_104 = "electra-104"
+}
 
 local function now()
-  return socket.gettime() / 1000
+  return socket.gettime()
 end
 
 local function cancel_timeout(driver, state)
@@ -89,6 +111,139 @@ local function begin_transfer(driver, device, method, argument)
   return result, err
 end
 
+local function is_ac_device(device)
+  if not device.supports_capability then return false end
+  for _, name in ipairs({ "airConditionerMode", "thermostatMode" }) do
+    if capabilities[name] then
+      local ok, supported = pcall(device.supports_capability, device, capabilities[name])
+      if ok and supported == true then return true end
+    end
+  end
+  return false
+end
+
+local function ac_state_for(device)
+  local stored = device:get_field("ac_desired_state")
+  if type(stored) == "table" then
+    local validated = ac_state.apply(ac_state.initial(), stored, { max_temperature = 32 })
+    if validated then return validated end
+  end
+  return ac_state.initial()
+end
+
+local function ac_unit_for(device)
+  return device.preferences and device.preferences.acTemperatureUnit == "F" and "F" or "C"
+end
+
+local function ac_temperature_from_display(value, unit)
+  if type(value) ~= "number" then return nil, "setpoint must be numeric" end
+  local celsius = unit == "F" and ((value - 32) * 5 / 9) or value
+  return math.floor(celsius + 0.5)
+end
+
+local function ac_temperature_for_display(celsius, unit)
+  return unit == "F" and (celsius * 9 / 5 + 32) or celsius
+end
+
+local function emit_event(device, event)
+  if not event then return end
+  local ok, err = pcall(device.emit_event, device, event)
+  if not ok then device.log.warn("Could not publish AC desired state: " .. tostring(err)) end
+end
+
+local function publish_ac_state(device, current)
+  local unit = ac_unit_for(device)
+  local mode = current.mode == "fan" and "fanOnly" or current.mode
+  local selection = device.preferences and device.preferences.acProtocol or "learned_state"
+  local features = ac_registry.describe(AC_PROTOCOLS[selection]) or {
+    min_temperature = 16, max_temperature = 30,
+    swing_modes = { "off", "vertical", "horizontal", "all" }
+  }
+
+  if capabilities.switch then
+    emit_event(device, current.power and capabilities.switch.switch.on()
+      or capabilities.switch.switch.off())
+  end
+  if capabilities.airConditionerMode then
+    emit_event(device, capabilities.airConditionerMode.airConditionerMode(mode))
+  end
+  if capabilities.temperatureSetpoint then
+    emit_event(device, capabilities.temperatureSetpoint.temperatureSetpoint({
+      value = ac_temperature_for_display(current.temperature, unit), unit = unit
+    }))
+    if capabilities.temperatureSetpoint.temperatureSetpointRange then
+      emit_event(device, capabilities.temperatureSetpoint.temperatureSetpointRange({
+        value = { minimum = ac_temperature_for_display(features.min_temperature, unit),
+          maximum = ac_temperature_for_display(features.max_temperature, unit),
+          step = unit == "F" and 1.8 or 1 }, unit = unit
+      }))
+    end
+  end
+  if capabilities.fanMode then
+    emit_event(device, capabilities.fanMode.fanMode(current.fan))
+  end
+  if capabilities.fanOscillationMode then
+    local vertical, horizontal = current.swing_vertical ~= "off", current.swing_horizontal ~= "off"
+    local swing = vertical and (horizontal and "all" or "vertical") or (horizontal and "horizontal" or "off")
+    emit_event(device, capabilities.fanOscillationMode.fanOscillationMode(swing))
+    emit_event(device, capabilities.fanOscillationMode.supportedFanOscillationModes(features.swing_modes))
+    emit_event(device, capabilities.fanOscillationMode.availableFanOscillationModes(features.swing_modes))
+  end
+end
+
+local function ac_payload_for(device, current, patch)
+  local selection = device.preferences and device.preferences.acProtocol or "learned_state"
+  local protocol = AC_PROTOCOLS[selection]
+  if not protocol then return nil, "unsupported AC protocol selection: " .. tostring(selection) end
+  if protocol == "learned-state" then
+    local store = ac_learned_state.new(device:get_field("learned_ac_states"))
+    local next_state, code = store:resolve(current, patch)
+    if not next_state then return nil, code end
+    local ok, payload = pcall(learned_actions.to_payload, code)
+    if not ok then return nil, "invalid learned AC code: " .. tostring(payload) end
+    return next_state, payload
+  end
+
+  local next_state, frames = ac_registry.encode(protocol, current, patch)
+  if not next_state then return nil, frames end
+  local payload, err = ac_registry.to_payload(frames)
+  if not payload then return nil, err end
+  return next_state, payload
+end
+
+local function send_ac_patch(driver, device, patch)
+  local current = ac_state_for(device)
+  local next_state, payload = ac_payload_for(device, current, patch)
+  if not next_state then
+    device.log.warn("AC command not sent: " .. tostring(payload))
+    return nil, payload
+  end
+
+  local ok, parent = pcall(device.get_parent_device, device)
+  if not ok or not parent then
+    device.log.warn("Could not resolve the IR blaster parent")
+    return nil, "could not resolve the IR blaster parent"
+  end
+
+  local seq, err = driver:send_ir_code(parent, payload, device, next_state.power)
+  if not seq then
+    device.log.warn("Could not send AC state: " .. tostring(err))
+    return nil, err
+  end
+
+  -- This is last-commanded state, not feedback from the air conditioner.
+  device:set_field("ac_desired_state", next_state, { persist = true })
+  publish_ac_state(device, next_state)
+  return seq
+end
+
+local function thermostat_mode_to_ac(mode)
+  if mode == "dryair" or mode == "dry" then return "dry" end
+  if mode == "fanonly" or mode == "fanOnly" or mode == "fan" or mode == "wind" then return "fan" end
+  if mode == "auto" or mode == "cool" or mode == "heat" then return mode end
+  return nil
+end
+
 local function zosung_message(driver, device, zb_rx)
   local state = state_for(driver, device)
   local command, raw = edge_zigbee.received(zb_rx)
@@ -126,6 +281,15 @@ local function zosung_message(driver, device, zb_rx)
     state.learn_target = nil
     if target then
       local saved, key, err = pcall(function()
+        if target.state then
+          local store = ac_learned_state.new(target.device:get_field("learned_ac_states"))
+          local saved_key, save_err = store:put(target.state, detail)
+          if saved_key then
+            target.device:set_field("learned_ac_states", store.codes, { persist = true })
+          end
+          return saved_key, save_err
+        end
+
         local store = learned_actions.new(target.device:get_field("learned_ir_actions"))
         local saved_key, save_err = store:put(target.action, detail)
         if saved_key then
@@ -134,11 +298,15 @@ local function zosung_message(driver, device, zb_rx)
         return saved_key, save_err
       end)
       if not saved then
-        target.device.log.warn("Could not save learned IR action: " .. tostring(key))
+        target.device.log.warn("Could not save learned IR code: " .. tostring(key))
       elseif key then
-        target.device.log.info("Learned IR action saved: " .. target.action)
+        if target.state then
+          target.device.log.info("Learned AC state saved: " .. key)
+        else
+          target.device.log.info("Learned IR action saved: " .. target.action)
+        end
       else
-        target.device.log.warn("Could not save learned IR action: " .. tostring(err))
+        target.device.log.warn("Could not save learned IR code: " .. tostring(err))
       end
     else
       device.log.warn("IR capture completed without a child action target")
@@ -155,15 +323,13 @@ local function zosung_message(driver, device, zb_rx)
 end
 
 local function child_info_changed(driver, device)
-  local request = device.preferences and device.preferences.learnActionRequest
-  if type(request) ~= "string" or request == "" then return end
-  if device:get_field("last_learn_action_request") == request then return end
-
-  local parsed, err = learned_actions.parse_request(request)
-  if not parsed then
-    device.log.warn(tostring(err))
-    return
-  end
+  local power_request = device.preferences and device.preferences.learnActionRequest
+  local ac_request = device.preferences and device.preferences.learnAcStateRequest
+  local power_changed = type(power_request) == "string" and power_request ~= "" and
+    device:get_field("last_learn_action_request") ~= power_request
+  local ac_changed = type(ac_request) == "string" and ac_request ~= "" and
+    device:get_field("last_learn_ac_state_request") ~= ac_request
+  if not power_changed and not ac_changed then return end
 
   local ok, parent = pcall(device.get_parent_device, device)
   if not ok or not parent then
@@ -171,17 +337,77 @@ local function child_info_changed(driver, device)
     return
   end
 
-  local result, err
-  if parsed.action == "cancel" then
-    result, err = driver:cancel_ir_learning(parent, device)
-  else
-    result, err = driver:start_ir_learning(parent, device, parsed.action)
+  if power_changed then
+    local parsed, err = learned_actions.parse_request(power_request)
+    if not parsed then
+      device.log.warn(tostring(err))
+    else
+      local result
+      if parsed.action == "cancel" then
+        result, err = driver:cancel_ir_learning(parent, device)
+      else
+        result, err = driver:start_ir_learning(parent, device, parsed.action)
+      end
+      if result then
+        device:set_field("last_learn_action_request", power_request, { persist = true })
+      else
+        device.log.warn("Could not process IR learning request: " .. tostring(err))
+      end
+    end
   end
-  if result then
-    device:set_field("last_learn_action_request", request, { persist = true })
-  else
-    device.log.warn("Could not process IR learning request: " .. tostring(err))
+
+  if ac_changed then
+    local parsed, err = ac_learned_state.parse_request(ac_request)
+    if not parsed then
+      device.log.warn(tostring(err))
+    else
+      local result
+      if parsed.action == "cancel" then
+        result, err = driver:cancel_ir_learning(parent, device)
+      else
+        result, err = driver:start_ir_state_learning(parent, device, parsed.target)
+      end
+      if result then
+        device:set_field("last_learn_ac_state_request", ac_request, { persist = true })
+      else
+        device.log.warn("Could not process AC learning request: " .. tostring(err))
+      end
+    end
   end
+end
+
+local function initialize_device(_, device)
+  if not is_ac_device(device) then return end
+  -- Existing children must select the new profile revision to receive the new
+  -- capabilities. Keep their model, preferences and learned-state fields.
+  local profile = device.model
+  if (profile == "ac-protocol" or profile == "ac-learned-state") and
+      capabilities.airConditionerMode and device.try_update_metadata and
+      not device:supports_capability(capabilities.airConditionerMode) then
+    if device:get_field("ac_ui_migration_requested") then return end
+    local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
+    if ok then
+      device:set_field("ac_ui_migration_requested", true)
+      return -- infoChanged publishes the new capability events after migration.
+    end
+    device.log.warn("Could not update AC controls: " .. tostring(err))
+    return
+  end
+  local current = ac_state_for(device)
+  if device:get_field("ac_desired_state") == nil then
+    device:set_field("ac_desired_state", current, { persist = true })
+  end
+  if capabilities.airConditionerMode then
+    emit_event(device, capabilities.airConditionerMode.supportedAcModes(
+      { "auto", "cool", "heat", "dry", "fanOnly" }))
+    emit_event(device, capabilities.airConditionerMode.availableAcModes(
+      { "auto", "cool", "heat", "dry", "fanOnly" }))
+  end
+  if capabilities.fanMode and capabilities.fanMode.supportedFanModes then
+    emit_event(device, capabilities.fanMode.supportedFanModes(
+      { "auto", "low", "medium", "high" }))
+  end
+  publish_ac_state(device, current)
 end
 
 local function info_changed(driver, device, _, args)
@@ -189,6 +415,7 @@ local function info_changed(driver, device, _, args)
     local ok, parent = pcall(device.get_parent_device, device)
     if ok and parent then
       child_info_changed(driver, device)
+      initialize_device(driver, device)
       return
     end
   end
@@ -241,9 +468,8 @@ for command = 0x00, 0x05 do
 end
 
 local function send_switch_action(driver, device, action, value)
-  if capabilities.thermostatMode and device.supports_capability and
-    device:supports_capability(capabilities.thermostatMode) then
-    device.log.warn("Switch commands are not implemented for AC profiles")
+  if is_ac_device(device) then
+    send_ac_patch(driver, device, { power = value })
     return
   end
 
@@ -264,28 +490,121 @@ local function send_switch_action(driver, device, action, value)
   if not seq then device.log.warn("Could not send IR action: " .. tostring(err)) end
 end
 
+local capability_handlers = {
+  [capabilities.switch.ID] = {
+    [capabilities.switch.commands.on.NAME] = function(driver, device)
+      send_switch_action(driver, device, "power_on", true)
+    end,
+    [capabilities.switch.commands.off.NAME] = function(driver, device)
+      send_switch_action(driver, device, "power_off", false)
+    end
+  },
+  [capabilities.refresh.ID] = {
+    [capabilities.refresh.commands.refresh.NAME] = function(_, device)
+      if is_ac_device(device) then
+        publish_ac_state(device, ac_state_for(device))
+      else
+        device.log.info("IR status is maintained by captured-command transfers")
+      end
+    end
+  }
+}
+
+local function add_capability_handler(capability_name, command_name, handler)
+  local capability = capabilities[capability_name]
+  local command = capability and capability.commands and capability.commands[command_name]
+  if not capability or not command then return end
+  capability_handlers[capability.ID] = capability_handlers[capability.ID] or {}
+  capability_handlers[capability.ID][command.NAME] = handler
+end
+
+local function send_ac_thermostat_mode(driver, device, mode)
+  if not is_ac_device(device) then return end
+  if mode == "off" then
+    send_ac_patch(driver, device, { power = false })
+    return
+  end
+  local ac_mode = thermostat_mode_to_ac(mode)
+  if not ac_mode then
+    device.log.warn("Unsupported AC thermostat mode: " .. tostring(mode))
+    return
+  end
+  send_ac_patch(driver, device, { power = true, mode = ac_mode })
+end
+
+add_capability_handler("thermostatMode", "setThermostatMode", function(driver, device, command)
+  send_ac_thermostat_mode(driver, device, command.args and command.args.mode)
+end)
+add_capability_handler("airConditionerMode", "setAirConditionerMode", function(driver, device, command)
+  send_ac_thermostat_mode(driver, device, command.args and command.args.mode)
+end)
+for _, mode in ipairs({ "auto", "cool", "heat", "off" }) do
+  local selected_mode = mode
+  add_capability_handler("thermostatMode", selected_mode, function(driver, device)
+    send_ac_thermostat_mode(driver, device, selected_mode)
+  end)
+end
+
+local function send_ac_setpoint(driver, device, command)
+  if not is_ac_device(device) then return end
+  local requested = command.args and command.args.setpoint
+  local temperature, err = ac_temperature_from_display(requested, ac_unit_for(device))
+  if not temperature then
+    device.log.warn("Invalid AC temperature: " .. tostring(err))
+    return
+  end
+  send_ac_patch(driver, device, { temperature = temperature })
+end
+add_capability_handler("thermostatCoolingSetpoint", "setCoolingSetpoint", send_ac_setpoint)
+add_capability_handler("thermostatHeatingSetpoint", "setHeatingSetpoint", send_ac_setpoint)
+add_capability_handler("temperatureSetpoint", "setTemperatureSetpoint", send_ac_setpoint)
+
+add_capability_handler("fanOscillationMode", "setFanOscillationMode", function(driver, device, command)
+  if not is_ac_device(device) then return end
+  local swing = command.args and command.args.fanOscillationMode
+  local axes = {
+    off = { "off", "off" }, vertical = { "on", "off" },
+    horizontal = { "off", "on" }, all = { "on", "on" }
+  }
+  if not axes[swing] then
+    device.log.warn("Unsupported AC swing mode: " .. tostring(swing))
+    return
+  end
+  send_ac_patch(driver, device, {
+    swing_vertical = axes[swing][1], swing_horizontal = axes[swing][2]
+  })
+end)
+
+add_capability_handler("fanMode", "setFanMode", function(driver, device, command)
+  local fan = command.args and (command.args.fanMode or command.args.mode)
+  send_ac_patch(driver, device, { fan = fan })
+end)
+for command_name, fan in pairs({
+  fanAuto = "auto", fanLow = "low", fanMedium = "medium", fanHigh = "high"
+}) do
+  local selected_command, selected_fan = command_name, fan
+  add_capability_handler("fanMode", selected_command, function(driver, device)
+    send_ac_patch(driver, device, { fan = selected_fan })
+  end)
+end
+
 local driver = ZigbeeDriver("generic-ir-remote", {
-  supported_capabilities = { capabilities.refresh, capabilities.switch },
+  health_check = false,
+  supported_capabilities = {
+    capabilities.refresh, capabilities.switch, capabilities.thermostatMode,
+    capabilities.thermostatCoolingSetpoint, capabilities.thermostatHeatingSetpoint,
+    capabilities.fanMode, capabilities.airConditionerMode,
+    capabilities.temperatureSetpoint, capabilities.fanOscillationMode
+  },
   zigbee_handlers = {
     cluster = { [zosung.TRANSMIT_CLUSTER] = cluster_handlers }
   },
-  lifecycle_handlers = { infoChanged = info_changed, removed = removed },
+  lifecycle_handlers = {
+    init = initialize_device, added = initialize_device,
+    infoChanged = info_changed, removed = removed
+  },
   driver_lifecycle = driver_lifecycle,
-  capability_handlers = {
-    [capabilities.switch.ID] = {
-      [capabilities.switch.commands.on.NAME] = function(driver, device)
-        send_switch_action(driver, device, "power_on", true)
-      end,
-      [capabilities.switch.commands.off.NAME] = function(driver, device)
-        send_switch_action(driver, device, "power_off", false)
-      end
-    },
-    [capabilities.refresh.ID] = {
-      [capabilities.refresh.commands.refresh.NAME] = function(_, device)
-        device.log.info("IR status is maintained by captured-command transfers")
-      end
-    }
-  }
+  capability_handlers = capability_handlers
 })
 
 -- Parent-level entry points for child command handlers. Callers must resolve
@@ -306,6 +625,19 @@ function driver:start_ir_learning(parent, target_device, action)
   local state = state_for(self, parent)
   local result, err = begin_transfer(self, parent, "start_learning")
   if result then state.learn_target = { device = target_device, action = action } end
+  return result, err
+end
+
+function driver:start_ir_state_learning(parent, target_device, target_state)
+  if not target_device or type(target_state) ~= "table" then
+    return nil, "a child device and complete AC state are required"
+  end
+  local validated, err = ac_state.apply(ac_state.initial(), target_state)
+  if not validated then return nil, err end
+  local state = state_for(self, parent)
+  local result
+  result, err = begin_transfer(self, parent, "start_learning")
+  if result then state.learn_target = { device = target_device, state = validated } end
   return result, err
 end
 
