@@ -1,5 +1,5 @@
 -- Per-parent TS1201 transfer coordinator. The caller supplies Zigbee send and
--- a monotonic clock. Its sessions remain transient across driver restarts.
+-- a clock. Its sessions remain transient across driver restarts.
 local zosung = require "ir.zosung"
 local wire = require "ir.zosung_wire"
 local M = {}
@@ -48,9 +48,17 @@ function M.new(send, now, timeout_seconds)
     if not self.active or self.active.kind ~= "learn" then
       return nil, "no learning in progress"
     end
-    emit(zosung.CONTROL_CLUSTER, 0x00, wire.learning(false))
     self.active = nil
+    emit(zosung.CONTROL_CLUSTER, 0x00, wire.learning(false))
     return true
+  end
+
+  function c:abort()
+    local active = self.active
+    self.active = nil
+    if active and active.kind == "learn" then
+      pcall(emit, zosung.CONTROL_CLUSTER, 0x00, wire.learning(false))
+    end
   end
 
   function c:receive(cmd, raw)

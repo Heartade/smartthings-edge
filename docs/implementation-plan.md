@@ -15,9 +15,10 @@ This is the outstanding work required to turn the current development scaffold i
 
 ## 2. Connect Zosung primitives to Edge Zigbee
 
-- [ ] Add a SmartThings Zigbee adapter that converts incoming `0xED00` and `0xE004` messages into the existing wire-decoder/controller API and serializes outgoing command payloads into the correct cluster messages.
+- [x] Add a SmartThings Zigbee adapter that serializes outgoing `0xED00` and `0xE004` commands, decodes incoming `0xED00` messages, and dispatches them to the existing controller API.
 - [ ] Verify sequence numbers, byte order, payload lengths, endpoints, checksums, and command framing against captures from the target TS1201.
-- [ ] Route every child send/learn operation through its physical parent; serialize access so learning and transmission cannot overlap on one blaster.
+- [x] Route TV, fan, and generic child power learning/playback through the physical parent and keep one active transfer per parent.
+- [ ] Extend parent routing and serialization to AC and other profile command paths as they are implemented.
 - [ ] Add a bounded per-parent queue with explicit behavior for duplicate requests, queue overflow, failed delivery, and device removal.
 - [ ] Schedule and cancel transfer expiry checks using the Edge runtime timer API; ensure expired sends and learning sessions clear their transient state and report a useful result.
 - [ ] Surface progress, completion, cancellation, malformed frames, and timeout failures to the appropriate parent/child status or logs.
@@ -26,13 +27,14 @@ This is the outstanding work required to turn the current development scaffold i
 
 ## 3. Implement learned-button remotes
 
-- [ ] Define a validated, bounded persisted format for a child's named actions and captured raw IR codes; ensure transfer buffers and active sessions remain transient.
-- [ ] Implement a child command path that looks up a learned action, asks the parent controller to transmit it, and reports missing codes or transport failures without sending a guessed code.
-- [ ] Add a learning flow to choose an action, start capture, show progress, cancel or time out, save a successful capture, and relearn or delete that action.
-- [ ] Implement the TV, fan, and generic remote actions declared by their profiles, including clear behavior for actions the user has not learned yet.
+- [x] Define a validated, bounded persisted format for each child's `power_on` and `power_off` capture; keep transfer buffers and active sessions transient.
+- [x] Implement TV, fan, and generic child switch handlers that look up the exact saved power action, route it through the parent controller, and refuse to send when the code is missing.
+- [x] Add child Settings requests to start/cancel `power_on` or `power_off` capture; save a completed capture on its owning child and expire an abandoned session.
+- [ ] Surface learning progress, completion, cancellation, timeout, and send failures in the SmartThings app rather than only through logs.
+- [ ] Add named button actions beyond the two switch power commands, plus relearn and delete controls in the app.
 - [ ] Implement `ac-button` as independent learned button presses; do not publish numeric AC state for relative button commands.
-- [ ] Test learn/relearn/delete/playback for each action model and reject invalid, incomplete, oversized, or corrupted captures.
-- [ ] Verify learning one child cannot overwrite another child's codes and that learned codes survive a driver restart.
+- [x] Add mocked tests for power-action capture, persistence, cancellation, timeout, switch playback, missing-code rejection, per-child isolation, and bounded code validation.
+- [ ] Verify learned codes survive a SmartThings driver restart and reject corrupted records in the Edge runtime.
 
 ## 4. Complete AC state and learned-state control
 
@@ -55,6 +57,7 @@ This is the outstanding work required to turn the current development scaffold i
 
 ## 6. Complete SmartThings commands and Routine actions
 
+- [x] Connect TV, fan, and generic child switch `on`/`off` commands to their captured power actions and emit switch state only after the transfer completes.
 - [ ] Connect child capabilities to the state/learned-code controllers and implement handlers for every command shown by each child profile.
 - [ ] Confirm standard switch, thermostat mode, cooling/heating setpoint, and fan capabilities have semantics that match the selected encoder; use custom capabilities for unsupported standard actions such as swing.
 - [ ] Define and register capability presentations needed for swing and, if the app supports it, a single atomic full-state action.

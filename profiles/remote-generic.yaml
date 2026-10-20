@@ -8,3 +8,12 @@ components:
         version: 1
     categories:
       - name: RemoteController
+preferences:
+  - title: Learn or cancel a power action
+    name: learnActionRequest
+    description: 'Enter a new token|power_on, token|power_off, or token|cancel to capture or cancel a capture.'
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      maxLength: 40

@@ -1,6 +1,6 @@
 # Driver design and requirements
 
-Status: design contract. The current package does **not** control an IR blaster yet. See [README](../README.md) for implemented pieces and [implementation plan](implementation-plan.md) for the remaining work.
+Status: design contract. The current package receives and responds to Zosung transfer messages. TV, fan, and generic children can capture and replay power actions through their parent, while AC paths and most app-visible status remain outstanding. See [README](../README.md) for implemented pieces and [implementation plan](implementation-plan.md) for the remaining work.
 
 ## Goal and device model
 
@@ -24,7 +24,7 @@ Edge profiles and capabilities determine the device detail UI; preferences are e
 
 1. Pair or switch a supported TS1201 to this development driver. Verify its manufacturer/model, Zigbee endpoints, and clusters before assuming it is compatible.
 2. On the parent, request a new remote with a name and one of the profiles above. The driver creates an `EDGE_CHILD` with a stable unique key and the selected profile. The interim implementation uses a single Settings request string of `unique-token|profile|name` (for example `bedroom|ac-protocol|Bedroom AC`); change the token for each new child. The target UI is a custom capability action with separate fields.
-3. Open the child. For a learned-button profile, choose an action to learn, point the original remote at the TS1201, start capture, then press the original button. Store the captured code on that child and test playback. Relearn replaces that action only.
+3. For a TV, fan, or generic remote child, open Settings and set a fresh `token|power_on` or `token|power_off` request. Point the original remote at the TS1201 and press the matching power button. The capture is stored on that child; a new token relearns that action. Use `token|cancel` to stop an active capture. The child switch commands replay these two saved actions. Other buttons and AC learning flows remain planned.
 4. For `ac-learned-state`, select supported modes, temperature interval, fan/swing options, then learn each needed complete state. Show missing combinations and progress. Refuse a state not learned rather than sending a nearby frame.
 5. For `ac-protocol`, select a **working encoder and explicit variant/model**. Show only controls that encoder supports. Test power on/off and a few state changes while the original remote and AC are available. A broad protocol catalog is for discovery, not a promise of compatibility.
 6. Delete a child using the SmartThings device management UI. Never use a hidden `MAIN/TV1/AC1` selector inside the parent.
@@ -45,7 +45,7 @@ The controller validates a proposed state, encodes it, queues the resulting one 
 
 The TS1201 transfer uses 0xED00 command 00 to announce an encoded message, responds to device chunk requests (02) with checked pieces (03), and completes via 04/05. Learning uses 0xE004 control and receives a bounded multi-chunk code through the reverse sequence. Keep a separate sequence, timeout, and queue for each physical parent. A child's persisted fields contain its configuration and learned codes; transfer buffers remain transient. The parent serializes access because learning and transmitting cannot safely share the same device session.
 
-The currently implemented codec handles base64 timing encoding, send/receive session primitives, raw Zosung command payload serialization, and a per-parent transfer controller with timeout and learning cancellation. The SmartThings Zigbee address/ZCL adapter and dispatch, scheduling of expiry checks, queueing, persistence, and hardware behavior still require implementation and tests.
+The currently implemented codec handles base64 timing encoding, send/receive session primitives, raw Zosung command payload serialization, and a per-parent transfer controller with timeout and learning cancellation. The SmartThings adapter builds and sends raw ZCL messages, dispatches incoming `0xED00` commands, and schedules expiry checks. TV, fan, and generic children route two captured power actions through their physical parent and persist each code per child. A bounded queue, other named buttons, AC state paths, app-visible progress and errors, SmartThings integration checks, and hardware verification still require implementation.
 
 ## Protocol catalog
 
