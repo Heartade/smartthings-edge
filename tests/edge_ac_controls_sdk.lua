@@ -16,9 +16,9 @@ local child = {
   supports_capability = function(_, capability) return capability.ID == "airConditionerMode" end,
   get_field = function(_, key) return fields[key] end,
   set_field = function(_, key, value) fields[key] = value end,
-  get_parent_device = function() return { id = "parent" } end,
+  get_parent_device = function() return { id = "parent", get_field = function() end } end,
   emit_event = function(_, event) events[event.capability.ID .. "." .. event.attribute.NAME] = event end,
-  log = { warn = function(message) warnings[#warnings + 1] = message end }
+  log = { warn = function(message) warnings[#warnings + 1] = message end, info = function() end }
 }
 driver.send_ir_code = function(_, _, payload)
   payloads[#payloads + 1] = payload

@@ -55,7 +55,7 @@ local function child(id, ac)
   end
   local d = device(id, ac and "ac-protocol" or "remote-tv", caps)
   d.get_parent_device = function() return parent end
-  d.preferences.acProtocol = "lg_28"
+  d.preferences.acProtocol = ac and "learned_state" or nil
   return d
 end
 local function command(d, capability, name, args)
@@ -123,7 +123,7 @@ while position < meta.length do
   position = position + #wire.decode(3, sent[#sent].payload).msgpart
 end
 receive(4, {zero0 = 0, seq = meta.seq, zero1 = 0})
-assert(status(tv) == "sent" and tv.events["switch.switch"] == nil)
+assert(status(tv) == "sent" and tv.events["switch.switch"] == "off")
 command(tv, ids.irLearning, "learn")
 command(tv, ids.irLearning, "cancel")
 assert(status(tv) == "cancelled" and tv.fields.learned_ir_actions.power_on == "YWJj")
@@ -182,6 +182,32 @@ complete_capture(101, "abc")
 command(tv, ids.irLearning, "learn")
 receive(3, {zero = 0, seq = 102, position = 0, msgpart = "bad", msgpartcrc = zosung.checksum("bad")})
 assert(status(tv) == "error" and tv.fields.learned_ir_actions.power_on == "YWJj")
+
+-- Toggle protocols advance their previous-state baseline only after transfer
+-- completion. A timeout preserves the baseline for a correct retry.
+local protocol_ac = child("protocol-ac", true)
+protocol_ac.preferences.acProtocol = "irac_whirlpool_ac"
+protocol_ac.preferences.acModel = 1
+template.lifecycle_handlers.init(driver, protocol_ac)
+local before_protocol = #sent
+command(protocol_ac, ids.irLearning, "learn")
+assert(#sent == before_protocol) -- A selected protocol disables learning.
+command(protocol_ac, "switch", "on")
+assert(protocol_ac.fields.ac_last_sent_state == nil)
+local protocol_meta = wire.decode(0, sent[#sent].payload)
+local protocol_position = 0
+while protocol_position < protocol_meta.length do
+  receive(2, {seq = protocol_meta.seq, position = protocol_position, maxlen = 56})
+  protocol_position = protocol_position + #wire.decode(3, sent[#sent].payload).msgpart
+end
+receive(4, {zero0 = 0, seq = protocol_meta.seq, zero1 = 0})
+assert(protocol_ac.fields.ac_last_sent_state.power == true)
+assert(protocol_ac.fields.ac_last_sent_protocol == "irac-whirlpool-ac")
+assert(protocol_ac.fields.ac_last_sent_model == 1)
+command(protocol_ac, "switch", "off")
+clock = clock + 16; timers[#timers].callback()
+assert(protocol_ac.fields.ac_last_sent_state.power == true)
+assert(protocol_ac.fields.ac_desired_state.power == false)
 
 -- Parent and child upgrades request their original profile with the new caps.
 local migrated = {}

@@ -1,6 +1,11 @@
 package.path = "src/?.lua;src/?/init.lua;" .. package.path
+local sdk = assert(os.getenv("SMARTTHINGS_LUA_LIBS"), "set SMARTTHINGS_LUA_LIBS")
+package.path = sdk .. "/?.lua;" .. sdk .. "/?/init.lua;" .. package.path
+local build_cap = require("st.capabilities").build_cap_from_json_string
+package.loaded["st.capabilities"] = nil
 local template
 local capability = {
+  build_cap_from_json_string = build_cap,
   refresh = { ID = "refresh", commands = { refresh = { NAME = "refresh" } } },
   switch = { ID = "switch", commands = {
     on = { NAME = "on" }, off = { NAME = "off" }

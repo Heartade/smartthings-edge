@@ -15,7 +15,8 @@ assert(actions.to_payload("YWJj") ==
 assert(store:put("power_off", "ZA==") == "power_off")
 assert(store:put("power_on", "ZWY=") == "power_on") -- Relearn replaces the action.
 assert(store:get("power_on") == "ZWY=")
-assert(store:put("volume_up", "YWJj") == nil)
+assert(store:put("volume_up", "YWJj") == "volume_up")
+assert(store:put("unknown_button", "YWJj") == nil)
 assert(store:put("power_off", "not base64!") == nil)
 assert(store:put("power_off", string.rep("A", actions.MAX_CODE_LENGTH + 4)) == nil)
 

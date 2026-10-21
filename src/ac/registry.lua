@@ -20,9 +20,10 @@ function M.available()
   return ids
 end
 
-function M.describe(id)
+function M.describe(id, model)
   local encoder = encoders[id]
   if not encoder then return nil end
+  if encoder.describe then return encoder.describe(model) end
   return {
     min_temperature = encoder.min_temperature or 16,
     max_temperature = encoder.max_temperature or 30,
@@ -31,7 +32,7 @@ function M.describe(id)
   }
 end
 
-function M.encode(id, current, patch, model)
+function M.encode(id, current, patch, model, previous)
   local encoder = encoders[id]
   if not encoder then return nil, "protocol not implemented: " .. tostring(id) end
   if type(patch) ~= "table" then return nil, "state patch must be a table" end
@@ -44,14 +45,18 @@ function M.encode(id, current, patch, model)
     end
     patch = adjusted
   end
-  local next_state, err = state.apply(current, patch, {
-    min_temperature = encoder.min_temperature,
-    max_temperature = encoder.max_temperature,
-    supports = function(s) return encoder.supports(s, model) end
-  })
+  local limits = encoder.describe and encoder.describe(model) or encoder
+  local validation = { min_temperature = limits.min_temperature,
+    max_temperature = limits.max_temperature,
+    supports = function(s) return encoder.supports(s, model) end }
+  local next_state, err = state.apply(current, patch, validation)
   if not next_state then return nil, err end
-  local frames = encoder.encode(next_state, model, current)
-  if type(frames) ~= "table" or #frames == 0 then
+  local frames, normalized = encoder.encode(next_state, model, previous or current)
+  if normalized then
+    next_state, err = state.apply(next_state, normalized, validation)
+    if not next_state then return nil, "Invalid normalized protocol state: " .. tostring(err) end
+  end
+  if type(frames) ~= "table" or (#frames == 0 and not encoder.allow_noop) then
     return nil, "encoder returned no frames"
   end
   for _, frame in ipairs(frames) do

@@ -29,14 +29,31 @@ local registry = require "ac.registry"
 local state = require "ac.state"
 local lg = require "ac.protocol_lg"
 local irremote = require "ac.protocol_irremote"
+local expanded = require "ac.protocol_expanded"
+local catalog = require "ac.protocol_catalog"
 local controller = require "ir.controller"
 local wire = require "ir.zosung_wire"
 for id, encoder in pairs(lg.encoders) do registry.register(id, encoder) end
 for id, encoder in pairs(irremote.encoders) do registry.register(id, encoder) end
-for _, id in ipairs(registry.available()) do
+for id, encoder in pairs(expanded.encoders) do registry.register(id, encoder) end
+local cases = {}
+for _, id in ipairs(registry.available()) do cases[#cases + 1] = { id = id } end
+for id, encoder in pairs(catalog.encoders) do registry.register(id, encoder) end
+for _, entry in ipairs(catalog.index) do
+  for _, model in ipairs(entry.models) do
+    cases[#cases + 1] = { id = "irac-" .. entry.protocol:lower():gsub("_", "-"), model = model.value }
+  end
+end
+for _, case in ipairs(cases) do
+local id = case.id
 for _, power in ipairs({ true, false }) do
-  local desired, frames = registry.encode(id, state.initial(), { power = power })
-  assert(desired, frames)
+  local features = registry.describe(id, case.model)
+  local mode = features.modes[1]
+  for _, value in ipairs(features.modes) do if value == "cool" then mode = value end end
+  local desired, frames = registry.encode(id, state.initial(), { power = power, mode = mode,
+    temperature = math.max(features.min_temperature, math.min(24, features.max_temperature)) }, case.model, state.initial())
+  assert(desired, id .. ": " .. tostring(frames))
+  if #frames > 0 then
   local payload = assert(registry.to_payload(frames))
   local c = controller.new(function(cluster, command, body)
     adapter.send(device, cluster, command, body)
@@ -55,6 +72,7 @@ for _, power in ipairs({ true, false }) do
   end
   assert(table.concat(received) == payload)
   assert(c:receive(4, wire.encode(4, { zero0 = 0, seq = seq, zero1 = 0 })) == "sent")
+  end
 end
 end
-print("Official SDK serialization and complete chunk transfers passed for 11 AC variants")
+print("Official SDK serialization and complete chunk transfers passed for " .. #cases .. " AC protocol/model choices")

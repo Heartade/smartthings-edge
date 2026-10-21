@@ -9,6 +9,7 @@ local ac_registry = require "ac.registry"
 local lg_encoders = require "ac.protocol_lg"
 local irremote_encoders = require "ac.protocol_irremote"
 local expanded_encoders = require "ac.protocol_expanded"
+local catalog_encoders = require "ac.protocol_catalog"
 local socket = require "socket"
 local controller = require "ir.controller"
 local edge_zigbee = require "ir.edge_zigbee"
@@ -23,6 +24,9 @@ for id, encoder in pairs(irremote_encoders.encoders) do
   ac_registry.register(id, encoder)
 end
 for id, encoder in pairs(expanded_encoders.encoders) do
+  ac_registry.register(id, encoder)
+end
+for id, encoder in pairs(catalog_encoders.encoders) do
   ac_registry.register(id, encoder)
 end
 
@@ -43,6 +47,7 @@ local AC_PROTOCOLS = {
   tcl112_tac09chsd = "tcl112-tac09chsd", tcl112_gz055be1 = "tcl112-gz055be1",
   midea_48 = "midea-48", daikin_152 = "daikin-152"
 }
+for _, choice in ipairs(catalog_encoders.choices) do AC_PROTOCOLS[choice.key] = choice.id end
 
 local function now()
   return socket.gettime()
@@ -167,7 +172,7 @@ end
 local function ac_state_for(device)
   local stored = device:get_field("ac_desired_state")
   if type(stored) == "table" then
-    local validated = ac_state.apply(ac_state.initial(), stored, { max_temperature = 32 })
+    local validated = ac_state.apply(ac_state.initial(), stored, { min_temperature = 10, max_temperature = 32 })
     if validated then return validated end
   end
   return ac_state.initial()
@@ -197,7 +202,7 @@ local function publish_ac_state(device, current)
   local unit = ac_unit_for(device)
   local mode = current.mode == "fan" and "fanOnly" or current.mode
   local selection = gui.protocol_selection(device)
-  local features = ac_registry.describe(AC_PROTOCOLS[selection]) or {
+  local features = ac_registry.describe(AC_PROTOCOLS[selection], device.preferences and device.preferences.acModel) or {
     min_temperature = 16, max_temperature = 30,
     swing_modes = { "off", "vertical", "horizontal", "all" }
   }
@@ -271,8 +276,13 @@ local function ac_payload_for(device, current, patch)
     return next_state, payload
   end
 
-  local next_state, frames = ac_registry.encode(protocol, current, patch)
+  local model = device.preferences and device.preferences.acModel or 0
+  local previous = device:get_field("ac_last_sent_state")
+  if device:get_field("ac_last_sent_protocol") ~= protocol or
+      device:get_field("ac_last_sent_model") ~= model then previous = nil end
+  local next_state, frames = ac_registry.encode(protocol, current, patch, model, previous or ac_state.initial())
   if not next_state then return nil, frames end
+  if #frames == 0 then return next_state, nil end
   local payload, err = ac_registry.to_payload(frames)
   if not payload then return nil, err end
   return next_state, payload
@@ -294,7 +304,13 @@ local function send_ac_patch(driver, device, patch)
     return nil, "could not resolve the IR blaster parent"
   end
 
-  local seq, err = driver:send_ir_code(parent, payload, device, next_state.power)
+  local seq, err = true, nil
+  if payload then
+    seq, err = driver:send_ir_code(parent, payload, device, next_state.power, {
+      ac_state = next_state, ac_protocol = AC_PROTOCOLS[gui.protocol_selection(device)],
+      ac_model = device.preferences and device.preferences.acModel or 0
+    })
+  end
   if not seq then
     device.log.warn("Could not send AC state: " .. tostring(err))
     return nil, err
@@ -350,6 +366,11 @@ local function zosung_message(driver, device, zb_rx)
     if state.send_target then
       local target = state.send_target
       state.send_target = nil
+      if target.ac_state then
+        target.device:set_field("ac_last_sent_state", target.ac_state, { persist = true })
+        target.device:set_field("ac_last_sent_protocol", target.ac_protocol, { persist = true })
+        target.device:set_field("ac_last_sent_model", target.ac_model, { persist = true })
+      end
       if target.gui_test then gui.status(target.device, "sent", "Transfer completed") end
       if target.value ~= nil then
         target.device:set_field("ir_power_state", target.value, { persist = true })
@@ -480,7 +501,7 @@ local function initialize_device(driver, device)
     device.log.info("Updating remote profile to " .. profile)
     local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
     if ok then
-      device:set_field("gui_profile_revision", 7, { persist = true })
+      device:set_field("gui_profile_revision", 8, { persist = true })
       device:set_field("gui_profile_migration_requested", profile)
       return -- infoChanged publishes the new capability events after migration.
     end
@@ -773,7 +794,9 @@ function driver:send_ir_code(parent, code, target_device, switch_value, options)
   local result, err = begin_transfer(self, parent, "send_code", code)
   if result and target_device then
     state.send_target = { device = target_device, value = switch_value,
-      gui_test = options and options.gui_test }
+      gui_test = options and options.gui_test,
+      ac_state = options and options.ac_state, ac_protocol = options and options.ac_protocol,
+      ac_model = options and options.ac_model }
   end
   return result, err
 end

@@ -56,6 +56,6 @@ The protocol child should expose independent settable controls for power, mode, 
 
 ## Coverage review
 
-See [AC protocol coverage gaps](ac-protocol-coverage.md) for the 2026-10-21 comparison against the pinned upstream IRac catalog: 66 upstream identifiers, now 16 partially implemented identifiers (22 local variants), and 50 missing identifiers.
+See [AC protocol coverage](ac-protocol-coverage.md) and the [generated catalog](ac-catalog.md): all 66 pinned upstream common-AC identifiers now have generated encoders, covering 91 protocol/model combinations alongside the 22 legacy choices. Raw-only formats and advanced features remain outside this catalog.
 
 The subsequent [expanded encoder ports](expanded-ac-protocols.md) implement 11 additional choices for Samsung, Haier, Carrier, TCL/Daewoo, Midea and Daikin. See the updated [coverage comparison](ac-protocol-coverage.md) for remaining gaps.

@@ -1,0 +1,2120 @@
+{
+  "revision": "1e2f0f3ef0a93cbf2a8ddb2e95130f8f4c584b3f",
+  "source_sha256": "cb35fa7a0e96e4b045edcb1701f8a9270f14a93fa6a12beeb0098667157bc8d9",
+  "protocols": [
+    {
+      "protocol": "AIRTON",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "airton_0",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 95,
+          "bytes": 4929,
+          "sha256": "12f81ef26fcbb98f9938a72550efd9c34e5fb2a50345cb81eb52d899529b310d"
+        }
+      ]
+    },
+    {
+      "protocol": "AIRWELL",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "airwell_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 618,
+          "bytes": 40301,
+          "sha256": "039475c2cf1b6667c1bd81cdce2fa73782301237e9250bec39ae8a9f7fa53c6c"
+        }
+      ]
+    },
+    {
+      "protocol": "AMCOR",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "amcor_0",
+          "min": 12,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 117,
+          "bytes": 8203,
+          "sha256": "0794ba7a7fa884077f4d0f934c1f6527ecec6716d2d593f0795d06736c248e2d"
+        }
+      ]
+    },
+    {
+      "protocol": "ARGO",
+      "models": [
+        {
+          "value": 1,
+          "name": "SAC_WREM2",
+          "module": "argo_1",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 88,
+          "bytes": 4994,
+          "sha256": "da2f5ab23c3a162194689d96f1cd0314ed6b9666dda84799f484d98cc1cdad30"
+        },
+        {
+          "value": 2,
+          "name": "SAC_WREM3",
+          "module": "argo_2",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 82,
+          "bytes": 3969,
+          "sha256": "2e1ef87a66f399b23bf1a38da548b3016555b5d609017a6214925d0700fa4548"
+        }
+      ]
+    },
+    {
+      "protocol": "BOSCH144",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "bosch144_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 92,
+          "bytes": 4035,
+          "sha256": "a52cdf9d433592aa8960e0d6a085e1a578d3bd3b18e0a1b055ca839461cc4779"
+        }
+      ]
+    },
+    {
+      "protocol": "CARRIER_AC64",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "carrier_ac64_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            1,
+            2,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 58,
+          "bytes": 3017,
+          "sha256": "b7c37d107ff337a1134a58244aeef6480a32106af35cdf37b090638444f28b55"
+        }
+      ]
+    },
+    {
+      "protocol": "COOLIX",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "coolix_0",
+          "min": 17,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 7360,
+          "nodes": 196,
+          "bytes": 5654,
+          "sha256": "1cd943997772d5dca2598d0a7b055b7032e5c52299516ab7ee0ae6d8984f240b"
+        }
+      ]
+    },
+    {
+      "protocol": "CORONA_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "corona_ac_0",
+          "min": 17,
+          "max": 30,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 25,
+          "bytes": 5227,
+          "sha256": "eef8e4c133ca7f64b39b29aa2ba11390c7b7269f4d0a0f338763f0b5659b0727"
+        }
+      ]
+    },
+    {
+      "protocol": "DAIKIN",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "daikin_0",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 93,
+          "bytes": 6776,
+          "sha256": "1fcc47c677aedec93c5237e4ee268ed73945aff16f3ac5ce952d930c369aad8f"
+        }
+      ]
+    },
+    {
+      "protocol": "DAIKIN128",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "daikin128_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 64,
+          "bytes": 3909,
+          "sha256": "d2c6cc983d4fe2e97b57fdfc9c5720cde2abe3e62ff491306b0967ea1bf89bff"
+        }
+      ]
+    },
+    {
+      "protocol": "DAIKIN152",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "daikin152_0",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 101,
+          "bytes": 6640,
+          "sha256": "2b17c651eaeded35a13f0e9bca2ae7e2f9e4e23939cbcc7f87f886f403902ef5"
+        }
+      ]
+    },
+    {
+      "protocol": "DAIKIN160",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "daikin160_0",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 35,
+          "bytes": 3969,
+          "sha256": "e68ea6a73069b2d1f77c8fcf8a1a81a2c820895075f8f394fc1f6477439b0dba"
+        }
+      ]
+    },
+    {
+      "protocol": "DAIKIN176",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "daikin176_0",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 51,
+          "bytes": 4607,
+          "sha256": "d9a981091fd8bac2b2383c45d50bbdad7eed47066e5a279cb573106da5101922"
+        }
+      ]
+    },
+    {
+      "protocol": "DAIKIN2",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "daikin2_0",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 83,
+          "bytes": 7715,
+          "sha256": "d1712df516fd2833bf2036631314a57b2d846c7522a2302d9f9378090ad18e63"
+        }
+      ]
+    },
+    {
+      "protocol": "DAIKIN216",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "daikin216_0",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 92,
+          "bytes": 6016,
+          "sha256": "d9b474b2fb826d69c42d4c5b17795fef250784762f902dcc2eb71a26d417e321"
+        }
+      ]
+    },
+    {
+      "protocol": "DAIKIN312",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "daikin312_0",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 135,
+          "bytes": 8697,
+          "sha256": "b329180270059c3f649b5b5a98461f7725911abf9f4d31fec9746d35665f424d"
+        }
+      ]
+    },
+    {
+      "protocol": "DAIKIN64",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "daikin64_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 69,
+          "bytes": 3557,
+          "sha256": "c568396577385cce8c817538a0864fd1b3ffc8892945cd89081c4fce5f53360d"
+        }
+      ]
+    },
+    {
+      "protocol": "DELONGHI_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "delonghi_ac_0",
+          "min": 18,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 58,
+          "bytes": 4458,
+          "sha256": "a896041974278fcd512dae9772b97830c1d11eddb9af64636fef2fdfe304d9ad"
+        }
+      ]
+    },
+    {
+      "protocol": "ECOCLIM",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "ecoclim_0",
+          "min": 10,
+          "max": 32,
+          "modes": [
+            0
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 12,
+          "bytes": 2723,
+          "sha256": "e8fa745fb1e837c67b0e238d905648fd7e464c6f2296750a31887de85e8657a9"
+        }
+      ]
+    },
+    {
+      "protocol": "ELECTRA_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "electra_ac_0",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 84,
+          "bytes": 3988,
+          "sha256": "b78f1631d79026b61197f1575db18bc7aa1d5015e1e955895de65865d2045cbf"
+        }
+      ]
+    },
+    {
+      "protocol": "EUROM",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "eurom_0",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 77,
+          "bytes": 3966,
+          "sha256": "4c779c1193108da9521e2e827c5a174c33839fd0f02901fd15c9ec3a2d4a2b3c"
+        }
+      ]
+    },
+    {
+      "protocol": "FUJITSU_AC",
+      "models": [
+        {
+          "value": 1,
+          "name": "ARRAH2E",
+          "module": "fujitsu_ac_1",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 74,
+          "bytes": 2742,
+          "sha256": "7b098ce249b51ce6291a2939fdae0cfe775f0fbbc0cc92adff408337713b2ae3"
+        },
+        {
+          "value": 2,
+          "name": "ARDB1",
+          "module": "fujitsu_ac_2",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 53,
+          "bytes": 2343,
+          "sha256": "03e8f00c0b4c061a57cdc7140d152caeb8656679aff3dad3e7b4433d5ee28855"
+        },
+        {
+          "value": 3,
+          "name": "ARREB1E",
+          "module": "fujitsu_ac_3",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 60,
+          "bytes": 2573,
+          "sha256": "54b7ab3d81a94d6083fab7a19105a071e32ba2ee5d1cd7bf558d54f77616fe7d"
+        },
+        {
+          "value": 4,
+          "name": "ARJW2",
+          "module": "fujitsu_ac_4",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 53,
+          "bytes": 2343,
+          "sha256": "03e8f00c0b4c061a57cdc7140d152caeb8656679aff3dad3e7b4433d5ee28855"
+        },
+        {
+          "value": 5,
+          "name": "ARRY4",
+          "module": "fujitsu_ac_5",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 60,
+          "bytes": 2573,
+          "sha256": "54b7ab3d81a94d6083fab7a19105a071e32ba2ee5d1cd7bf558d54f77616fe7d"
+        },
+        {
+          "value": 6,
+          "name": "ARREW4E",
+          "module": "fujitsu_ac_6",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 100,
+          "bytes": 3600,
+          "sha256": "c08e2048211d31443d859859c8f8e73b5ed51100251bf3940d1ba81510c25636"
+        }
+      ]
+    },
+    {
+      "protocol": "GOODWEATHER",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "goodweather_0",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 25,
+          "bytes": 2707,
+          "sha256": "e7da275ee4da6d4b383a2c82a52a4c00357c0a1bff56d53ddb052b6e564709a0"
+        }
+      ]
+    },
+    {
+      "protocol": "GREE",
+      "models": [
+        {
+          "value": 1,
+          "name": "YAW1F",
+          "module": "gree_1",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 45,
+          "bytes": 3281,
+          "sha256": "395e5917e36237b049b5e30a15cf9f038716974b06d81a5832a31755d1b0ed7e"
+        },
+        {
+          "value": 2,
+          "name": "YBOFB",
+          "module": "gree_2",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 45,
+          "bytes": 3284,
+          "sha256": "14dcb4d507ffae20e1edaeecb2337eafd6d85d67dcf00ed06e89667036242747"
+        },
+        {
+          "value": 3,
+          "name": "YX1FSF",
+          "module": "gree_3",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 45,
+          "bytes": 3284,
+          "sha256": "14dcb4d507ffae20e1edaeecb2337eafd6d85d67dcf00ed06e89667036242747"
+        }
+      ]
+    },
+    {
+      "protocol": "HAIER_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "haier_ac_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 37,
+          "bytes": 3008,
+          "sha256": "ba22e0454e01f6054ad9a80aa766b7ca80512ee879639669f64aed3deabd98fb"
+        }
+      ]
+    },
+    {
+      "protocol": "HAIER_AC160",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "haier_ac160_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 68,
+          "bytes": 4191,
+          "sha256": "3232f153af99356281d29e94fff61fb7db09e91cfa503f425a77a94e08da8099"
+        }
+      ]
+    },
+    {
+      "protocol": "HAIER_AC176",
+      "models": [
+        {
+          "value": 1,
+          "name": "V9014557_A",
+          "module": "haier_ac176_1",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 87,
+          "bytes": 4562,
+          "sha256": "1ecf213ec68f7ff33f7193b042d5087598846a89415ef1fee5d8e7590c8f8d14"
+        },
+        {
+          "value": 2,
+          "name": "V9014557_B",
+          "module": "haier_ac176_2",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 87,
+          "bytes": 4574,
+          "sha256": "ccc9a3511354db2d78f3900637755a662ceeb58fc0ed84729a3bc1141da5e991"
+        }
+      ]
+    },
+    {
+      "protocol": "HAIER_AC_YRW02",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "haier_ac_yrw02_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 85,
+          "bytes": 3865,
+          "sha256": "8372761bf97f335abd1335ffb27aa2baeae56fa36fd4f3d1bc83d953c66127c6"
+        }
+      ]
+    },
+    {
+      "protocol": "HITACHI_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "hitachi_ac_0",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 124,
+          "bytes": 8461,
+          "sha256": "2425fb5a31d970ad47f25e9c90588b08112cdf4fc2079a2f9fce463100b96d4c"
+        }
+      ]
+    },
+    {
+      "protocol": "HITACHI_AC1",
+      "models": [
+        {
+          "value": 1,
+          "name": "R_LT0541_HTA_A",
+          "module": "hitachi_ac1_1",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 29440,
+          "nodes": 349,
+          "bytes": 8876,
+          "sha256": "90f37c47804b451325a21a1842b6e6b7ec3635a06e3750934b3133ed3f92fb6a"
+        },
+        {
+          "value": 2,
+          "name": "R_LT0541_HTA_B",
+          "module": "hitachi_ac1_2",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 29440,
+          "nodes": 349,
+          "bytes": 8876,
+          "sha256": "7a569b89268f866f2c49213c759b07f4a5bad1a76a4f73463ca72f892f7e137e"
+        }
+      ]
+    },
+    {
+      "protocol": "HITACHI_AC264",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "hitachi_ac264_0",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 27,
+          "bytes": 4730,
+          "sha256": "05a2d483b1f9a33e34d4611e043e208cab90b4efa630395577ccf3e54a63b2f0"
+        }
+      ]
+    },
+    {
+      "protocol": "HITACHI_AC296",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "hitachi_ac296_0",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 230,
+          "bytes": 8935,
+          "sha256": "c126194993f815768b2331a610aad877bb5b8a13e7996590fac5fb842aa8498c"
+        }
+      ]
+    },
+    {
+      "protocol": "HITACHI_AC344",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "hitachi_ac344_0",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 7360,
+          "nodes": 46,
+          "bytes": 5902,
+          "sha256": "98d3a8069414e174cce87b5b9ac865ee68a8a1535c38e2aa1e124e640e51c287"
+        }
+      ]
+    },
+    {
+      "protocol": "HITACHI_AC424",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "hitachi_ac424_0",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 44,
+          "bytes": 6734,
+          "sha256": "efe39ba142d46d106f419196a0f4d0adcb9c7de724a7259350276c1f27c42908"
+        }
+      ]
+    },
+    {
+      "protocol": "KELON",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "kelon_0",
+          "min": 18,
+          "max": 32,
+          "modes": [
+            2
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 14720,
+          "nodes": 19,
+          "bytes": 1580,
+          "sha256": "1181995430b6e91594053ab93ca16f3c8dc3cf1c1fc75f6ace531bc904f72802"
+        }
+      ]
+    },
+    {
+      "protocol": "KELVINATOR",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "kelvinator_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 76,
+          "bytes": 5546,
+          "sha256": "27bf5f350828d8f9284f1da79ee5809514d79a4ecc4b5efce5192fd93b664c49"
+        }
+      ]
+    },
+    {
+      "protocol": "LG",
+      "models": [
+        {
+          "value": 1,
+          "name": "GE6711AR2853M",
+          "module": "lg_1",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 93,
+          "bytes": 3806,
+          "sha256": "41d8a817dcca79a5b1941d2b6f780abb28e3c5b2cb37fd4807ffa14ff55ccdb1"
+        },
+        {
+          "value": 5,
+          "name": "LG6711A20083V",
+          "module": "lg_5",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 117,
+          "bytes": 4359,
+          "sha256": "f76bd09a36391d4b309bc09cbdc624ae2b556cd5926e6ec1b9f1371bd91180ea"
+        }
+      ]
+    },
+    {
+      "protocol": "LG2",
+      "models": [
+        {
+          "value": 2,
+          "name": "AKB75215403",
+          "module": "lg2_2",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 93,
+          "bytes": 3806,
+          "sha256": "6e7a9c1b473e353603ea006d1ae2fcce464e713690d55bb56f4443c62cefda63"
+        },
+        {
+          "value": 3,
+          "name": "AKB74955603",
+          "module": "lg2_3",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 150,
+          "bytes": 5031,
+          "sha256": "e1ba191aa77a61bc789d745660fb8c5343140749063741a88f551bfb79e03cac"
+        },
+        {
+          "value": 4,
+          "name": "AKB73757604",
+          "module": "lg2_4",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": true,
+          "rows": 7360,
+          "nodes": 115,
+          "bytes": 5136,
+          "sha256": "295a634d6eb856894c9830ba2d6d70b200210cee9a6f6c32d507d9cd676430e4"
+        }
+      ]
+    },
+    {
+      "protocol": "MIDEA",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "midea_0",
+          "min": 17,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 62,
+          "bytes": 4976,
+          "sha256": "ab415d91bfe6527d0a3a5e8cbdeb45f061fd49e86e7c5b3ecda116d128576b91"
+        }
+      ]
+    },
+    {
+      "protocol": "MIRAGE",
+      "models": [
+        {
+          "value": 1,
+          "name": "KKG9AC1",
+          "module": "mirage_1",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 106,
+          "bytes": 5305,
+          "sha256": "bbdbff9d51af3e46aac7bdd45bb6067f4bc13bbaac0836c978bd8fbe6788d40e"
+        },
+        {
+          "value": 2,
+          "name": "KKG29AC1",
+          "module": "mirage_2",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 129,
+          "bytes": 5838,
+          "sha256": "b598d0476b664279a3f9261f16aa70e7d9177e83537f628ded8164e6676445a0"
+        }
+      ]
+    },
+    {
+      "protocol": "MITSUBISHI112",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "mitsubishi112_0",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 61,
+          "bytes": 4348,
+          "sha256": "c9c13901d0b2ce2a550a5cbf43677d70286db823db54fc8f6a18ccffcca30565"
+        }
+      ]
+    },
+    {
+      "protocol": "MITSUBISHI136",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "mitsubishi136_0",
+          "min": 17,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 23,
+          "bytes": 3089,
+          "sha256": "2e03e028ea10273582d3bf4b4f61bd18ee86b565ecbd21e24e3abf8ca32be58d"
+        }
+      ]
+    },
+    {
+      "protocol": "MITSUBISHI_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "mitsubishi_ac_0",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 136,
+          "bytes": 8283,
+          "sha256": "04ba3b2c4a302cfd022998007925e27ebbf264ab7e9b02f0a363319a57305880"
+        }
+      ]
+    },
+    {
+      "protocol": "MITSUBISHI_HEAVY_152",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "mitsubishi_heavy_152_0",
+          "min": 17,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 27,
+          "bytes": 3313,
+          "sha256": "9627d79b68886af164a68ae49e6453fc5f43a69d8e24d5d1e14cc9a0f7e24a4d"
+        }
+      ]
+    },
+    {
+      "protocol": "MITSUBISHI_HEAVY_88",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "mitsubishi_heavy_88_0",
+          "min": 17,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 29,
+          "bytes": 2695,
+          "sha256": "d7cbcf365074691d1b66900f3b6ea27ff2a9451f9527be613c9092b04b184f9b"
+        }
+      ]
+    },
+    {
+      "protocol": "NEOCLIMA",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "neoclima_0",
+          "min": 16,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 96,
+          "bytes": 4520,
+          "sha256": "d0a412b786c3ba66d02344412be7d1ca5e67ac345115ad21a085e4330a1d7d3b"
+        }
+      ]
+    },
+    {
+      "protocol": "PANASONIC_AC",
+      "models": [
+        {
+          "value": 1,
+          "name": "kPanasonicLke",
+          "module": "panasonic_ac_1",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 43,
+          "bytes": 4932,
+          "sha256": "c55ce0bc3058277618cae216f1f3e737dce06c6c96457c2e80d69edeac5bef86"
+        },
+        {
+          "value": 2,
+          "name": "kPanasonicNke",
+          "module": "panasonic_ac_2",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 44,
+          "bytes": 5065,
+          "sha256": "ba9891e3533da641b1380853db8fb6a4050ff6ca4be1d1eca14984dfe4665b8a"
+        },
+        {
+          "value": 3,
+          "name": "kPanasonicDke",
+          "module": "panasonic_ac_3",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 41,
+          "bytes": 4677,
+          "sha256": "75cda9e09896b123a3400de27ba6080f579f5be2c1356e11c2219898c6277515"
+        },
+        {
+          "value": 4,
+          "name": "kPanasonicJke",
+          "module": "panasonic_ac_4",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 43,
+          "bytes": 4934,
+          "sha256": "ac7f64625bf1b5e5e9ab4d77ae84ceac5615000d15c099e9fde78043f549a4ba"
+        },
+        {
+          "value": 5,
+          "name": "kPanasonicCkp",
+          "module": "panasonic_ac_5",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 44,
+          "bytes": 4829,
+          "sha256": "a4c484e0b1cf40bd74eaf2673ec0ce05470fd38e6161ae8606e22494448da0b4"
+        },
+        {
+          "value": 6,
+          "name": "kPanasonicRkr",
+          "module": "panasonic_ac_6",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 47,
+          "bytes": 4602,
+          "sha256": "6b20a468b9e8d24fa7a917243f3167e5f2912078456a0af60c88aa8bb8a99cd3"
+        }
+      ]
+    },
+    {
+      "protocol": "PANASONIC_AC32",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "panasonic_ac32_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": true,
+          "rows": 7360,
+          "nodes": 18,
+          "bytes": 2378,
+          "sha256": "80873622f5eb0dd7871a3b9e69ab67c0483d95a9e90decd88da5f5264a2df55e"
+        }
+      ]
+    },
+    {
+      "protocol": "RHOSS",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "rhoss_0",
+          "min": 10,
+          "max": 14,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 62,
+          "bytes": 4078,
+          "sha256": "c2e1b825060fae38fb3d5aed57e62f6a350c4ac1b253373b359ff73260d77818"
+        }
+      ]
+    },
+    {
+      "protocol": "SAMSUNG_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "samsung_ac_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 7360,
+          "nodes": 79,
+          "bytes": 4614,
+          "sha256": "2563737d6a10119826ea85350f841ce69d4fff1e70a7a9ed464a7ab2bebc506b"
+        }
+      ]
+    },
+    {
+      "protocol": "SANYO_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "sanyo_ac_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 68,
+          "bytes": 4859,
+          "sha256": "b2f5c11efc34f28104a7a300c1e27e51ef31c80d3f3e773fd36e9c476f1199a7"
+        }
+      ]
+    },
+    {
+      "protocol": "SANYO_AC88",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "sanyo_ac88_0",
+          "min": 10,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 15,
+          "bytes": 3811,
+          "sha256": "17948cecd394b0b9e4ea02fbb53dab230601cb7ae1d604db0dba0ec759d17304"
+        }
+      ]
+    },
+    {
+      "protocol": "SHARP_AC",
+      "models": [
+        {
+          "value": 1,
+          "name": "A907",
+          "module": "sharp_ac_1",
+          "min": 15,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 14720,
+          "nodes": 50,
+          "bytes": 3083,
+          "sha256": "87a8b45cbb9f9251e61d2a0544b901bec9c4fbc7d5206ab99394eb16773b6499"
+        },
+        {
+          "value": 2,
+          "name": "A705",
+          "module": "sharp_ac_2",
+          "min": 15,
+          "max": 30,
+          "modes": [
+            1,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 14720,
+          "nodes": 48,
+          "bytes": 2948,
+          "sha256": "fea8f865b3e08c9923c38aebb1b4dac0716fe7a61af77b9c584359919966c14b"
+        },
+        {
+          "value": 3,
+          "name": "A903",
+          "module": "sharp_ac_3",
+          "min": 15,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            3
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 14720,
+          "nodes": 48,
+          "bytes": 2950,
+          "sha256": "ae399a1b95d2f444de718bb64f43eaf541652e400d6e3a1600c5eafd1143d5d2"
+        }
+      ]
+    },
+    {
+      "protocol": "TCL112AC",
+      "models": [
+        {
+          "value": 1,
+          "name": "TAC09CHSD",
+          "module": "tcl112ac_1",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 179,
+          "bytes": 7477,
+          "sha256": "21fb5d85e05e4c8d6406abaf756a94bcd02095b3cd8a494c030ed7e071a174e4"
+        },
+        {
+          "value": 2,
+          "name": "GZ055BE1",
+          "module": "tcl112ac_2",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 170,
+          "bytes": 7342,
+          "sha256": "aec4016eaf45bd867b69d2bedf0ed797c686549fb8f4525e83b05a829b33e5d9"
+        }
+      ]
+    },
+    {
+      "protocol": "TECHNIBEL_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "technibel_ac_0",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 61,
+          "bytes": 4627,
+          "sha256": "1edfca51999611d3a00d1a641f9929a0d11cdaa9414b462570ca0694bef4ed5d"
+        }
+      ]
+    },
+    {
+      "protocol": "TECO",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "teco_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 14,
+          "bytes": 1357,
+          "sha256": "613808d23feec1cfb6e50307ab0744da92d571ed887c97632e2764c1353d6e94"
+        }
+      ]
+    },
+    {
+      "protocol": "TEKNOPOINT",
+      "models": [
+        {
+          "value": 2,
+          "name": "GZ055BE1",
+          "module": "teknopoint_2",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 170,
+          "bytes": 7342,
+          "sha256": "aec4016eaf45bd867b69d2bedf0ed797c686549fb8f4525e83b05a829b33e5d9"
+        }
+      ]
+    },
+    {
+      "protocol": "TOSHIBA_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "kToshibaGenericRemote_A",
+          "module": "toshiba_ac_0",
+          "min": 17,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 24,
+          "bytes": 3957,
+          "sha256": "890b5136bf25230e5f29d704a8870e18afd15e84c8059367c49604d24012a829"
+        },
+        {
+          "value": 1,
+          "name": "kToshibaGenericRemote_B",
+          "module": "toshiba_ac_1",
+          "min": 17,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 24,
+          "bytes": 3957,
+          "sha256": "890b5136bf25230e5f29d704a8870e18afd15e84c8059367c49604d24012a829"
+        }
+      ]
+    },
+    {
+      "protocol": "TRANSCOLD",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "transcold_0",
+          "min": 18,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 7360,
+          "nodes": 219,
+          "bytes": 5841,
+          "sha256": "32617298a850e2e005f112bb335a1f94614307de142907878986fb33a38837ec"
+        }
+      ]
+    },
+    {
+      "protocol": "TROTEC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "trotec_0",
+          "min": 18,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            3,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 49,
+          "bytes": 4002,
+          "sha256": "b451d66b6c5ea03c85c8fdc62c5d19126c74a697fdfd402faa050ae2446ab0cf"
+        }
+      ]
+    },
+    {
+      "protocol": "TROTEC_3550",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "trotec_3550_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 88,
+          "bytes": 5545,
+          "sha256": "e0d1ee31b195a9a451a12c67b6462b165e87010c8e063b0e1df257f3022f600b"
+        }
+      ]
+    },
+    {
+      "protocol": "TRUMA",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "truma_0",
+          "min": 16,
+          "max": 31,
+          "modes": [
+            0,
+            1,
+            4
+          ],
+          "vertical": false,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 48,
+          "bytes": 3368,
+          "sha256": "c5b55b7ccc1b5675d04026623e9b471ec7df66d27c8a5000b109a070d91b62db"
+        }
+      ]
+    },
+    {
+      "protocol": "VESTEL_AC",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "vestel_ac_0",
+          "min": 18,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 57,
+          "bytes": 3136,
+          "sha256": "c3b9036722eaaaadf8e712affe39e7f629554315f5c87201bc35b78f41d6264b"
+        }
+      ]
+    },
+    {
+      "protocol": "VOLTAS",
+      "models": [
+        {
+          "value": 0,
+          "name": "kVoltasUnknown",
+          "module": "voltas_0",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": true,
+          "rows": 3680,
+          "nodes": 93,
+          "bytes": 5106,
+          "sha256": "4f9b4c4d927e1a4a2b9848bc45f5e6624800916d07e292057855684248a9e691"
+        },
+        {
+          "value": 1,
+          "name": "kVoltas122LZF",
+          "module": "voltas_1",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 61,
+          "bytes": 4321,
+          "sha256": "f49e5cb01055946b1ceeef0a522e48a4a6dc56362578899a79a1d462d94e84b1"
+        }
+      ]
+    },
+    {
+      "protocol": "WHIRLPOOL_AC",
+      "models": [
+        {
+          "value": 1,
+          "name": "DG11J13A",
+          "module": "whirlpool_ac_1",
+          "min": 18,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 26,
+          "bytes": 3109,
+          "sha256": "80b1096faf383c45c9025c2ad7c1088ad652dc7a19c8d02e59bd64c45d42894f"
+        },
+        {
+          "value": 2,
+          "name": "DG11J191",
+          "module": "whirlpool_ac_2",
+          "min": 16,
+          "max": 30,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 7360,
+          "nodes": 26,
+          "bytes": 3115,
+          "sha256": "2a7e08997c1889477763a6666bd0b1a6ab9ca584e70a0e7ae2d56a28c52004d6"
+        }
+      ]
+    },
+    {
+      "protocol": "YORK",
+      "models": [
+        {
+          "value": 0,
+          "name": "default",
+          "module": "york_0",
+          "min": 18,
+          "max": 32,
+          "modes": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "vertical": true,
+          "horizontal": false,
+          "rows": 3680,
+          "nodes": 78,
+          "bytes": 5276,
+          "sha256": "e3d315c73441438333f82fe6448a7cb52b145fd1d6c3f1407645c8322ee9ef04"
+        }
+      ]
+    }
+  ]
+}

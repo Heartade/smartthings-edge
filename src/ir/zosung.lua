@@ -21,9 +21,15 @@ function M.encode_timings(timings)
   assert(type(timings) == "table" and #timings > 0 and #timings % 2 == 0,
     "timings must be alternating mark/space pairs")
   local bytes = {}
-  for _, v in ipairs(timings) do
-    assert(type(v) == "number" and v == math.floor(v) and v > 0 and v <= 65535,
-      "timing outside 1..65535 microseconds")
+  for index, v in ipairs(timings) do
+    -- A zero-length mark continues a long idle without adding an IR pulse.
+    -- Only allow it between a full uint16 idle and its positive remainder.
+    local continuation = v == 0 and index > 1 and index % 2 == 1 and
+      timings[index - 1] == 65535 and type(timings[index + 1]) == "number" and
+      timings[index + 1] > 0 and timings[index + 1] <= 65535
+    assert(type(v) == "number" and v == math.floor(v) and
+      ((v > 0 and v <= 65535) or continuation),
+      "timing outside uint16 range or invalid idle continuation")
     bytes[#bytes + 1] = v % 256
     bytes[#bytes + 1] = math.floor(v / 256)
   end

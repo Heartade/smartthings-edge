@@ -1,9 +1,14 @@
 package.path = "src/?.lua;src/?/init.lua;" .. package.path
+local sdk = assert(os.getenv("SMARTTHINGS_LUA_LIBS"), "set SMARTTHINGS_LUA_LIBS")
+package.path = sdk .. "/?.lua;" .. sdk .. "/?/init.lua;" .. package.path
+local build_cap = require("st.capabilities").build_cap_from_json_string
+package.loaded["st.capabilities"] = nil
 
 local template
 local now = 100
 local sent, timers = {}, {}
 local capability = {
+  build_cap_from_json_string = build_cap,
   refresh = { ID = "refresh", commands = { refresh = { NAME = "refresh" } } },
   switch = { ID = "switch", commands = {
     on = { NAME = "on" }, off = { NAME = "off" }
@@ -41,6 +46,7 @@ local wire = require "ir.zosung_wire"
 local zosung = require "ir.zosung"
 local parent = {
   id = "blaster-1",
+  get_field = function() end,
   log = { info = function() end, warn = function() end }
 }
 
@@ -174,6 +180,7 @@ assert(sent[#sent].cluster == 0xE004 and sent[#sent].payload == '{"study":0}')
 
 local failed_parent = {
   id = "blaster-no-timer",
+  get_field = function() end,
   log = { info = function() end, warn = function() end }
 }
 local failed_child = new_child("no-timer", "")

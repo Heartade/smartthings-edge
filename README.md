@@ -4,7 +4,9 @@ An in-progress SmartThings Edge driver for TS1201 (Moes/Zosung) IR blasters. Eac
 
 ## Status
 
-The driver includes exact learned-state control, LG/LG2 encoders, and eight additional experimental protocol variants from IRremoteESP8266. AC children expose power, AC mode, one target-temperature slider, fan speed, and supported swing directions. Native SmartThings AC modes label `dry` as **제습** in Korean. Protocol waveforms and complete Zigbee chunk transfers have local reference tests; AC compatibility still requires a physical check. Other named remote buttons are not implemented.
+The driver includes exact learned-state control, 22 legacy protocol choices, and a generated catalog covering all 66 common AC protocol identifiers in the pinned IRremoteESP8266 revision (91 protocol/model combinations). AC children expose power, AC mode, one target-temperature slider, fan speed, and supported swing directions. Native SmartThings AC modes label `dry` as **제습** in Korean. The ports remain experimental pending physical AC/blaster checks. TV, fan and generic children can learn their supported buttons.
+
+Select **IRac …** in the AC child's Settings and choose an **AC protocol model** from the [model table](docs/ac-catalog-models.md), or leave it at `0` for the default. See [catalog scope, limits and rebuilding](docs/ac-catalog.md). No new custom capability registration is needed.
 
 See [the driver design](docs/driver-design.md) for the intended behavior and acceptance checks, [the implementation plan](docs/implementation-plan.md) for the remaining work, and [protocol sources](docs/protocol-sources.md) for encoder references.
 
@@ -39,10 +41,9 @@ Install a Lua 5.3 interpreter, then run the standalone checks individually:
 lua tests/ac_state.lua
 lua tests/ac_registry.lua
 lua tests/ac_protocols.lua
+lua tests/ac_catalog.lua
 lua tests/ac_learned_state.lua
 lua tests/children.lua
-lua tests/edge_lifecycle.lua
-lua tests/edge_child_control.lua
 lua tests/ir_controller.lua
 lua tests/edge_zigbee.lua
 lua tests/ir_learned_actions.lua
@@ -56,9 +57,11 @@ These scripts exercise state, child controls, Zosung transport and 338 waveform 
 lua tests/edge_zigbee_sdk.lua
 lua tests/edge_ac_controls_sdk.lua
 lua tests/gui_sdk.lua
+lua tests/edge_lifecycle.lua
+lua tests/edge_child_control.lua
 ```
 
-The SDK tests serialize complete on/off payload transfers for all 11 protocol choices and check the AC mode, single temperature, swing, persisted state and profile migration paths. They do not confirm physical AC reception.
+The SDK tests serialize complete on/off payload transfers for 113 protocol/model choices and check AC controls, transfer-state persistence and profile migration. They do not confirm physical AC reception. The generated catalog also has an exhaustive upstream waveform comparison; see its rebuilding guide.
 
 ### Package and install on a development hub
 

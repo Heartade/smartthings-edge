@@ -46,6 +46,72 @@ preferences:
         tcl112_gz055be1: TCL Teknopoint 112 GZ055BE1
         midea_48: Midea 48-bit (no swing)
         daikin_152: Daikin 152 ARC480A5
+        irac_airton: IRac AIRTON
+        irac_airwell: IRac AIRWELL
+        irac_amcor: IRac AMCOR
+        irac_argo: IRac ARGO
+        irac_bosch144: IRac BOSCH144
+        irac_carrier_ac64: IRac CARRIER_AC64
+        irac_coolix: IRac COOLIX
+        irac_corona_ac: IRac CORONA_AC
+        irac_daikin: IRac DAIKIN
+        irac_daikin128: IRac DAIKIN128
+        irac_daikin152: IRac DAIKIN152
+        irac_daikin160: IRac DAIKIN160
+        irac_daikin176: IRac DAIKIN176
+        irac_daikin2: IRac DAIKIN2
+        irac_daikin216: IRac DAIKIN216
+        irac_daikin312: IRac DAIKIN312
+        irac_daikin64: IRac DAIKIN64
+        irac_delonghi_ac: IRac DELONGHI_AC
+        irac_ecoclim: IRac ECOCLIM
+        irac_electra_ac: IRac ELECTRA_AC
+        irac_eurom: IRac EUROM
+        irac_fujitsu_ac: IRac FUJITSU_AC
+        irac_goodweather: IRac GOODWEATHER
+        irac_gree: IRac GREE
+        irac_haier_ac: IRac HAIER_AC
+        irac_haier_ac160: IRac HAIER_AC160
+        irac_haier_ac176: IRac HAIER_AC176
+        irac_haier_ac_yrw02: IRac HAIER_AC_YRW02
+        irac_hitachi_ac: IRac HITACHI_AC
+        irac_hitachi_ac1: IRac HITACHI_AC1
+        irac_hitachi_ac264: IRac HITACHI_AC264
+        irac_hitachi_ac296: IRac HITACHI_AC296
+        irac_hitachi_ac344: IRac HITACHI_AC344
+        irac_hitachi_ac424: IRac HITACHI_AC424
+        irac_kelon: IRac KELON
+        irac_kelvinator: IRac KELVINATOR
+        irac_lg: IRac LG
+        irac_lg2: IRac LG2
+        irac_midea: IRac MIDEA
+        irac_mirage: IRac MIRAGE
+        irac_mitsubishi112: IRac MITSUBISHI112
+        irac_mitsubishi136: IRac MITSUBISHI136
+        irac_mitsubishi_ac: IRac MITSUBISHI_AC
+        irac_mitsubishi_heavy_152: IRac MITSUBISHI_HEAVY_152
+        irac_mitsubishi_heavy_88: IRac MITSUBISHI_HEAVY_88
+        irac_neoclima: IRac NEOCLIMA
+        irac_panasonic_ac: IRac PANASONIC_AC
+        irac_panasonic_ac32: IRac PANASONIC_AC32
+        irac_rhoss: IRac RHOSS
+        irac_samsung_ac: IRac SAMSUNG_AC
+        irac_sanyo_ac: IRac SANYO_AC
+        irac_sanyo_ac88: IRac SANYO_AC88
+        irac_sharp_ac: IRac SHARP_AC
+        irac_tcl112ac: IRac TCL112AC
+        irac_technibel_ac: IRac TECHNIBEL_AC
+        irac_teco: IRac TECO
+        irac_teknopoint: IRac TEKNOPOINT
+        irac_toshiba_ac: IRac TOSHIBA_AC
+        irac_transcold: IRac TRANSCOLD
+        irac_trotec: IRac TROTEC
+        irac_trotec_3550: IRac TROTEC_3550
+        irac_truma: IRac TRUMA
+        irac_vestel_ac: IRac VESTEL_AC
+        irac_voltas: IRac VOLTAS
+        irac_whirlpool_ac: IRac WHIRLPOOL_AC
+        irac_york: IRac YORK
       default: lg_28
   - title: AC temperature unit
     name: acTemperatureUnit
@@ -57,3 +123,12 @@ preferences:
         C: Celsius
         F: Fahrenheit
       default: C
+  - title: AC protocol model
+    name: acModel
+    description: 'For IRac protocols: 0 selects the default model. See docs/ac-catalog.md for model numbers. Legacy protocols ignore this setting.'
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 6
+      default: 0
