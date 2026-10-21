@@ -4,6 +4,8 @@ local actions = require "ir.learned_actions"
 local ac_store = require "ac.learned_state"
 local ac_state = require "ac.state"
 local tv_buttons = require "ir.tv_buttons"
+local definitions = require "capability_definitions"
+local json = require "st.json"
 local M = {
   IDS = { creation = "againmusic09479.irRemoteCreation",
     learning = "againmusic09479.irSignalLearning", setup = "againmusic09479.acLearningSetup",
@@ -17,10 +19,20 @@ function M.new(capabilities, services)
   local g = { caps = {}, creation_timers = {} }
   for name, id in pairs(M.IDS) do
     local ok, cap = pcall(function()
+      if definitions[name] then
+        local definition = json.decode(definitions[name])
+        definition.id, definition.version = id, 1
+        local candidate = capabilities.build_cap_from_json_string(json.encode(definition), false)
+        -- Command dispatch also resolves this table by ID. Use the same current
+        -- schema there as for event construction, rather than its cached proxy.
+        capabilities[id] = candidate
+        return candidate
+      end
       local candidate = capabilities[id]
       if candidate and candidate.commands then return candidate end
     end)
-    if ok then g.caps[name] = cap end
+    if ok then g.caps[name] = cap
+    elseif definitions[name] then error("Could not load bundled " .. name .. " capability: " .. tostring(cap)) end
   end
   local function supports(device, cap)
     if not cap or not device.supports_capability then return false end

@@ -217,3 +217,9 @@ Non-AC power switches initialize from the last successfully sent state, then the
 cached switch state, or Off if neither exists. This is an assumed state, not IR
 feedback. A successful power transmission persists the new state. Learning or
 testing a signal does not change the power state.
+
+The driver bundles the exact creation, learning and AC setup schemas in
+`src/capability_definitions.lua`. It builds native SDK capability objects from
+those definitions for both events and commands, rather than using a stale hub
+schema. The registration script regenerates this Lua module from the same JSON
+files uploaded to SmartThings. Capability IDs and version 1 remain unchanged.
