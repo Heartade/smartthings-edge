@@ -140,6 +140,9 @@
           },
           "audio": {
             "label": "음성 언어"
+          },
+          "settings": {
+            "label": "설정"
           }
         }
       }

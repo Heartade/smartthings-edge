@@ -173,7 +173,7 @@ end
 local function publish_ac_state(device, current)
   local unit = ac_unit_for(device)
   local mode = current.mode == "fan" and "fanOnly" or current.mode
-  local selection = device.preferences and device.preferences.acProtocol or "learned_state"
+  local selection = gui.protocol_selection(device)
   local features = ac_registry.describe(AC_PROTOCOLS[selection]) or {
     min_temperature = 16, max_temperature = 30,
     swing_modes = { "off", "vertical", "horizontal", "all" }
@@ -228,7 +228,7 @@ gui = gui_module.new(capabilities, {
 })
 
 local function ac_payload_for(device, current, patch)
-  local selection = device.preferences and device.preferences.acProtocol or "learned_state"
+  local selection = gui.protocol_selection(device)
   local protocol = AC_PROTOCOLS[selection]
   if not protocol then return nil, "unsupported AC protocol selection: " .. tostring(selection) end
   if protocol == "learned-state" then
@@ -442,9 +442,10 @@ local function initialize_device(driver, device)
   local profile = gui.profile(device)
   if profile and gui.needs_profile(device, profile) then
     if device:get_field("gui_profile_migration_requested") == profile then return end
+    device.log.info("Updating remote profile to " .. profile)
     local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
     if ok then
-      device:set_field("gui_profile_revision", 3, { persist = true })
+      device:set_field("gui_profile_revision", 4, { persist = true })
       device:set_field("gui_profile_migration_requested", profile)
       return -- infoChanged publishes the new capability events after migration.
     end
@@ -453,6 +454,11 @@ local function initialize_device(driver, device)
   end
   device:set_field("gui_profile_migration_requested", nil)
   gui.initialize(driver, device)
+  if gui.kind(device) == "remote-tv" and capabilities.keypadInput then
+    local keys = { "UP", "DOWN", "LEFT", "RIGHT", "SELECT", "BACK", "EXIT", "MENU", "HOME", "SETTINGS" }
+    for i = 0, 9 do keys[#keys + 1] = "NUMBER" .. i end
+    emit_event(device, capabilities.keypadInput.supportedKeyCodes(keys))
+  end
   if not is_ac_device(device) then return end
   local current = ac_state_for(device)
   if device:get_field("ac_desired_state") == nil then
@@ -663,17 +669,27 @@ for command_name, fan in pairs({
   end)
 end
 
+-- Standard keypadInput invokes the app's native TV navigation/numeric remote.
+local tv_keys = { UP = "up", DOWN = "down", LEFT = "left", RIGHT = "right",
+  SELECT = "ok", BACK = "back", EXIT = "exit", MENU = "menu", HOME = "home", SETTINGS = "settings" }
+for i = 0, 9 do tv_keys["NUMBER" .. i] = "digit_" .. i end
+add_capability_handler("keypadInput", "sendKey", function(driver, device, command)
+  if gui.kind(device) ~= "remote-tv" then return end
+  local action = tv_keys[command.args and command.args.keyCode]
+  if action then send_switch_action(driver, device, action, nil) end
+end)
+
 -- TV buttons share the same capture store and parent transfer ownership as power.
 for _, button in ipairs(require("ir.tv_buttons").buttons) do
   local action = button.action
   add_capability_handler(gui_module.IDS[button.capability], button.command, function(driver, device)
-    if device.model ~= "remote-tv" then return end
+    if gui.kind(device) ~= "remote-tv" then return end
     send_switch_action(driver, device, action, nil)
   end)
 end
 
 local supported_capabilities = {
-  capabilities.refresh, capabilities.switch, capabilities.thermostatMode,
+  capabilities.refresh, capabilities.switch, capabilities.keypadInput, capabilities.thermostatMode,
   capabilities.thermostatCoolingSetpoint, capabilities.thermostatHeatingSetpoint,
   capabilities.fanMode, capabilities.airConditionerMode,
   capabilities.temperatureSetpoint, capabilities.fanOscillationMode

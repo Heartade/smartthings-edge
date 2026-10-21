@@ -52,7 +52,8 @@
               "yellow",
               "blue",
               "subtitles",
-              "audio"
+              "audio",
+              "settings"
             ]
           }
         },
@@ -116,11 +117,12 @@
                 "yellow",
                 "blue",
                 "subtitles",
-                "audio"
+                "audio",
+                "settings"
               ]
             },
             "minItems": 1,
-            "maxItems": 45,
+            "maxItems": 46,
             "uniqueItems": true
           }
         },
@@ -243,7 +245,8 @@
               "yellow",
               "blue",
               "subtitles",
-              "audio"
+              "audio",
+              "settings"
             ]
           }
         }

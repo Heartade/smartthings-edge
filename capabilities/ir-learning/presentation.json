@@ -235,6 +235,11 @@
               "key": "audio",
               "value": "{{i18n.attributes.action.i18n.value.audio.label}}",
               "type": "active"
+            },
+            {
+              "key": "settings",
+              "value": "{{i18n.attributes.action.i18n.value.settings.label}}",
+              "type": "active"
             }
           ],
           "argumentType": "string",
@@ -467,6 +472,11 @@
             {
               "key": "audio",
               "value": "{{i18n.attributes.action.i18n.value.audio.label}}",
+              "type": "active"
+            },
+            {
+              "key": "settings",
+              "value": "{{i18n.attributes.action.i18n.value.settings.label}}",
               "type": "active"
             }
           ]

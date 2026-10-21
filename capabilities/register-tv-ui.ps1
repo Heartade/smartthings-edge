@@ -11,7 +11,7 @@ function Assert-CliSuccess {
 }
 $manifestPath = Join-Path (Get-Location) 'capabilities/manifest.json'
 $manifest = Get-Content $manifestPath -Raw -Encoding utf8 | ConvertFrom-Json
-$tvEntries = @($manifest.capabilities | Where-Object { $_.key -in @('tvRemote', 'tvKeypad', 'tvMedia') })
+$tvEntries = @($manifest.capabilities | Where-Object { $_.key -in @('tvRemote', 'tvMedia') })
 # Catch command-limit errors before making any API writes.
 foreach ($entry in $tvEntries) {
     $definition = Get-Content "capabilities/$($entry.definition)" -Raw -Encoding utf8 | ConvertFrom-Json
@@ -54,8 +54,13 @@ $script:RegistrationStep = "updating learning capability"
 Write-Host $script:RegistrationStep
 smartthings capabilities:update againmusic09479.irSignalLearning --capability-version 1 -i capabilities/ir-learning/capability.json
 Assert-CliSuccess
+$script:RegistrationStep = "updating remote creation capability"
+Write-Host $script:RegistrationStep
+smartthings capabilities:update againmusic09479.irRemoteCreation --capability-version 1 -i capabilities/remote-creation/capability.json
+Assert-CliSuccess
 $learning = $manifest.capabilities | Where-Object key -eq 'irLearning'
-foreach ($entry in @($tvEntries) + @($learning)) {
+$creation = $manifest.capabilities | Where-Object key -eq 'remoteCreation'
+foreach ($entry in @($tvEntries) + @($learning) + @($creation)) {
     $presentation = Get-Content "capabilities/$($entry.presentation)" -Raw -Encoding utf8 | ConvertFrom-Json
     $presentation | Add-Member -NotePropertyName id -NotePropertyValue $entry.registeredId -Force
     $payload = Join-Path $env:TEMP "ir-presentation-$([guid]::NewGuid()).json"

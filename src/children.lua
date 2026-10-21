@@ -3,7 +3,7 @@
 local M = {}
 local profiles = {
   ["remote-tv"] = true, ["remote-fan"] = true, ["remote-generic"] = true,
-  ["ac-button"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true
+  ["ac-protocol-learning"] = true, ["ac-button"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true
 }
 
 function M.parse(request)
@@ -37,6 +37,9 @@ function M.create(driver, parent, request, retry)
     model = spec.profile,
     vendor_provided_label = spec.label
   }
+  local types = parent:get_field("ir_child_types") or {}
+  types[spec.key] = spec.profile
+  parent:set_field("ir_child_types", types, { persist = true })
   driver:try_create_device(metadata)
   parent:set_field("last_child_request", request, { persist = true })
   return spec, "requested"

@@ -1,0 +1,61 @@
+name: ac-protocol-learning
+components:
+  - id: main
+    capabilities:
+      - id: switch
+        version: 1
+      - id: airConditionerMode
+        version: 1
+      - id: temperatureSetpoint
+        version: 1
+      - id: fanMode
+        version: 1
+      - id: fanOscillationMode
+        version: 1
+      - id: refresh
+        version: 1
+      - id: againmusic09479.acLearningSetup
+        version: 1
+      - id: againmusic09479.irSignalLearning
+        version: 1
+    categories:
+      - name: AirConditioner
+preferences:
+  - title: AC infrared protocol
+    name: acProtocol
+    description: 'Generated protocols are experimental and require a compatible remote variant; no learning is needed. See the protocol model table in the README. Use Learn states when no variant matches.'
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        learned_state: Learn states
+        lg_28: LG 28-bit (experimental)
+        lg2_28: LG2 28-bit (experimental)
+        lg2_akb74955603: LG2 AKB74955603
+        toshiba_72_a: Toshiba 72-bit A
+        toshiba_72_b: Toshiba 72-bit B
+        mitsubishi_144: Mitsubishi Electric 144-bit
+        gree_yaw1f: Gree YAW1F
+        gree_ybofb: Gree YBOFB
+        gree_yx1fsf: Gree YX1FSF
+        kelvinator_128: Kelvinator 128-bit
+        electra_104: Electra AUX 104-bit
+      default: learned_state
+  - title: AC temperature unit
+    name: acTemperatureUnit
+    description: 'Set the unit used by the SmartThings setpoint controls. Learned-state temperatures are entered in Celsius.'
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        C: Celsius
+        F: Fahrenheit
+      default: C
+  - title: Learn complete AC state
+    name: learnAcStateRequest
+    description: 'Enter token|on/off|mode|temp-C|fan|vertical-swing|horizontal-swing, e.g. learn-01|on|cool|24|auto|off|off. Use a new token each time, or token|cancel.'
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      maxLength: 120

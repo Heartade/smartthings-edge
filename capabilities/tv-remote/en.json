@@ -59,6 +59,9 @@
     },
     "info": {
       "label": "Info"
+    },
+    "settings": {
+      "label": "Settings"
     }
   }
 }

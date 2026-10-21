@@ -11,7 +11,7 @@ local M = {
     tvMedia = "againmusic09479.irTvMedia" }
 }
 local remote_types = { ["remote-tv"] = true, ["remote-fan"] = true,
-  ["remote-generic"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true }
+  ["remote-generic"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true, ["ac-protocol-learning"] = true }
 
 function M.new(capabilities, services)
   local g = { caps = {}, creation_timers = {} }
@@ -43,26 +43,55 @@ function M.new(capabilities, services)
     local ok, parent = pcall(device.get_parent_device, device)
     return ok and parent or nil
   end
-  function g.profile(device)
-    if device.model == "ac-protocol" or device.model == "ac-protocol-generated" then
-      local selection = device.preferences and device.preferences.acProtocol
-      return selection and selection ~= "learned_state" and "ac-protocol-generated" or "ac-protocol"
+  -- Zigbee children may not expose the model supplied at creation. Resolve the
+  -- type from their installed profile/capabilities as well as persisted metadata.
+  function g.kind(device)
+    local parent = g.parent(device)
+    local types = parent and parent:get_field("ir_child_types")
+    local assigned = types and types[device.parent_assigned_child_key]
+    if assigned then return assigned end
+    local stored = device:get_field("ir_remote_kind")
+    if stored then return stored end
+    local kind = device.model
+    if not remote_types[kind] and kind ~= "ac-protocol-generated" then
+      kind = device.profile and device.profile.name
     end
-    if remote_types[device.model] then return device.model end
+    if remote_types[kind] or kind == "ac-protocol-generated" then return kind end
+    if g.parent(device) then
+      if services.is_ac(device) then
+        return device.preferences and device.preferences.acProtocol ~= nil and "ac-protocol" or "ac-learned-state"
+      end
+      if supports(device, capabilities.keypadInput) or supports(device, g.caps.tv) or
+          supports(device, g.caps.tvKeypad) or supports(device, g.caps.tvMedia) then return "remote-tv" end
+    end
+  end
+  function g.protocol_selection(device)
+    local selection = device.preferences and device.preferences.acProtocol
+    if selection then return selection end
+    local kind = g.kind(device)
+    return (kind == "ac-protocol" or kind == "ac-protocol-generated") and "lg_28" or "learned_state"
+  end
+  function g.profile(device)
+    local kind = g.kind(device)
+    if kind == "ac-protocol" or kind == "ac-protocol-generated" or kind == "ac-protocol-learning" then
+      return g.protocol_selection(device) == "learned_state" and "ac-protocol-learning" or "ac-protocol"
+    end
+    if remote_types[kind] then return kind end
     if not g.parent(device) and device.get_short_address then return "ir-blaster" end
   end
   function g.needs_profile(device, profile)
     if not device.try_update_metadata then return false end
-    if device:get_field("gui_profile_revision") ~= 3 then return true end
+    if device:get_field("gui_profile_revision") ~= 4 then return true end
     if profile == "ir-blaster" then
       return g.caps.creation and not supports(device, g.caps.creation)
     end
-    if profile == "ac-protocol-generated" then
+    if profile == "ac-protocol" then
       return supports(device, g.caps.learning) or supports(device, g.caps.setup)
     end
     if remote_types[profile] then
       if profile == "remote-tv" then
-        for _, role in ipairs({ "tv", "tvKeypad", "tvMedia" }) do
+        if not supports(device, capabilities.keypadInput) or supports(device, g.caps.tvKeypad) then return true end
+        for _, role in ipairs({ "tv", "tvMedia" }) do
           if g.caps[role] and not supports(device, g.caps[role]) then return true end
         end
       end
@@ -75,11 +104,11 @@ function M.new(capabilities, services)
     return false
   end
   function g.learning_enabled(device)
-    return g.profile(device) ~= "ac-protocol-generated"
+    return g.profile(device) ~= "ac-protocol"
   end
   function g.allowed_action(device, action)
     if services.is_ac(device) then return action == "ac_state" end
-    if device.model == "remote-tv" then return tv_buttons.valid[action] == true end
+    if g.kind(device) == "remote-tv" then return tv_buttons.valid[action] == true end
     return action == "power_on" or action == "power_off"
   end
   function g.display_state(device)
@@ -99,7 +128,7 @@ function M.new(capabilities, services)
     if g.learning_enabled(device) and supports(device, g.caps.learning) then
       local valid, code = saved_code(device)
       emit(device, "learning", "supportedActions", services.is_ac(device) and { "ac_state" } or
-        (device.model == "remote-tv" and tv_buttons.actions or { "power_on", "power_off" }))
+        (g.kind(device) == "remote-tv" and tv_buttons.actions or { "power_on", "power_off" }))
       emit(device, "learning", "action", selected(device))
       emit(device, "learning", "signalStatus", valid and code and "saved" or "empty")
       emit(device, "learning", "learningStatus", device:get_field("gui_learning_status") or "idle")

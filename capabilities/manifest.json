@@ -29,7 +29,7 @@
         "remote-fan",
         "remote-generic",
         "ac-learned-state",
-        "ac-protocol"
+        "ac-protocol-learning"
       ]
     },
     {
@@ -44,7 +44,7 @@
       },
       "profiles": [
         "ac-learned-state",
-        "ac-protocol"
+        "ac-protocol-learning"
       ]
     },
     {
@@ -73,9 +73,7 @@
         "en": "tv-keypad/en.json",
         "ko": "tv-keypad/ko.json"
       },
-      "profiles": [
-        "remote-tv"
-      ]
+      "profiles": []
     },
     {
       "key": "tvMedia",

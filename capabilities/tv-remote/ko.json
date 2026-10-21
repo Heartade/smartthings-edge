@@ -59,6 +59,9 @@
     },
     "info": {
       "label": "정보"
+    },
+    "settings": {
+      "label": "설정"
     }
   }
 }

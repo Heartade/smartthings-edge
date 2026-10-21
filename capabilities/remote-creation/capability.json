@@ -12,7 +12,8 @@
               "remote-fan",
               "remote-generic",
               "ac-learned-state",
-              "ac-protocol"
+              "ac-protocol",
+              "ac-protocol-learning"
             ]
           }
         },
@@ -88,7 +89,8 @@
               "remote-fan",
               "remote-generic",
               "ac-learned-state",
-              "ac-protocol"
+              "ac-protocol",
+              "ac-protocol-learning"
             ]
           }
         }

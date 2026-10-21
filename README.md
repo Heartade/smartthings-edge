@@ -153,5 +153,15 @@ controls follow normal remote controls; AC learning controls disappear when a
 generated protocol is selected, and return when **Learn states** is selected.
 
 Before packaging this update, run `./capabilities/register-tv-ui.ps1` to register
-the three TV capability groups and update the existing learning definition/presentation.
+the TV control capabilities and update the existing learning definition/presentation.
 See [registration and button details](capabilities/README.md#tv-controls-and-updated-layout).
+
+TV navigation now uses the standard `keypadInput` native remote capability
+(arrows/OK, navigation and number pad), with learned codes mapped to its `sendKey`
+command. Extra TV buttons and the bottom learning card remain available.
+
+Child types **AC protocol** and **AC protocol with learning** now have separate
+profiles. Protocol-only children contain no IR learning capability. Existing
+protocol children select the appropriate profile from their encoder preference.
+Run `./capabilities/register-tv-ui.ps1` before packaging to update the parent
+creation choices and presentations; saved IR signals are preserved.

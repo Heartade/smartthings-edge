@@ -41,6 +41,7 @@ local M = { buttons = {
   { action = "yellow", command = "yellow", capability = "tvMedia" },
   { action = "blue", command = "blue", capability = "tvMedia" },
   { action = "subtitles", command = "subtitles", capability = "tvMedia" },
+  { action = "settings", command = "settings", capability = "tv" },
   { action = "audio", command = "audio", capability = "tvMedia" },
 } }
 M.actions = { "power_on", "power_off" }

@@ -140,6 +140,9 @@
           },
           "audio": {
             "label": "Audio language"
+          },
+          "settings": {
+            "label": "Settings"
           }
         }
       }

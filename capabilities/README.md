@@ -18,7 +18,7 @@ TV remotes additionally support every button in `src/ir/tv_buttons.lua`, each wi
 
 ## TV controls and updated layout
 
-Run this once from the repository root to register the three TV control groups and update
+Run this once from the repository root to register the TV control capabilities and update
 IR Signal Learning with the expanded button choices and a clean dashboard:
 
 ```powershell
@@ -26,30 +26,34 @@ IR Signal Learning with the expanded button choices and a clean dashboard:
 smartthings edge:drivers:package . --install
 ```
 
-TV controls are split into navigation/volume (19 commands), keypad (11), and
-media/extras (12), within SmartThings' limit of 20 commands per capability.
-The script prints and records each actual capability ID and updates its Lua and
-profile references. Intended IDs are `againmusic09479.irTvRemote`,
-`againmusic09479.irTvKeypad`, and `againmusic09479.irTvMedia` until registration
-returns actual IDs. Rerun the same script after an interruption; registrations
-already recorded in the manifest are reused. Translations use `upsert`, so existing English/Korean localizations are updated without a conflict. Existing presentations are updated with `presentation:update` after the specific duplicate-version response from `presentation:create`; other API errors stop the script with the failing step. `-TvCapabilityId <returned-id>` can
-also resume a previously created navigation capability. The script updates account resources
-only when you run it. Do not package before registering the new capability.
+TV uses SmartThings' standard `keypadInput` for navigation, OK, Back/Home/Menu/
+Settings/Exit and digits. This is the capability used by Otivax's IR driver:
+[author's explanation](https://community.smartthings.com/t/edge-moes-smart-ir-remote-control/271782/49).
+The app controls the native remote rendering. The official presentation also
+provides a list fallback; the circular pad's appearance must be checked on your phone.
 
-TV controls include power toggle; arrows and OK; Back/Home/Menu/Exit; volume,
-mute and channel controls; previous channel; digits 0–9 and subchannel dash;
-input, guide and info; playback/record; colored keys; subtitles and audio language.
+Volume/channel, mute, power toggle, previous channel, input/guide/info and
+media/extras remain custom buttons. The existing `irTvKeypad` resource is retained
+in the manifest for compatibility but is no longer attached to TV children.
+The script registers/reuses the two custom TV capabilities, extends learning,
+and updates parent creation choices. Existing translations and presentations
+are updated on repeat runs. Run the same script again after an interruption.
+
 Power On and Off remain on the main switch. Every button sends its separately
 learned signal; no TV protocol or manufacturer code is assumed. Select each
 button in the learning card at the bottom, then learn it from the original remote.
-Native SmartThings uses individual button rows, rather than a graphical keypad.
+Navigation and digits use the native keypad; the extra controls use button rows.
 
-Normal controls precede setup/learning cards in all profiles. Signal learning no
-longer adds a status tile to the dashboard. Generated AC protocols use the
-`ac-protocol-generated` profile, which omits both learning capabilities and the
-legacy learning preference. Selecting **Learn states** restores the learning
-profile. Profile changes retain stored codes. Existing devices request the new
-profile revision on startup; reopen the device page after installing.
+Normal controls precede setup/learning cards. **AC protocol** (`ac-protocol`)
+has no learning capabilities or learning preference and defaults to LG 28-bit;
+choose the correct encoder in Settings. **AC protocol with learning**
+(`ac-protocol-learning`) defaults to Learn states and exposes setup/learning at
+the bottom. Selecting a generated encoder on that child installs the clean
+protocol-only profile. **AC learned states** remains available independently.
+Existing protocol children migrate by their selected encoder, without deleting
+signals. Child classification also uses profile/capabilities and saved parent
+child-type records, because Zigbee children may not expose creation model metadata.
+No child deletion/recreation is required. Reopen the page after the migration.
 
 SmartThings groups status and command cards separately; exact rendering remains
 under app control. See [Device Configurations](https://developer.smartthings.com/docs/devices/configurations-and-presentations/device-configurations).

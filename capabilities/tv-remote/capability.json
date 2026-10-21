@@ -77,6 +77,10 @@
     "info": {
       "name": "info",
       "arguments": []
+    },
+    "settings": {
+      "name": "settings",
+      "arguments": []
     }
   }
 }

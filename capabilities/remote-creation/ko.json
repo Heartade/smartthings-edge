@@ -20,6 +20,9 @@
           },
           "ac-protocol": {
             "label": "에어컨 · 프로토콜"
+          },
+          "ac-protocol-learning": {
+            "label": "에어컨 · 프로토콜 및 신호 학습"
           }
         }
       }

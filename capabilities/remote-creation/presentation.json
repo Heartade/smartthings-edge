@@ -61,6 +61,11 @@
               "key": "ac-protocol",
               "value": "{{i18n.attributes.remoteType.i18n.value.ac-protocol.label}}",
               "type": "active"
+            },
+            {
+              "key": "ac-protocol-learning",
+              "value": "{{i18n.attributes.remoteType.i18n.value.ac-protocol-learning.label}}",
+              "type": "active"
             }
           ],
           "argumentType": "string"
@@ -92,6 +97,11 @@
             {
               "key": "ac-protocol",
               "value": "{{i18n.attributes.remoteType.i18n.value.ac-protocol.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ac-protocol-learning",
+              "value": "{{i18n.attributes.remoteType.i18n.value.ac-protocol-learning.label}}",
               "type": "active"
             }
           ]

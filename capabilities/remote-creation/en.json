@@ -20,6 +20,9 @@
           },
           "ac-protocol": {
             "label": "AC: generated protocol"
+          },
+          "ac-protocol-learning": {
+            "label": "AC protocol with learning"
           }
         }
       }

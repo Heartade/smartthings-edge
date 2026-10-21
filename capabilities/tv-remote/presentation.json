@@ -12,69 +12,6 @@
       }
     },
     {
-      "label": "{{i18n.commands.up.label}}",
-      "displayType": "pushButton",
-      "pushButton": {
-        "command": "up"
-      }
-    },
-    {
-      "label": "{{i18n.commands.left.label}}",
-      "displayType": "pushButton",
-      "pushButton": {
-        "command": "left"
-      }
-    },
-    {
-      "label": "{{i18n.commands.ok.label}}",
-      "displayType": "pushButton",
-      "pushButton": {
-        "command": "ok"
-      }
-    },
-    {
-      "label": "{{i18n.commands.right.label}}",
-      "displayType": "pushButton",
-      "pushButton": {
-        "command": "right"
-      }
-    },
-    {
-      "label": "{{i18n.commands.down.label}}",
-      "displayType": "pushButton",
-      "pushButton": {
-        "command": "down"
-      }
-    },
-    {
-      "label": "{{i18n.commands.back.label}}",
-      "displayType": "pushButton",
-      "pushButton": {
-        "command": "back"
-      }
-    },
-    {
-      "label": "{{i18n.commands.home.label}}",
-      "displayType": "pushButton",
-      "pushButton": {
-        "command": "home"
-      }
-    },
-    {
-      "label": "{{i18n.commands.menu.label}}",
-      "displayType": "pushButton",
-      "pushButton": {
-        "command": "menu"
-      }
-    },
-    {
-      "label": "{{i18n.commands.exit.label}}",
-      "displayType": "pushButton",
-      "pushButton": {
-        "command": "exit"
-      }
-    },
-    {
       "label": "{{i18n.commands.volumeUp.label}}",
       "displayType": "pushButton",
       "pushButton": {
