@@ -32,7 +32,7 @@ The script prints and records each actual capability ID and updates its Lua and
 profile references. Intended IDs are `againmusic09479.irTvRemote`,
 `againmusic09479.irTvKeypad`, and `againmusic09479.irTvMedia` until registration
 returns actual IDs. Rerun the same script after an interruption; registrations
-already recorded in the manifest are reused. `-TvCapabilityId <returned-id>` can
+already recorded in the manifest are reused. Translations use `upsert`, so existing English/Korean localizations are updated without a conflict. `-TvCapabilityId <returned-id>` can
 also resume a previously created navigation capability. The script updates account resources
 only when you run it. Do not package before registering the new capability.
 
@@ -120,9 +120,9 @@ $json = $presentation | ConvertTo-Json -Depth 100
 
 smartthings capabilities:presentation:create $capId `
     --capability-version $capVersion -i $payload
-smartthings capabilities:translations:create $capId `
+smartthings capabilities:translations:upsert $capId `
     --capability-version $capVersion -i "$folder/en.json"
-smartthings capabilities:translations:create $capId `
+smartthings capabilities:translations:upsert $capId `
     --capability-version $capVersion -i "$folder/ko.json"
 
 Write-Output "$folder = $capId (version $capVersion)"

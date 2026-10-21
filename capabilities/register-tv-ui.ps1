@@ -55,7 +55,7 @@ foreach ($entry in @($tvEntries) + @($learning)) {
         smartthings capabilities:presentation:create $entry.registeredId --capability-version 1 -i $payload
         Assert-CliSuccess
         foreach ($locale in @('en', 'ko')) {
-            smartthings capabilities:translations:create $entry.registeredId --capability-version 1 -i "capabilities/$($entry.translations.$locale)"
+            smartthings capabilities:translations:upsert $entry.registeredId --capability-version 1 -i "capabilities/$($entry.translations.$locale)"
             Assert-CliSuccess
         }
     } finally {
