@@ -53,6 +53,19 @@ local function report_transfer(state, status, detail)
   if target then gui.status(target.device, status, detail) end
 end
 
+local function timeout_detail(state)
+  local active = state.controller.active
+  if not active or active.kind ~= "learn" then return "IR transfer timed out" end
+  local target = state.learn_target
+  local action = target and (target.action or "ac_state") or "unknown signal"
+  local capture = active.session
+  if capture.seq == nil then
+    return "IR transfer timed out: no capture received for " .. action
+  end
+  return string.format("IR transfer timed out: %s capture stalled at %d/%d bytes",
+    action, capture.position or 0, capture.length or 0)
+end
+
 local function schedule_timeout(driver, device, state)
   cancel_timeout(driver, state)
   local active = state.controller.active
@@ -63,6 +76,7 @@ local function schedule_timeout(driver, device, state)
   local ok, timer = pcall(driver.call_with_delay, driver, delay, function()
     if state.timer_generation ~= generation then return end
     state.timer = nil
+    local detail = timeout_detail(state)
     local ok, expired = pcall(state.controller.expire, state.controller)
     if not ok then
       report_transfer(state, "error", "IR timeout cleanup failed")
@@ -71,10 +85,10 @@ local function schedule_timeout(driver, device, state)
       state.send_target = nil
       device.log.warn("IR transfer timeout cleanup failed: " .. tostring(expired))
     elseif expired then
-      report_transfer(state, "timeout", "IR transfer timed out")
+      report_transfer(state, "timeout", detail)
       state.learn_target = nil
       state.send_target = nil
-      device.log.warn("IR transfer timed out")
+      device.log.warn(detail)
     elseif state.controller.active then
       schedule_timeout(driver, device, state)
     end
@@ -297,6 +311,9 @@ local function zosung_message(driver, device, zb_rx)
     state.learn_target, state.send_target = nil, nil
     cancel_timeout(driver, state)
     return
+  end
+  if state.controller.active and state.controller.active.kind == "learn" then
+    device.log.info(string.format("IR learning received Zosung command 0x%02X", command))
   end
   local ok, result, detail = pcall(state.controller.receive, state.controller, command, raw)
   if not ok then
@@ -751,6 +768,7 @@ function driver:start_ir_learning(parent, target_device, action)
   local result, err = begin_transfer(self, parent, "start_learning")
   if result then
     state.learn_target = { device = target_device, action = action }
+    target_device.log.info("IR learning started for " .. action .. " on blaster " .. parent.id)
     gui.status(target_device, "learning", "Press the original remote button")
   end
   return result, err
