@@ -61,6 +61,36 @@
       "profiles": [
         "remote-tv"
       ]
+    },
+    {
+      "key": "tvKeypad",
+      "registeredId": "againmusic09479.irTvKeypad",
+      "registeredVersion": 1,
+      "registrationPending": true,
+      "definition": "tv-keypad/capability.json",
+      "presentation": "tv-keypad/presentation.json",
+      "translations": {
+        "en": "tv-keypad/en.json",
+        "ko": "tv-keypad/ko.json"
+      },
+      "profiles": [
+        "remote-tv"
+      ]
+    },
+    {
+      "key": "tvMedia",
+      "registeredId": "againmusic09479.irTvMedia",
+      "registeredVersion": 1,
+      "registrationPending": true,
+      "definition": "tv-media/capability.json",
+      "presentation": "tv-media/presentation.json",
+      "translations": {
+        "en": "tv-media/en.json",
+        "ko": "tv-media/ko.json"
+      },
+      "profiles": [
+        "remote-tv"
+      ]
     }
   ]
 }

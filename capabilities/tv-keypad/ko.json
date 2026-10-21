@@ -1,0 +1,40 @@
+{
+  "tag": "ko",
+  "label": "TV 숫자 키패드",
+  "attributes": {},
+  "commands": {
+    "digit0": {
+      "label": "0"
+    },
+    "digit1": {
+      "label": "1"
+    },
+    "digit2": {
+      "label": "2"
+    },
+    "digit3": {
+      "label": "3"
+    },
+    "digit4": {
+      "label": "4"
+    },
+    "digit5": {
+      "label": "5"
+    },
+    "digit6": {
+      "label": "6"
+    },
+    "digit7": {
+      "label": "7"
+    },
+    "digit8": {
+      "label": "8"
+    },
+    "digit9": {
+      "label": "9"
+    },
+    "dash": {
+      "label": "하위 채널 (−)"
+    }
+  }
+}

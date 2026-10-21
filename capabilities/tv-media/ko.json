@@ -1,0 +1,43 @@
+{
+  "tag": "ko",
+  "label": "TV 재생 및 부가 기능",
+  "attributes": {},
+  "commands": {
+    "play": {
+      "label": "재생"
+    },
+    "pause": {
+      "label": "일시 정지"
+    },
+    "stop": {
+      "label": "정지"
+    },
+    "rewind": {
+      "label": "되감기"
+    },
+    "fastForward": {
+      "label": "빨리 감기"
+    },
+    "record": {
+      "label": "녹화"
+    },
+    "red": {
+      "label": "빨강"
+    },
+    "green": {
+      "label": "초록"
+    },
+    "yellow": {
+      "label": "노랑"
+    },
+    "blue": {
+      "label": "파랑"
+    },
+    "subtitles": {
+      "label": "자막"
+    },
+    "audio": {
+      "label": "음성 언어"
+    }
+  }
+}

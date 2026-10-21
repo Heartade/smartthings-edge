@@ -153,5 +153,5 @@ controls follow normal remote controls; AC learning controls disappear when a
 generated protocol is selected, and return when **Learn states** is selected.
 
 Before packaging this update, run `./capabilities/register-tv-ui.ps1` to register
-the new TV capability and update the existing learning definition/presentation.
+the three TV capability groups and update the existing learning definition/presentation.
 See [registration and button details](capabilities/README.md#tv-controls-and-updated-layout).

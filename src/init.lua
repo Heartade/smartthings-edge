@@ -444,7 +444,7 @@ local function initialize_device(driver, device)
     if device:get_field("gui_profile_migration_requested") == profile then return end
     local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
     if ok then
-      device:set_field("gui_profile_revision", 2, { persist = true })
+      device:set_field("gui_profile_revision", 3, { persist = true })
       device:set_field("gui_profile_migration_requested", profile)
       return -- infoChanged publishes the new capability events after migration.
     end
@@ -666,7 +666,7 @@ end
 -- TV buttons share the same capture store and parent transfer ownership as power.
 for _, button in ipairs(require("ir.tv_buttons").buttons) do
   local action = button.action
-  add_capability_handler(gui_module.IDS.tv, button.command, function(driver, device)
+  add_capability_handler(gui_module.IDS[button.capability], button.command, function(driver, device)
     if device.model ~= "remote-tv" then return end
     send_switch_action(driver, device, action, nil)
   end)

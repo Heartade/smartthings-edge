@@ -1,0 +1,43 @@
+{
+  "tag": "en",
+  "label": "IR TV Media",
+  "attributes": {},
+  "commands": {
+    "play": {
+      "label": "Play"
+    },
+    "pause": {
+      "label": "Pause"
+    },
+    "stop": {
+      "label": "Stop"
+    },
+    "rewind": {
+      "label": "Rewind"
+    },
+    "fastForward": {
+      "label": "Fast forward"
+    },
+    "record": {
+      "label": "Record"
+    },
+    "red": {
+      "label": "Red"
+    },
+    "green": {
+      "label": "Green"
+    },
+    "yellow": {
+      "label": "Yellow"
+    },
+    "blue": {
+      "label": "Blue"
+    },
+    "subtitles": {
+      "label": "Subtitles"
+    },
+    "audio": {
+      "label": "Audio language"
+    }
+  }
+}

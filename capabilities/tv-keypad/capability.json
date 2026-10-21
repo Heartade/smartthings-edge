@@ -1,0 +1,50 @@
+{
+  "name": "IR TV Keypad",
+  "attributes": {},
+  "commands": {
+    "digit0": {
+      "name": "digit0",
+      "arguments": []
+    },
+    "digit1": {
+      "name": "digit1",
+      "arguments": []
+    },
+    "digit2": {
+      "name": "digit2",
+      "arguments": []
+    },
+    "digit3": {
+      "name": "digit3",
+      "arguments": []
+    },
+    "digit4": {
+      "name": "digit4",
+      "arguments": []
+    },
+    "digit5": {
+      "name": "digit5",
+      "arguments": []
+    },
+    "digit6": {
+      "name": "digit6",
+      "arguments": []
+    },
+    "digit7": {
+      "name": "digit7",
+      "arguments": []
+    },
+    "digit8": {
+      "name": "digit8",
+      "arguments": []
+    },
+    "digit9": {
+      "name": "digit9",
+      "arguments": []
+    },
+    "dash": {
+      "name": "dash",
+      "arguments": []
+    }
+  }
+}

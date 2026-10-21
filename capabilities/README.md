@@ -18,7 +18,7 @@ TV remotes additionally support every button in `src/ir/tv_buttons.lua`, each wi
 
 ## TV controls and updated layout
 
-Run this once from the repository root to register the new TV controls and update
+Run this once from the repository root to register the three TV control groups and update
 IR Signal Learning with the expanded button choices and a clean dashboard:
 
 ```powershell
@@ -26,10 +26,14 @@ IR Signal Learning with the expanded button choices and a clean dashboard:
 smartthings edge:drivers:package . --install
 ```
 
-The script prints and records the actual new capability ID, and updates its Lua
-and profile references. `againmusic09479.irTvRemote` is the intended ID until
-registration returns the actual ID. If interrupted after creation, rerun with
-`-TvCapabilityId <returned-id>` to reuse it. The script updates account resources
+TV controls are split into navigation/volume (19 commands), keypad (11), and
+media/extras (12), within SmartThings' limit of 20 commands per capability.
+The script prints and records each actual capability ID and updates its Lua and
+profile references. Intended IDs are `againmusic09479.irTvRemote`,
+`againmusic09479.irTvKeypad`, and `againmusic09479.irTvMedia` until registration
+returns actual IDs. Rerun the same script after an interruption; registrations
+already recorded in the manifest are reused. `-TvCapabilityId <returned-id>` can
+also resume a previously created navigation capability. The script updates account resources
 only when you run it. Do not package before registering the new capability.
 
 TV controls include power toggle; arrows and OK; Back/Home/Menu/Exit; volume,

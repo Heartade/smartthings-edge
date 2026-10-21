@@ -6,6 +6,10 @@ components:
         version: 1
       - id: againmusic09479.irTvRemote
         version: 1
+      - id: againmusic09479.irTvKeypad
+        version: 1
+      - id: againmusic09479.irTvMedia
+        version: 1
       - id: refresh
         version: 1
       - id: againmusic09479.irSignalLearning

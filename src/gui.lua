@@ -7,7 +7,8 @@ local tv_buttons = require "ir.tv_buttons"
 local M = {
   IDS = { creation = "againmusic09479.irRemoteCreation",
     learning = "againmusic09479.irSignalLearning", setup = "againmusic09479.acLearningSetup",
-    tv = "againmusic09479.irTvRemote" }
+    tv = "againmusic09479.irTvRemote", tvKeypad = "againmusic09479.irTvKeypad",
+    tvMedia = "againmusic09479.irTvMedia" }
 }
 local remote_types = { ["remote-tv"] = true, ["remote-fan"] = true,
   ["remote-generic"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true }
@@ -52,7 +53,7 @@ function M.new(capabilities, services)
   end
   function g.needs_profile(device, profile)
     if not device.try_update_metadata then return false end
-    if device:get_field("gui_profile_revision") ~= 2 then return true end
+    if device:get_field("gui_profile_revision") ~= 3 then return true end
     if profile == "ir-blaster" then
       return g.caps.creation and not supports(device, g.caps.creation)
     end
@@ -60,7 +61,11 @@ function M.new(capabilities, services)
       return supports(device, g.caps.learning) or supports(device, g.caps.setup)
     end
     if remote_types[profile] then
-      if profile == "remote-tv" and g.caps.tv and not supports(device, g.caps.tv) then return true end
+      if profile == "remote-tv" then
+        for _, role in ipairs({ "tv", "tvKeypad", "tvMedia" }) do
+          if g.caps[role] and not supports(device, g.caps[role]) then return true end
+        end
+      end
       if g.caps.learning and not supports(device, g.caps.learning) then return true end
       if services.is_ac(device) then
         if capabilities.airConditionerMode and not supports(device, capabilities.airConditionerMode) then return true end
