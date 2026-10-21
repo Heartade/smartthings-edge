@@ -682,10 +682,12 @@ end)
 -- TV buttons share the same capture store and parent transfer ownership as power.
 for _, button in ipairs(require("ir.tv_buttons").buttons) do
   local action = button.action
-  add_capability_handler(gui_module.IDS[button.capability], button.command, function(driver, device)
-    if gui.kind(device) ~= "remote-tv" then return end
-    send_switch_action(driver, device, action, nil)
-  end)
+  if button.capability ~= "keypadInput" then
+    add_capability_handler(gui_module.IDS[button.capability], button.command, function(driver, device)
+      if gui.kind(device) ~= "remote-tv" then return end
+      send_switch_action(driver, device, action, nil)
+    end)
+  end
 end
 
 local supported_capabilities = {
