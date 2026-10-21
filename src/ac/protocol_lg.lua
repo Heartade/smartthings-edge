@@ -1,5 +1,7 @@
 -- LG and LG2 28-bit AC state encoders. Field layout and timings are based on
 -- the public protocol descriptions in IRremoteESP8266's ir_LG.cpp / ir_LG.h.
+-- SPDX-License-Identifier: LGPL-2.1-only
+-- See THIRD_PARTY_NOTICES.md and licenses/IRremoteESP8266-LGPL-2.1.txt.
 -- No upstream C++ source is bundled here. Keep unsupported swing variants
 -- fail-closed until their required auxiliary frames are implemented.
 local M = { encoders = {} }

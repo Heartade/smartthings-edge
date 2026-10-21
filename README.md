@@ -10,6 +10,16 @@ Select **AC infrared protocol** in the AC child's Settings and choose an **AC pr
 
 See [the driver design](docs/driver-design.md) for the intended behavior and acceptance checks, [the implementation plan](docs/implementation-plan.md) for the remaining work, and [protocol sources](docs/protocol-sources.md) for encoder references.
 
+## License and acknowledgments
+
+Original project code is licensed under Apache-2.0, with LGPL-2.1-only exceptions
+for the AC adaptations and generated catalog. See [LICENSE.md](LICENSE.md) and
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the AC ports' LGPL terms,
+retained third-party licenses, and acknowledgments, including otivax's Edge
+drivers and the Zosung transport reference. Distribute the notices, license texts
+and corresponding source alongside driver ZIP releases; the SmartThings
+packager does not include those root-level files automatically.
+
 ## Create remotes and learn signals in the app
 
 After installing this version, reopen the blaster page. Choose **Remote type**,
