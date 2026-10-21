@@ -61,7 +61,7 @@ for _, entry in ipairs(index) do
   local item = entry
   local id = "irac-" .. item.protocol:lower():gsub("_", "-")
   M.choices[#M.choices + 1] = { key = "irac_" .. item.protocol:lower(), id = id,
-    label = "IRac " .. item.protocol }
+    label = item.protocol }
   local default = describe(item.models[1])
   M.encoders[id] = {
     min_temperature = default.min_temperature, max_temperature = default.max_temperature,

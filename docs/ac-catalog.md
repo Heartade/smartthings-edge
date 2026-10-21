@@ -1,6 +1,6 @@
 # Generated IRremoteESP8266 AC encoders
 
-The **IRac …** Settings choices cover all **66 identifiers** advertised by
+The **AC infrared protocol** Settings choices cover all **66 identifiers** advertised by
 IRremoteESP8266's common AC API at commit
 `1e2f0f3ef0a93cbf2a8ddb2e95130f8f4c584b3f`, with **91 protocol/model combinations**.
 The existing 22 choices remain available with their existing IDs and behavior.
@@ -10,7 +10,7 @@ compatibility with a particular physical AC or TS1201 firmware.
 ## Select a protocol
 
 1. Create an **AC protocol** child and open its Settings.
-2. Select **IRac IDENTIFIER** under **AC infrared protocol**.
+2. Select **IDENTIFIER** under **AC infrared protocol**.
 3. Leave **AC protocol model** at `0` for the default, or enter a model number
    from the [model table](ac-catalog-models.md).
 4. Use power, mode, the single temperature slider, fan and supported swing controls.

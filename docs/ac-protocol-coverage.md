@@ -6,7 +6,7 @@ All **66 identifiers** listed by upstream `IRac::isProtocolSupported` now have
 generated encoders, covering **91 protocol/model combinations**. See the
 [complete model table](ac-catalog-models.md) and [implementation guide](ac-catalog.md).
 The earlier 22 Settings choices remain available; existing devices retain their
-protocol selection. The new choices are prefixed **IRac**.
+protocol selection. The catalog choices display their protocol identifiers directly.
 
 The common-state catalog covers power, supported modes, integer Celsius setpoint,
 four fan settings and automatic swing where upstream implements it. Optional

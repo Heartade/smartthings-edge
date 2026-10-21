@@ -6,7 +6,7 @@ An in-progress SmartThings Edge driver for TS1201 (Moes/Zosung) IR blasters. Eac
 
 The driver includes exact learned-state control, 22 legacy protocol choices, and a generated catalog covering all 66 common AC protocol identifiers in the pinned IRremoteESP8266 revision (91 protocol/model combinations). AC children expose power, AC mode, one target-temperature slider, fan speed, and supported swing directions. Native SmartThings AC modes label `dry` as **제습** in Korean. The ports remain experimental pending physical AC/blaster checks. TV, fan and generic children can learn their supported buttons.
 
-Select **IRac …** in the AC child's Settings and choose an **AC protocol model** from the [model table](docs/ac-catalog-models.md), or leave it at `0` for the default. See [catalog scope, limits and rebuilding](docs/ac-catalog.md). No new custom capability registration is needed.
+Select **AC infrared protocol** in the AC child's Settings and choose an **AC protocol model** from the [model table](docs/ac-catalog-models.md), or leave it at `0` for the default. See [catalog scope, limits and rebuilding](docs/ac-catalog.md). No new custom capability registration is needed.
 
 See [the driver design](docs/driver-design.md) for the intended behavior and acceptance checks, [the implementation plan](docs/implementation-plan.md) for the remaining work, and [protocol sources](docs/protocol-sources.md) for encoder references.
 
