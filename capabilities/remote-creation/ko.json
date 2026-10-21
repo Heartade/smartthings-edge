@@ -13,7 +13,7 @@
             "label": "선풍기"
           },
           "remote-generic": {
-            "label": "일반 리모컨"
+            "label": "일반 IR 스위치"
           },
           "ac-learned-state": {
             "label": "에어컨 · 신호 학습"
@@ -23,6 +23,9 @@
           },
           "ac-protocol-learning": {
             "label": "에어컨 · 프로토콜 및 신호 학습"
+          },
+          "remote-button": {
+            "label": "일반 IR 버튼"
           }
         }
       }

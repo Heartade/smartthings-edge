@@ -53,3 +53,7 @@ The protocol child should expose independent settable controls for power, mode, 
 2. Add an encoder registry with distinct **candidate**, **implemented**, and **hardware-verified** statuses, and a working protocol selection interface that only allows implemented encoders.
 3. Port a small number of representative encoders with upstream fixtures, expanding coverage family by family. Keep each module optional in code organization but package validated modules by default.
 4. When the AC/remote model is known, prioritize its variant and verify with real hardware. An unknown model can still be tried against candidate protocols, but that is a supervised compatibility test rather than confirmed support.
+
+## Coverage review
+
+See [AC protocol coverage gaps](ac-protocol-coverage.md) for the 2026-10-21 comparison against the pinned upstream IRac catalog: 66 upstream identifiers, 7 partially implemented identifiers (11 local variants), and 59 missing identifiers.

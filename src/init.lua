@@ -463,7 +463,7 @@ local function initialize_device(driver, device)
     device.log.info("Updating remote profile to " .. profile)
     local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
     if ok then
-      device:set_field("gui_profile_revision", 5, { persist = true })
+      device:set_field("gui_profile_revision", 6, { persist = true })
       device:set_field("gui_profile_migration_requested", profile)
       return -- infoChanged publishes the new capability events after migration.
     end
@@ -706,6 +706,12 @@ for command_name, fan in pairs({
   end)
 end
 
+add_capability_handler("momentary", "push", function(driver, device)
+  if gui.kind(device) == "remote-button" then
+    send_switch_action(driver, device, "press", nil)
+  end
+end)
+
 -- Standard keypadInput invokes the app's native TV navigation/numeric remote.
 local tv_keys = { UP = "up", DOWN = "down", LEFT = "left", RIGHT = "right",
   SELECT = "ok", BACK = "back", EXIT = "exit", MENU = "menu", HOME = "home", SETTINGS = "settings" }
@@ -728,7 +734,7 @@ for _, button in ipairs(require("ir.tv_buttons").buttons) do
 end
 
 local supported_capabilities = {
-  capabilities.refresh, capabilities.switch, capabilities.keypadInput, capabilities.thermostatMode,
+  capabilities.refresh, capabilities.switch, capabilities.momentary, capabilities.keypadInput, capabilities.thermostatMode,
   capabilities.thermostatCoolingSetpoint, capabilities.thermostatHeatingSetpoint,
   capabilities.fanMode, capabilities.airConditionerMode,
   capabilities.temperatureSetpoint, capabilities.fanOscillationMode

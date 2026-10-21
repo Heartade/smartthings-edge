@@ -16,7 +16,8 @@ return {
               "remote-generic",
               "ac-learned-state",
               "ac-protocol",
-              "ac-protocol-learning"
+              "ac-protocol-learning",
+              "remote-button"
             ]
           }
         },
@@ -93,7 +94,8 @@ return {
               "remote-generic",
               "ac-learned-state",
               "ac-protocol",
-              "ac-protocol-learning"
+              "ac-protocol-learning",
+              "remote-button"
             ]
           }
         }
@@ -177,7 +179,8 @@ return {
               "blue",
               "subtitles",
               "audio",
-              "settings"
+              "settings",
+              "press"
             ]
           }
         },
@@ -242,11 +245,12 @@ return {
                 "blue",
                 "subtitles",
                 "audio",
-                "settings"
+                "settings",
+                "press"
               ]
             },
             "minItems": 1,
-            "maxItems": 46,
+            "maxItems": 47,
             "uniqueItems": true
           }
         },
@@ -370,7 +374,8 @@ return {
               "blue",
               "subtitles",
               "audio",
-              "settings"
+              "settings",
+              "press"
             ]
           }
         }

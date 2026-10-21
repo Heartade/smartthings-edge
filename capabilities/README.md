@@ -11,9 +11,9 @@ device profiles; it is an installer/development manifest, not an API payload.
 | `ir-learning` | Selected signal, saved status, Learn, Cancel, Test, Delete, learning status and details |
 | `ac-learning-setup` | Switch between normal AC operation and editing a capture draft without transmitting |
 
-The first version offers TV, fan, generic, learned-state AC and generated-protocol
+The first version offers TV, fan, generic IR switch, generic IR button, learned-state AC and generated-protocol
 AC children. The unfinished `ac-button` profile is not offered. Ordinary remote
-learning supports `power_on` and `power_off`; AC learning uses `ac_state`.
+learning supports `power_on` and `power_off`; generic IR switches also support `power_toggle`, generic IR buttons use `press`, and AC learning uses `ac_state`.
 TV remotes additionally support every button in `src/ir/tv_buttons.lua`, each with its own saved signal.
 
 ## TV controls and updated layout
@@ -223,3 +223,19 @@ The driver bundles the exact creation, learning and AC setup schemas in
 those definitions for both events and commands, rather than using a stale hub
 schema. The registration script regenerates this Lua module from the same JSON
 files uploaded to SmartThings. Capability IDs and version 1 remain unchanged.
+
+## Generic IR types
+
+The existing `remote-generic` choice is now labeled **Generic IR switch**
+(**일반 IR 스위치**). Its On/Off controls and saved signals are preserved;
+`power_toggle` is available in its learning selector.
+
+The new **Generic IR button** (**일반 IR 버튼**, `remote-button`) uses standard
+`momentary.push` with no state attributes. Its learning selection is **Button
+press** (`press`); Learn, Test, Delete and cancellation use the existing per-child
+signal store and shared blaster lock. A press passes no switch value to the
+transfer callback, so transmission cannot emit On/Off events.
+
+Run the registration script to update the two existing custom definitions,
+presentations, locales and bundled SDK schemas before installing. No new custom
+capability registration is needed for the standard momentary control.

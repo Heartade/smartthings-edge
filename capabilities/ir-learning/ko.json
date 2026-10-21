@@ -143,6 +143,9 @@
           },
           "settings": {
             "label": "설정"
+          },
+          "press": {
+            "label": "버튼 누르기"
           }
         }
       }

@@ -53,7 +53,8 @@
               "blue",
               "subtitles",
               "audio",
-              "settings"
+              "settings",
+              "press"
             ]
           }
         },
@@ -118,11 +119,12 @@
                 "blue",
                 "subtitles",
                 "audio",
-                "settings"
+                "settings",
+                "press"
               ]
             },
             "minItems": 1,
-            "maxItems": 46,
+            "maxItems": 47,
             "uniqueItems": true
           }
         },
@@ -246,7 +248,8 @@
               "blue",
               "subtitles",
               "audio",
-              "settings"
+              "settings",
+              "press"
             ]
           }
         }

@@ -66,6 +66,11 @@
               "key": "ac-protocol-learning",
               "value": "{{i18n.attributes.remoteType.i18n.value.ac-protocol-learning.label}}",
               "type": "active"
+            },
+            {
+              "key": "remote-button",
+              "value": "{{i18n.attributes.remoteType.i18n.value.remote-button.label}}",
+              "type": "active"
             }
           ],
           "argumentType": "string"
@@ -102,6 +107,11 @@
             {
               "key": "ac-protocol-learning",
               "value": "{{i18n.attributes.remoteType.i18n.value.ac-protocol-learning.label}}",
+              "type": "active"
+            },
+            {
+              "key": "remote-button",
+              "value": "{{i18n.attributes.remoteType.i18n.value.remote-button.label}}",
               "type": "active"
             }
           ]

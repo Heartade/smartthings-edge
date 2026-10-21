@@ -2,7 +2,7 @@
 -- A unique token makes retries idempotent and permits duplicate display names.
 local M = {}
 local profiles = {
-  ["remote-tv"] = true, ["remote-fan"] = true, ["remote-generic"] = true,
+  ["remote-tv"] = true, ["remote-fan"] = true, ["remote-generic"] = true, ["remote-button"] = true,
   ["ac-protocol-learning"] = true, ["ac-button"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true
 }
 

@@ -13,7 +13,7 @@
             "label": "Fan"
           },
           "remote-generic": {
-            "label": "Generic remote"
+            "label": "Generic IR switch"
           },
           "ac-learned-state": {
             "label": "AC: learned states"
@@ -23,6 +23,9 @@
           },
           "ac-protocol-learning": {
             "label": "AC protocol with learning"
+          },
+          "remote-button": {
+            "label": "Generic IR button"
           }
         }
       }

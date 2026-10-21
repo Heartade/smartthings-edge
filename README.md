@@ -180,3 +180,28 @@ repeated On or Off does not invert the appliance again. The first request with
 no sent-state history transmits the toggle. This tracks assumed state only;
 using the physical remote can leave it out of sync. Tests and learning continue
 to address the exact selected signal, without substituting toggle codes.
+
+## Generic IR switch and generic IR button
+
+- **Generic IR switch** keeps the existing `remote-generic` profile and saved
+  signals. Learn separate Power on/off codes, or learn Power toggle once for the
+  On/Off fallback. The switch tracks the last sent/assumed state.
+- **Generic IR button** (`remote-button`) exposes a stateless **Push** command
+  through SmartThings' standard `momentary` capability. Learn **Button press**,
+  then tap Push (or invoke it in a Routine) to replay that signal every time.
+  It has no switch capability, On/Off state, or power-state updates.
+
+Create either type from the blaster's **Remote type** selector. Legacy creation
+requests also work, e.g. `doorbell|remote-button|Doorbell` and
+`lamp|remote-generic|IR lamp`. For a button, Settings learning uses `token|press`.
+Existing user-assigned child names are retained.
+
+Update the existing creation/learning capabilities and install:
+
+```powershell
+./capabilities/register-tv-ui.ps1
+smartthings edge:drivers:package . --install
+```
+
+See the [AC protocol coverage review](docs/ac-protocol-coverage.md) for the
+remaining IRremoteESP8266 protocols. No new AC encoders were added in this change.

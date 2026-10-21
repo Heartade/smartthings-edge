@@ -240,6 +240,11 @@
               "key": "settings",
               "value": "{{i18n.attributes.action.i18n.value.settings.label}}",
               "type": "active"
+            },
+            {
+              "key": "press",
+              "value": "{{i18n.attributes.action.i18n.value.press.label}}",
+              "type": "active"
             }
           ],
           "argumentType": "string"
@@ -476,6 +481,11 @@
             {
               "key": "settings",
               "value": "{{i18n.attributes.action.i18n.value.settings.label}}",
+              "type": "active"
+            },
+            {
+              "key": "press",
+              "value": "{{i18n.attributes.action.i18n.value.press.label}}",
               "type": "active"
             }
           ]

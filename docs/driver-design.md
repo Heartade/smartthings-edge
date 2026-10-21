@@ -11,7 +11,8 @@ One Zigbee TS1201 IR blaster is the **parent**. Each TV, AC, fan, or generic rem
 | `ir-blaster` parent | Hardware transport and learning | Create/manage remotes, learning status | Blaster endpoint and pending capture |
 | `remote-tv` | Learned independent commands | Power, volume, channel, navigation, digits | Named button-to-code mapping |
 | `remote-fan` | Learned independent commands | Power, speed, oscillation, timer | Named button-to-code mapping |
-| `remote-generic` | Learned independent commands | A few named actions | Named button-to-code mapping |
+| `remote-generic` | Generic IR switch | On/Off with toggle fallback | Power action-to-code mapping |
+| `remote-button` | Generic IR button | Stateless Push | One `press` signal; no On/Off state |
 | `ac-button` | Learned independent button presses | Relative temp ±, mode next, fan next, power | Button-to-code mapping; no asserted numeric AC state |
 | `ac-learned-state` | Stored complete-state frames | Power, mode, setpoint, fan, swing | State-key-to-code mapping; missing states block transmission |
 | `ac-protocol` | Generated complete-state frames | Power, mode, setpoint, fan, swing | Protocol family, remote/model variant, encoder options |

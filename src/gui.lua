@@ -13,7 +13,7 @@ local M = {
     tvMedia = "againmusic09479.irTvMedia" }
 }
 local remote_types = { ["remote-tv"] = true, ["remote-fan"] = true,
-  ["remote-generic"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true, ["ac-protocol-learning"] = true }
+  ["remote-generic"] = true, ["remote-button"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true, ["ac-protocol-learning"] = true }
 
 function M.new(capabilities, services)
   local g = { caps = {}, creation_timers = {} }
@@ -78,6 +78,7 @@ function M.new(capabilities, services)
       if services.is_ac(device) then
         return device.preferences and device.preferences.acProtocol ~= nil and "ac-protocol" or "ac-learned-state"
       end
+      if supports(device, capabilities.momentary) then return "remote-button" end
       if supports(device, capabilities.keypadInput) or supports(device, g.caps.tv) or
           supports(device, g.caps.tvKeypad) or supports(device, g.caps.tvMedia) then return "remote-tv" end
     end
@@ -98,7 +99,7 @@ function M.new(capabilities, services)
   end
   function g.needs_profile(device, profile)
     if not device.try_update_metadata then return false end
-    if device:get_field("gui_profile_revision") ~= 5 then return true end
+    if device:get_field("gui_profile_revision") ~= 6 then return true end
     if profile == "ir-blaster" then
       return g.caps.creation and not supports(device, g.caps.creation)
     end
@@ -106,6 +107,8 @@ function M.new(capabilities, services)
       return supports(device, g.caps.learning) or supports(device, g.caps.setup)
     end
     if remote_types[profile] then
+      if profile == "remote-button" and
+          (not supports(device, capabilities.momentary) or supports(device, capabilities.switch)) then return true end
       if profile == "remote-tv" then
         if not supports(device, capabilities.keypadInput) then return true end
         for _, role in ipairs({ "tv", "tvKeypad", "tvMedia" }) do
@@ -126,13 +129,24 @@ function M.new(capabilities, services)
   function g.allowed_action(device, action)
     if services.is_ac(device) then return action == "ac_state" end
     if g.kind(device) == "remote-tv" then return tv_buttons.valid[action] == true end
-    return action == "power_on" or action == "power_off"
+    if g.kind(device) == "remote-button" then return action == "press" end
+    return action == "power_on" or action == "power_off" or
+      (g.kind(device) == "remote-generic" and action == "power_toggle")
   end
   function g.display_state(device)
     return device:get_field("gui_ac_draft") or services.desired_state(device)
   end
   local function selected(device)
-    return device:get_field("gui_selected_action") or (services.is_ac(device) and "ac_state" or "power_on")
+    return device:get_field("gui_selected_action") or
+      (g.kind(device) == "remote-button" and "press" or (services.is_ac(device) and "ac_state" or "power_on"))
+  end
+  local function supported_actions(device)
+    if services.is_ac(device) then return { "ac_state" } end
+    local kind = g.kind(device)
+    if kind == "remote-tv" then return tv_buttons.actions end
+    if kind == "remote-button" then return { "press" } end
+    if kind == "remote-generic" then return { "power_on", "power_off", "power_toggle" } end
+    return { "power_on", "power_off" }
   end
   local function saved_code(device)
     if services.is_ac(device) then
@@ -144,8 +158,7 @@ function M.new(capabilities, services)
   function g.refresh(device)
     if g.learning_enabled(device) and supports(device, g.caps.learning) then
       local valid, code = saved_code(device)
-      emit(device, "learning", "supportedActions", services.is_ac(device) and { "ac_state" } or
-        (g.kind(device) == "remote-tv" and tv_buttons.actions or { "power_on", "power_off" }))
+      emit(device, "learning", "supportedActions", supported_actions(device))
       emit(device, "learning", "action", selected(device))
       emit(device, "learning", "signalStatus", valid and code and "saved" or "empty")
       emit(device, "learning", "learningStatus", device:get_field("gui_learning_status") or "idle")

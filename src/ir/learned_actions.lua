@@ -1,6 +1,7 @@
 -- Bounded per-child table of captured remote button signals.
-local M = { MAX_CODE_LENGTH = 12000, MAX_ACTIONS = #require("ir.tv_buttons").actions }
-local valid_actions = require("ir.tv_buttons").valid
+local M = { MAX_CODE_LENGTH = 12000, MAX_ACTIONS = #require("ir.tv_buttons").actions + 1 }
+local valid_actions = { press = true }
+for action in pairs(require("ir.tv_buttons").valid) do valid_actions[action] = true end
 local valid_requests = setmetatable({ cancel = true }, { __index = valid_actions })
 
 local function valid_code(code)
