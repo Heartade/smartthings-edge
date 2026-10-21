@@ -8,6 +8,7 @@ local ac_learned_state = require "ac.learned_state"
 local ac_registry = require "ac.registry"
 local lg_encoders = require "ac.protocol_lg"
 local irremote_encoders = require "ac.protocol_irremote"
+local expanded_encoders = require "ac.protocol_expanded"
 local socket = require "socket"
 local controller = require "ir.controller"
 local edge_zigbee = require "ir.edge_zigbee"
@@ -21,6 +22,9 @@ end
 for id, encoder in pairs(irremote_encoders.encoders) do
   ac_registry.register(id, encoder)
 end
+for id, encoder in pairs(expanded_encoders.encoders) do
+  ac_registry.register(id, encoder)
+end
 
 local TRANSFER_TIMEOUT_SECONDS = 15
 local states = {}
@@ -32,7 +36,12 @@ local AC_PROTOCOLS = {
   toshiba_72_a = "toshiba-72-a", toshiba_72_b = "toshiba-72-b",
   mitsubishi_144 = "mitsubishi-144",
   gree_yaw1f = "gree-yaw1f", gree_ybofb = "gree-ybofb", gree_yx1fsf = "gree-yx1fsf",
-  kelvinator_128 = "kelvinator-128", electra_104 = "electra-104"
+  kelvinator_128 = "kelvinator-128", electra_104 = "electra-104",
+  samsung_ac = "samsung-ac", carrier_64 = "carrier-64", haier_72 = "haier-72",
+  haier_yrw02 = "haier-yrw02", haier_160 = "haier-160",
+  haier_176_a = "haier-176-a", haier_176_b = "haier-176-b",
+  tcl112_tac09chsd = "tcl112-tac09chsd", tcl112_gz055be1 = "tcl112-gz055be1",
+  midea_48 = "midea-48", daikin_152 = "daikin-152"
 }
 
 local function now()
@@ -197,6 +206,14 @@ local function publish_ac_state(device, current)
       swing_modes = { "off", "vertical", "horizontal", "all" } }
   end
 
+  if capabilities.airConditionerMode then
+    local modes = {}
+    for _, native_mode in ipairs(features.modes or { "auto", "cool", "heat", "dry", "fan" }) do
+      modes[#modes + 1] = native_mode == "fan" and "fanOnly" or native_mode
+    end
+    emit_event(device, capabilities.airConditionerMode.supportedAcModes(modes))
+    emit_event(device, capabilities.airConditionerMode.availableAcModes(modes))
+  end
   if capabilities.switch then
     emit_event(device, current.power and capabilities.switch.switch.on()
       or capabilities.switch.switch.off())
@@ -463,7 +480,7 @@ local function initialize_device(driver, device)
     device.log.info("Updating remote profile to " .. profile)
     local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
     if ok then
-      device:set_field("gui_profile_revision", 6, { persist = true })
+      device:set_field("gui_profile_revision", 7, { persist = true })
       device:set_field("gui_profile_migration_requested", profile)
       return -- infoChanged publishes the new capability events after migration.
     end
@@ -493,12 +510,7 @@ local function initialize_device(driver, device)
   if device:get_field("ac_desired_state") == nil then
     device:set_field("ac_desired_state", current, { persist = true })
   end
-  if capabilities.airConditionerMode then
-    emit_event(device, capabilities.airConditionerMode.supportedAcModes(
-      { "auto", "cool", "heat", "dry", "fanOnly" }))
-    emit_event(device, capabilities.airConditionerMode.availableAcModes(
-      { "auto", "cool", "heat", "dry", "fanOnly" }))
-  end
+
   if capabilities.fanMode and capabilities.fanMode.supportedFanModes then
     emit_event(device, capabilities.fanMode.supportedFanModes(
       { "auto", "low", "medium", "high" }))

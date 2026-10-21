@@ -48,6 +48,17 @@ preferences:
         gree_yx1fsf: Gree YX1FSF
         kelvinator_128: Kelvinator 128-bit
         electra_104: Electra AUX 104-bit
+        samsung_ac: Samsung AC 112/168 (experimental)
+        haier_72: Haier 72 HSU07-HEA03
+        haier_yrw02: Haier 112 YR-W02
+        haier_160: Haier 160 KFR-26GW
+        haier_176_a: Haier 176 V9014557 A
+        haier_176_b: Haier 176 V9014557 B
+        carrier_64: Carrier Surrey 64-bit
+        tcl112_tac09chsd: TCL Daewoo 112 TAC09CHSD
+        tcl112_gz055be1: TCL Teknopoint 112 GZ055BE1
+        midea_48: Midea 48-bit (no swing)
+        daikin_152: Daikin 152 ARC480A5
       default: learned_state
   - title: AC temperature unit
     name: acTemperatureUnit

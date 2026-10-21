@@ -99,7 +99,7 @@ function M.new(capabilities, services)
   end
   function g.needs_profile(device, profile)
     if not device.try_update_metadata then return false end
-    if device:get_field("gui_profile_revision") ~= 6 then return true end
+    if device:get_field("gui_profile_revision") ~= 7 then return true end
     if profile == "ir-blaster" then
       return g.caps.creation and not supports(device, g.caps.creation)
     end

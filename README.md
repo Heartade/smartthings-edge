@@ -205,3 +205,15 @@ smartthings edge:drivers:package . --install
 
 See the [AC protocol coverage review](docs/ac-protocol-coverage.md) for the
 remaining IRremoteESP8266 protocols. No new AC encoders were added in this change.
+
+## More AC brands
+
+Settings now include 11 additional experimental encoder choices: Samsung AC,
+Haier 72/112/160/176 A/B, Carrier/Surrey 64, two TCL/Daewoo 112-bit variants,
+Midea 48 and Daikin 152. There are 22 generated choices in total. These are
+specific protocol families, not universal brand presets. See the
+[model table and restrictions](docs/expanded-ac-protocols.md).
+
+Install with `smartthings edge:drivers:package . --install`; no capability
+registration is required for these protocol additions. New waveform/hardware
+validation has not been performed.

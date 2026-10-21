@@ -5,11 +5,11 @@ Sources: [IRac::isProtocolSupported](https://github.com/crankyoldgit/IRremoteESP
 and [protocol/model catalog](https://github.com/crankyoldgit/IRremoteESP8266/blob/1e2f0f3ef0a93cbf2a8ddb2e95130f8f4c584b3f/SupportedProtocols.md).
 
 The upstream IRac list contains **66 protocol identifiers**. This driver
-implements selected variants of **7 identifiers**, exposed as **11 encoder
-choices**. **59 identifiers have no local implementation**. These are protocol
+implements selected variants of **16 identifiers**, exposed as **22 encoder
+choices**. **50 identifiers have no local implementation**. These are protocol
 counts, not AC model counts; a family match does not mean every remote variant works.
 The current upstream commit is the same commit already pinned for the local ports.
-No new encoder was added as part of this coverage review.
+The 11 subsequent experimental choices are documented in [expanded AC encoders](expanded-ac-protocols.md). They have not received the older ports' waveform validation.
 
 ## Locally implemented subsets
 
@@ -22,10 +22,19 @@ No new encoder was added as part of this coverage review.
 | `GREE` | `gree_yaw1f`, `gree_ybofb`, `gree_yx1fsf` |
 | `KELVINATOR` | `kelvinator_128` |
 | `ELECTRA_AC` | `electra_104` |
+| `SAMSUNG_AC` | `samsung_ac` (extended state) |
+| `HAIER_AC` | `haier_72` |
+| `HAIER_AC_YRW02` | `haier_yrw02` |
+| `HAIER_AC160` | `haier_160` |
+| `HAIER_AC176` | `haier_176_a`, `haier_176_b` |
+| `CARRIER_AC64` | `carrier_64` |
+| `TCL112AC` | `tcl112_tac09chsd`, `tcl112_gz055be1` |
+| `MIDEA` | `midea_48` |
+| `DAIKIN152` | `daikin_152` |
 
 ## Not implemented locally
 
-`AIRTON`, `AIRWELL`, `AMCOR`, `ARGO`, `BOSCH144`, `CARRIER_AC64`, `COOLIX`, `CORONA_AC`, `DAIKIN`, `DAIKIN128`, `DAIKIN152`, `DAIKIN160`, `DAIKIN176`, `DAIKIN2`, `DAIKIN216`, `DAIKIN312`, `DAIKIN64`, `DELONGHI_AC`, `ECOCLIM`, `EUROM`, `FUJITSU_AC`, `GOODWEATHER`, `HAIER_AC`, `HAIER_AC160`, `HAIER_AC176`, `HAIER_AC_YRW02`, `HITACHI_AC`, `HITACHI_AC1`, `HITACHI_AC264`, `HITACHI_AC296`, `HITACHI_AC344`, `HITACHI_AC424`, `KELON`, `MIDEA`, `MIRAGE`, `MITSUBISHI112`, `MITSUBISHI136`, `MITSUBISHI_HEAVY_152`, `MITSUBISHI_HEAVY_88`, `NEOCLIMA`, `PANASONIC_AC`, `PANASONIC_AC32`, `RHOSS`, `SAMSUNG_AC`, `SANYO_AC`, `SANYO_AC88`, `SHARP_AC`, `TCL112AC`, `TECHNIBEL_AC`, `TECO`, `TEKNOPOINT`, `TRANSCOLD`, `TROTEC`, `TROTEC_3550`, `TRUMA`, `VESTEL_AC`, `VOLTAS`, `WHIRLPOOL_AC`, `YORK`.
+`AIRTON`, `AIRWELL`, `AMCOR`, `ARGO`, `BOSCH144`, `COOLIX`, `CORONA_AC`, `DAIKIN`, `DAIKIN128`, `DAIKIN160`, `DAIKIN176`, `DAIKIN2`, `DAIKIN216`, `DAIKIN312`, `DAIKIN64`, `DELONGHI_AC`, `ECOCLIM`, `EUROM`, `FUJITSU_AC`, `GOODWEATHER`, `HITACHI_AC`, `HITACHI_AC1`, `HITACHI_AC264`, `HITACHI_AC296`, `HITACHI_AC344`, `HITACHI_AC424`, `KELON`, `MIRAGE`, `MITSUBISHI112`, `MITSUBISHI136`, `MITSUBISHI_HEAVY_152`, `MITSUBISHI_HEAVY_88`, `NEOCLIMA`, `PANASONIC_AC`, `PANASONIC_AC32`, `RHOSS`, `SANYO_AC`, `SANYO_AC88`, `SHARP_AC`, `TECHNIBEL_AC`, `TECO`, `TEKNOPOINT`, `TRANSCOLD`, `TROTEC`, `TROTEC_3550`, `TRUMA`, `VESTEL_AC`, `VOLTAS`, `WHIRLPOOL_AC`, `YORK`.
 
 ## Additional gaps within existing families
 
@@ -42,8 +51,8 @@ or low-level send function. The broader upstream catalog contains additional
 formats without common-state support, including further Carrier variants; they
 also require separate investigation.
 
-Daikin, Panasonic, Samsung, Fujitsu, Midea/Coolix and Haier would broaden brand
-coverage. A next port must select a concrete protocol/model, preserve upstream
+Panasonic, Fujitsu, Sharp and Coolix would broaden brand coverage further;
+additional Daikin, Samsung and Carrier variants also remain. A next port must select a concrete protocol/model, preserve upstream
 notices, map supported state fields, and account for absolute versus toggle-only
 power/swing commands. Listing a name in Settings without an encoder is not support.
 Hardware compatibility and waveform comparison remain separate work.

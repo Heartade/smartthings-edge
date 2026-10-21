@@ -73,3 +73,7 @@ UI swing uses `on`/`off` for the two axes and requires matching saved states.
 The new adaptations retain the upstream LGPL-2.1 notices and full license;
 see [third-party notices](../THIRD_PARTY_NOTICES.md). Sources are distributed
 as editable Lua. No upstream C++ runtime or compiled library is shipped.
+
+## Later additions
+
+For the 11 experimental Samsung, Haier, Carrier, TCL/Daewoo, Midea and Daikin choices added on 2026-10-21, see [expanded AC encoders](expanded-ac-protocols.md). Their validation status is separate from the 338 fixtures documented above.

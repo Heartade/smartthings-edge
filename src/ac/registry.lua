@@ -26,7 +26,8 @@ function M.describe(id)
   return {
     min_temperature = encoder.min_temperature or 16,
     max_temperature = encoder.max_temperature or 30,
-    swing_modes = encoder.swing_modes or { "off" }
+    swing_modes = encoder.swing_modes or { "off" },
+    modes = encoder.modes or { "auto", "cool", "heat", "dry", "fan" }
   }
 end
 
