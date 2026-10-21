@@ -172,3 +172,11 @@ signal** and use the original remote. Profile-defined choices expose all TV
 signals even if an older device status listed only on/off. Extra signals remain
 available through the learning card's Test action. Non-AC power switches now
 start with a usable assumed state and retain the last successfully sent state.
+
+For learned remotes, On/Off first use their dedicated `power_on`/`power_off`
+signal. If that signal is missing, they use `power_toggle`. A repeated request
+matching the last successfully sent power state skips the fallback toggle, so
+repeated On or Off does not invert the appliance again. The first request with
+no sent-state history transmits the toggle. This tracks assumed state only;
+using the physical remote can leave it out of sync. Tests and learning continue
+to address the exact selected signal, without substituting toggle codes.

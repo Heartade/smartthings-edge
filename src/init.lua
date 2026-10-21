@@ -558,6 +558,14 @@ local function send_switch_action(driver, device, action, value)
 
   local store = learned_actions.new(device:get_field("learned_ir_actions"))
   local code = store:get(action)
+  if not code and (action == "power_on" or action == "power_off") then
+    code = store:get("power_toggle")
+    if code and device:get_field("ir_power_state") == value then
+      -- Repeating On/Off must not invert a toggle-only appliance again.
+      device.log.info("Power toggle skipped: last sent state already matches " .. action)
+      return
+    end
+  end
   if not code then
     device.log.warn("No learned IR action named " .. action)
     gui.failure(device, "Learn the " .. action .. " button first")
