@@ -200,3 +200,10 @@ connected in `src/init.lua`. The following describes their behavior.
 - [Custom capabilities](https://developer.smartthings.com/docs/devices/capabilities/custom-capabilities)
 - [Display types](https://developer.smartthings.com/docs/devices/capabilities/display-types)
 - [Translations](https://developer.smartthings.com/docs/devices/capabilities/capability-translations)
+
+Schema updates can become visible to capability reads before the localization
+validator sees them. The registration script retries only invalid attribute/command
+name localization responses, with bounded delays (up to 50 seconds total per
+locale). Other failures stop immediately, and an unresolved validation error is
+reported in full. This retains Settings as a native keypad action and a learnable
+signal; it does not remove labels to accommodate an older cached schema.

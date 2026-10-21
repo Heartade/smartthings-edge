@@ -9,6 +9,30 @@ $script:RegistrationStep = 'initialization'
 function Assert-CliSuccess {
     if ($LASTEXITCODE -ne 0) { throw "SmartThings command failed during $script:RegistrationStep (exit $LASTEXITCODE); registration stopped." }
 }
+# Capability writes and localization validation can see different schema revisions
+# briefly. Retry only the schema-name validation errors that indicate this race.
+function Set-CapabilityTranslation {
+    param([string]$CapabilityId, [string]$Locale, [string]$Path)
+    $delays = @(2, 4, 8, 16, 20)
+    for ($attempt = 0; $attempt -le $delays.Count; $attempt++) {
+        $script:RegistrationStep = "upserting $Locale translation for $CapabilityId"
+        Write-Host "$script:RegistrationStep (attempt $($attempt + 1))"
+        $result = @(smartthings capabilities:translations:upsert $CapabilityId --capability-version 1 -i $Path 2>&1)
+        $exitCode = $LASTEXITCODE
+        if ($exitCode -eq 0) {
+            $result | ForEach-Object { Write-Output $_ }
+            return
+        }
+        $detail = $result -join "`n"
+        $schemaLag = $detail -match 'NotValidValue' -and
+            $detail -match 'Invalid (attribute|command) name'
+        if (-not $schemaLag -or $attempt -eq $delays.Count) {
+            throw "SmartThings failed during $script:RegistrationStep (exit $exitCode):`n$detail"
+        }
+        Write-Host "Localization validator has not accepted the updated schema; retrying in $($delays[$attempt]) seconds."
+        Start-Sleep -Seconds $delays[$attempt]
+    }
+}
 $manifestPath = Join-Path (Get-Location) 'capabilities/manifest.json'
 $manifest = Get-Content $manifestPath -Raw -Encoding utf8 | ConvertFrom-Json
 $tvEntries = @($manifest.capabilities | Where-Object { $_.key -in @('tvRemote', 'tvMedia') })
@@ -86,10 +110,7 @@ foreach ($entry in @($tvEntries) + @($learning) + @($creation)) {
             $createOutput | ForEach-Object { Write-Output $_ }
         }
         foreach ($locale in @('en', 'ko')) {
-            $script:RegistrationStep = "upserting $locale translation for $($entry.registeredId)"
-            Write-Host $script:RegistrationStep
-            smartthings capabilities:translations:upsert $entry.registeredId --capability-version 1 -i "capabilities/$($entry.translations.$locale)"
-            Assert-CliSuccess
+            Set-CapabilityTranslation -CapabilityId $entry.registeredId -Locale $locale -Path "capabilities/$($entry.translations.$locale)"
         }
     } finally {
         Remove-Item -LiteralPath $payload -ErrorAction SilentlyContinue
