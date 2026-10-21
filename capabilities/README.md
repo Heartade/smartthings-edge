@@ -32,7 +32,7 @@ The script prints and records each actual capability ID and updates its Lua and
 profile references. Intended IDs are `againmusic09479.irTvRemote`,
 `againmusic09479.irTvKeypad`, and `againmusic09479.irTvMedia` until registration
 returns actual IDs. Rerun the same script after an interruption; registrations
-already recorded in the manifest are reused. Translations use `upsert`, so existing English/Korean localizations are updated without a conflict. `-TvCapabilityId <returned-id>` can
+already recorded in the manifest are reused. Translations use `upsert`, so existing English/Korean localizations are updated without a conflict. Existing presentations are updated with `presentation:update` after the specific duplicate-version response from `presentation:create`; other API errors stop the script with the failing step. `-TvCapabilityId <returned-id>` can
 also resume a previously created navigation capability. The script updates account resources
 only when you run it. Do not package before registering the new capability.
 
