@@ -18,6 +18,14 @@ components:
         version: 1
       - id: againmusic09479.irSignalLearning
         version: 1
+        config:
+          values:
+            - key: action.value
+              enabledValues:
+                - ac_state
+            - key: selectAction
+              enabledValues:
+                - ac_state
     categories:
       - name: AirConditioner
 preferences:

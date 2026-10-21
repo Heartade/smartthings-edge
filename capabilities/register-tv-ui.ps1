@@ -35,7 +35,7 @@ function Set-CapabilityTranslation {
 }
 $manifestPath = Join-Path (Get-Location) 'capabilities/manifest.json'
 $manifest = Get-Content $manifestPath -Raw -Encoding utf8 | ConvertFrom-Json
-$tvEntries = @($manifest.capabilities | Where-Object { $_.key -in @('tvRemote', 'tvMedia') })
+$tvEntries = @($manifest.capabilities | Where-Object { $_.key -in @('tvRemote', 'tvMedia') -and $_.profiles -contains 'remote-tv' })
 # Catch command-limit errors before making any API writes.
 foreach ($entry in $tvEntries) {
     $definition = Get-Content "capabilities/$($entry.definition)" -Raw -Encoding utf8 | ConvertFrom-Json

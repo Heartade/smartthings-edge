@@ -58,9 +58,7 @@
         "en": "tv-remote/en.json",
         "ko": "tv-remote/ko.json"
       },
-      "profiles": [
-        "remote-tv"
-      ]
+      "profiles": []
     },
     {
       "key": "tvKeypad",
@@ -86,9 +84,7 @@
         "en": "tv-media/en.json",
         "ko": "tv-media/ko.json"
       },
-      "profiles": [
-        "remote-tv"
-      ]
+      "profiles": []
     }
   ]
 }

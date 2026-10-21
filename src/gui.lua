@@ -30,8 +30,13 @@ function M.new(capabilities, services)
   local function emit(device, name, attribute, value)
     local cap = g.caps[name]
     if not supports(device, cap) then return end
-    local ok, err = pcall(function() device:emit_event(cap[attribute](value)) end)
-    if not ok then device.log.warn("Could not publish setup status: " .. tostring(err)) end
+    local ok, result, err = pcall(function()
+      return device:emit_event(cap[attribute]({ value = value },
+        attribute == "supportedActions" and { state_change = true } or nil))
+    end)
+    if not ok or result == false or err ~= nil then
+      device.log.warn("Could not publish " .. attribute .. ": " .. tostring(ok and err or result))
+    end
   end
   local function message(value)
     local text = tostring(value or "")
@@ -81,7 +86,7 @@ function M.new(capabilities, services)
   end
   function g.needs_profile(device, profile)
     if not device.try_update_metadata then return false end
-    if device:get_field("gui_profile_revision") ~= 4 then return true end
+    if device:get_field("gui_profile_revision") ~= 5 then return true end
     if profile == "ir-blaster" then
       return g.caps.creation and not supports(device, g.caps.creation)
     end
@@ -90,9 +95,9 @@ function M.new(capabilities, services)
     end
     if remote_types[profile] then
       if profile == "remote-tv" then
-        if not supports(device, capabilities.keypadInput) or supports(device, g.caps.tvKeypad) then return true end
-        for _, role in ipairs({ "tv", "tvMedia" }) do
-          if g.caps[role] and not supports(device, g.caps[role]) then return true end
+        if not supports(device, capabilities.keypadInput) then return true end
+        for _, role in ipairs({ "tv", "tvKeypad", "tvMedia" }) do
+          if supports(device, g.caps[role]) then return true end
         end
       end
       if g.caps.learning and not supports(device, g.caps.learning) then return true end

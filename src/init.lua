@@ -318,6 +318,7 @@ local function zosung_message(driver, device, zb_rx)
       state.send_target = nil
       if target.gui_test then gui.status(target.device, "sent", "Transfer completed") end
       if target.value ~= nil then
+        target.device:set_field("ir_power_state", target.value, { persist = true })
         local event = target.value and capabilities.switch.switch.on()
           or capabilities.switch.switch.off()
         local emitted, err = pcall(target.device.emit_event, target.device, event)
@@ -445,7 +446,7 @@ local function initialize_device(driver, device)
     device.log.info("Updating remote profile to " .. profile)
     local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
     if ok then
-      device:set_field("gui_profile_revision", 4, { persist = true })
+      device:set_field("gui_profile_revision", 5, { persist = true })
       device:set_field("gui_profile_migration_requested", profile)
       return -- infoChanged publishes the new capability events after migration.
     end
@@ -457,9 +458,20 @@ local function initialize_device(driver, device)
   if gui.kind(device) == "remote-tv" and capabilities.keypadInput then
     local keys = { "UP", "DOWN", "LEFT", "RIGHT", "SELECT", "BACK", "EXIT", "MENU", "HOME", "SETTINGS" }
     for i = 0, 9 do keys[#keys + 1] = "NUMBER" .. i end
-    emit_event(device, capabilities.keypadInput.supportedKeyCodes(keys))
+    emit_event(device, capabilities.keypadInput.supportedKeyCodes({ value = keys }))
   end
-  if not is_ac_device(device) then return end
+  if not is_ac_device(device) then
+    if device:supports_capability(capabilities.switch) then
+      local value = device:get_field("ir_power_state")
+      if value == nil and device.get_latest_state then
+        local latest = device:get_latest_state("main", "switch", "switch")
+        if latest == "on" or latest == "off" then value = latest == "on" end
+      end
+      -- This is the last sent/assumed state; IR offers no appliance feedback.
+      emit_event(device, value == true and capabilities.switch.switch.on() or capabilities.switch.switch.off())
+    end
+    return
+  end
   local current = ac_state_for(device)
   if device:get_field("ac_desired_state") == nil then
     device:set_field("ac_desired_state", current, { persist = true })

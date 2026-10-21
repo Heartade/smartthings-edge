@@ -32,17 +32,16 @@ Settings/Exit and digits. This is the capability used by Otivax's IR driver:
 The app controls the native remote rendering. The official presentation also
 provides a list fallback; the circular pad's appearance must be checked on your phone.
 
-Volume/channel, mute, power toggle, previous channel, input/guide/info and
-media/extras remain custom buttons. The existing `irTvKeypad` resource is retained
-in the manifest for compatibility but is no longer attached to TV children.
-The script registers/reuses the two custom TV capabilities, extends learning,
-and updates parent creation choices. Existing translations and presentations
-are updated on repeat runs. Run the same script again after an interruption.
+TV children now contain only power, the native keypad and the learning card.
+All separate custom TV button rows have been removed. The old TV capability
+resources remain registered for compatibility, but are no longer attached or
+required by TV profiles. The registration script updates only capabilities still
+used by a profile; it does not recreate retired TV controls.
 
 Power On and Off remain on the main switch. Every button sends its separately
 learned signal; no TV protocol or manufacturer code is assumed. Select each
 button in the learning card at the bottom, then learn it from the original remote.
-Navigation and digits use the native keypad; the extra controls use button rows.
+Navigation and digits use the native keypad. Extra learned signals can still be selected and tested from the learning card, without separate button rows.
 
 Normal controls precede setup/learning cards. **AC protocol** (`ac-protocol`)
 has no learning capabilities or learning preference and defaults to LG 28-bit;
@@ -207,3 +206,14 @@ name localization responses, with bounded delays (up to 50 seconds total per
 locale). Other failures stop immediately, and an unresolved validation error is
 reported in full. This retains Settings as a native keypad action and a learnable
 signal; it does not remove labels to accommodate an older cached schema.
+
+The learning selector's options are now embedded in each profile: all TV actions
+for TV, power actions for fan/generic, and `ac_state` for AC. It no longer uses
+`supportedActions` to filter the list, so old on/off-only device status cannot hide
+new buttons. Select any TV action, press Learn, and press that original remote
+button. Existing saved codes are unchanged.
+
+Non-AC power switches initialize from the last successfully sent state, then the
+cached switch state, or Off if neither exists. This is an assumed state, not IR
+feedback. A successful power transmission persists the new state. Learning or
+testing a signal does not change the power state.

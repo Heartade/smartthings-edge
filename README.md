@@ -165,3 +165,10 @@ profiles. Protocol-only children contain no IR learning capability. Existing
 protocol children select the appropriate profile from their encoder preference.
 Run `./capabilities/register-tv-ui.ps1` before packaging to update the parent
 creation choices and presentations; saved IR signals are preserved.
+
+TV detail pages now omit all separate button rows below the native keypad.
+To learn a button, choose it in **Signal to learn**, then press **Learn selected
+signal** and use the original remote. Profile-defined choices expose all TV
+signals even if an older device status listed only on/off. Extra signals remain
+available through the learning card's Test action. Non-AC power switches now
+start with a usable assumed state and retain the last successfully sent state.

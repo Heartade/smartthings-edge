@@ -6,14 +6,106 @@ components:
         version: 1
       - id: keypadInput
         version: 1
-      - id: againmusic09479.irTvRemote
-        version: 1
-      - id: againmusic09479.irTvMedia
-        version: 1
       - id: refresh
         version: 1
       - id: againmusic09479.irSignalLearning
         version: 1
+        config:
+          values:
+            - key: action.value
+              enabledValues:
+                - power_on
+                - power_off
+                - power_toggle
+                - up
+                - left
+                - ok
+                - right
+                - down
+                - back
+                - home
+                - menu
+                - exit
+                - volume_up
+                - volume_down
+                - mute
+                - channel_up
+                - channel_down
+                - previous_channel
+                - input
+                - guide
+                - info
+                - digit_0
+                - digit_1
+                - digit_2
+                - digit_3
+                - digit_4
+                - digit_5
+                - digit_6
+                - digit_7
+                - digit_8
+                - digit_9
+                - dash
+                - play
+                - pause
+                - stop
+                - rewind
+                - fast_forward
+                - record
+                - red
+                - green
+                - yellow
+                - blue
+                - subtitles
+                - audio
+                - settings
+            - key: selectAction
+              enabledValues:
+                - power_on
+                - power_off
+                - power_toggle
+                - up
+                - left
+                - ok
+                - right
+                - down
+                - back
+                - home
+                - menu
+                - exit
+                - volume_up
+                - volume_down
+                - mute
+                - channel_up
+                - channel_down
+                - previous_channel
+                - input
+                - guide
+                - info
+                - digit_0
+                - digit_1
+                - digit_2
+                - digit_3
+                - digit_4
+                - digit_5
+                - digit_6
+                - digit_7
+                - digit_8
+                - digit_9
+                - dash
+                - play
+                - pause
+                - stop
+                - rewind
+                - fast_forward
+                - record
+                - red
+                - green
+                - yellow
+                - blue
+                - subtitles
+                - audio
+                - settings
     categories:
       - name: Television
 preferences:

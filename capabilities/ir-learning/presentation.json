@@ -242,8 +242,7 @@
               "type": "active"
             }
           ],
-          "argumentType": "string",
-          "supportedValues": "supportedActions.value"
+          "argumentType": "string"
         },
         "state": {
           "value": "action.value",
