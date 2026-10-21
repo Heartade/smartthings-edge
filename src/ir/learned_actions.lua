@@ -1,7 +1,7 @@
--- Bounded per-child table of captured power actions.
-local M = { MAX_CODE_LENGTH = 12000, MAX_ACTIONS = 2 }
-local valid_actions = { power_on = true, power_off = true }
-local valid_requests = { power_on = true, power_off = true, cancel = true }
+-- Bounded per-child table of captured remote button signals.
+local M = { MAX_CODE_LENGTH = 12000, MAX_ACTIONS = #require("ir.tv_buttons").actions }
+local valid_actions = require("ir.tv_buttons").valid
+local valid_requests = setmetatable({ cancel = true }, { __index = valid_actions })
 
 local function valid_code(code)
   return type(code) == "string" and #code > 0 and
@@ -13,7 +13,7 @@ function M.parse_request(request)
   if type(request) ~= "string" then return nil, "missing request" end
   local token, action = request:match("^([%w%-]+)|([%w_%-]+)$")
   if not token or #token > 24 or not valid_requests[action] then
-    return nil, "expected token|power_on, token|power_off, or token|cancel"
+    return nil, "expected token|action (a supported remote button) or token|cancel"
   end
   return { token = token, action = action }
 end

@@ -3,9 +3,11 @@ local children = require "children"
 local actions = require "ir.learned_actions"
 local ac_store = require "ac.learned_state"
 local ac_state = require "ac.state"
+local tv_buttons = require "ir.tv_buttons"
 local M = {
   IDS = { creation = "againmusic09479.irRemoteCreation",
-    learning = "againmusic09479.irSignalLearning", setup = "againmusic09479.acLearningSetup" }
+    learning = "againmusic09479.irSignalLearning", setup = "againmusic09479.acLearningSetup",
+    tv = "againmusic09479.irTvRemote" }
 }
 local remote_types = { ["remote-tv"] = true, ["remote-fan"] = true,
   ["remote-generic"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true }
@@ -41,15 +43,24 @@ function M.new(capabilities, services)
     return ok and parent or nil
   end
   function g.profile(device)
+    if device.model == "ac-protocol" or device.model == "ac-protocol-generated" then
+      local selection = device.preferences and device.preferences.acProtocol
+      return selection and selection ~= "learned_state" and "ac-protocol-generated" or "ac-protocol"
+    end
     if remote_types[device.model] then return device.model end
     if not g.parent(device) and device.get_short_address then return "ir-blaster" end
   end
   function g.needs_profile(device, profile)
     if not device.try_update_metadata then return false end
+    if device:get_field("gui_profile_revision") ~= 2 then return true end
     if profile == "ir-blaster" then
       return g.caps.creation and not supports(device, g.caps.creation)
     end
+    if profile == "ac-protocol-generated" then
+      return supports(device, g.caps.learning) or supports(device, g.caps.setup)
+    end
     if remote_types[profile] then
+      if profile == "remote-tv" and g.caps.tv and not supports(device, g.caps.tv) then return true end
       if g.caps.learning and not supports(device, g.caps.learning) then return true end
       if services.is_ac(device) then
         if capabilities.airConditionerMode and not supports(device, capabilities.airConditionerMode) then return true end
@@ -57,6 +68,14 @@ function M.new(capabilities, services)
       end
     end
     return false
+  end
+  function g.learning_enabled(device)
+    return g.profile(device) ~= "ac-protocol-generated"
+  end
+  function g.allowed_action(device, action)
+    if services.is_ac(device) then return action == "ac_state" end
+    if device.model == "remote-tv" then return tv_buttons.valid[action] == true end
+    return action == "power_on" or action == "power_off"
   end
   function g.display_state(device)
     return device:get_field("gui_ac_draft") or services.desired_state(device)
@@ -72,9 +91,10 @@ function M.new(capabilities, services)
     return selected(device), actions.new(device:get_field("learned_ir_actions")):get(selected(device))
   end
   function g.refresh(device)
-    if supports(device, g.caps.learning) then
+    if g.learning_enabled(device) and supports(device, g.caps.learning) then
       local valid, code = saved_code(device)
-      emit(device, "learning", "supportedActions", services.is_ac(device) and { "ac_state" } or { "power_on", "power_off" })
+      emit(device, "learning", "supportedActions", services.is_ac(device) and { "ac_state" } or
+        (device.model == "remote-tv" and tv_buttons.actions or { "power_on", "power_off" }))
       emit(device, "learning", "action", selected(device))
       emit(device, "learning", "signalStatus", valid and code and "saved" or "empty")
       emit(device, "learning", "learningStatus", device:get_field("gui_learning_status") or "idle")
@@ -207,16 +227,17 @@ function M.new(capabilities, services)
       watch_creation(driver, parent)
     end)
     add(M.IDS.learning, "selectAction", function(_, device, command)
+      if not g.learning_enabled(device) then return end
       if g.busy(device) then g.status(device, "busy", "Finish or cancel the current IR operation first"); return end
       local action = command.args and command.args.action
-      if (services.is_ac(device) and action ~= "ac_state") or
-          (not services.is_ac(device) and action ~= "power_on" and action ~= "power_off") then
+      if not g.allowed_action(device, action) then
         g.failure(device, "Unsupported signal selection"); return
       end
       device:set_field("gui_selected_action", action, { persist = true })
       g.status(device, "idle", "")
     end)
     add(M.IDS.learning, "learn", function(driver, device)
+      if not g.learning_enabled(device) then return end
       local parent = g.parent(device)
       if not parent then g.failure(device, "IR blaster parent is unavailable"); return end
       local result, err
@@ -234,6 +255,7 @@ function M.new(capabilities, services)
       if not result then g.failure(device, err or "No learning session owned by this remote") end
     end)
     add(M.IDS.learning, "test", function(driver, device)
+      if not g.learning_enabled(device) then return end
       local parent = g.parent(device)
       if not parent then g.failure(device, "IR blaster parent is unavailable"); return end
       if g.busy(device) then g.status(device, "busy", "IR blaster busy"); return end
@@ -245,6 +267,7 @@ function M.new(capabilities, services)
       if result then g.status(device, "testing", "") else g.failure(device, err) end
     end)
     add(M.IDS.learning, "deleteSignal", function(_, device)
+      if not g.learning_enabled(device) then return end
       if g.busy(device) then g.status(device, "busy", "IR blaster busy"); return end
       local store, result, err
       if services.is_ac(device) then
@@ -259,7 +282,7 @@ function M.new(capabilities, services)
       if result then g.status(device, "deleted", "") else g.failure(device, err) end
     end)
     add(M.IDS.setup, "setSetupMode", function(driver, device, command)
-      if not services.is_ac(device) then return end
+      if not services.is_ac(device) or not g.learning_enabled(device) then return end
       local mode = command.args and command.args.mode
       if mode == "on" then
         if g.busy(device) then g.status(device, "busy", "IR blaster busy"); return end

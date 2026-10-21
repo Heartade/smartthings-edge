@@ -144,3 +144,14 @@ That guide includes the complete setup workflow and registration instructions.
 - [Edge child-device API](https://developer.smartthings.com/docs/edge-device-drivers/driver.html)
 - [Edge integration tests](https://developer.smartthings.com/docs/devices/hub-connected/test-your-driver)
 - [Zigbee2MQTT Zosung TS1201 converter](https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/src/lib/zosung.ts)
+
+### TV buttons and learning layout
+
+TV remotes expose navigation, digits, volume/channel, input, playback, colored
+keys and other common controls. Each button must be learned separately. Learning
+controls follow normal remote controls; AC learning controls disappear when a
+generated protocol is selected, and return when **Learn states** is selected.
+
+Before packaging this update, run `./capabilities/register-tv-ui.ps1` to register
+the new TV capability and update the existing learning definition/presentation.
+See [registration and button details](capabilities/README.md#tv-controls-and-updated-layout).

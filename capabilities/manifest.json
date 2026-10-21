@@ -46,6 +46,21 @@
         "ac-learned-state",
         "ac-protocol"
       ]
+    },
+    {
+      "key": "tvRemote",
+      "registeredId": "againmusic09479.irTvRemote",
+      "registeredVersion": 1,
+      "registrationPending": true,
+      "definition": "tv-remote/capability.json",
+      "presentation": "tv-remote/presentation.json",
+      "translations": {
+        "en": "tv-remote/en.json",
+        "ko": "tv-remote/ko.json"
+      },
+      "profiles": [
+        "remote-tv"
+      ]
     }
   ]
 }

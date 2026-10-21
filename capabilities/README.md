@@ -14,7 +14,41 @@ device profiles; it is an installer/development manifest, not an API payload.
 The first version offers TV, fan, generic, learned-state AC and generated-protocol
 AC children. The unfinished `ac-button` profile is not offered. Ordinary remote
 learning supports `power_on` and `power_off`; AC learning uses `ac_state`.
-Arbitrary named buttons are outside the existing driver's storage contract.
+TV remotes additionally support every button in `src/ir/tv_buttons.lua`, each with its own saved signal.
+
+## TV controls and updated layout
+
+Run this once from the repository root to register the new TV controls and update
+IR Signal Learning with the expanded button choices and a clean dashboard:
+
+```powershell
+./capabilities/register-tv-ui.ps1
+smartthings edge:drivers:package . --install
+```
+
+The script prints and records the actual new capability ID, and updates its Lua
+and profile references. `againmusic09479.irTvRemote` is the intended ID until
+registration returns the actual ID. If interrupted after creation, rerun with
+`-TvCapabilityId <returned-id>` to reuse it. The script updates account resources
+only when you run it. Do not package before registering the new capability.
+
+TV controls include power toggle; arrows and OK; Back/Home/Menu/Exit; volume,
+mute and channel controls; previous channel; digits 0–9 and subchannel dash;
+input, guide and info; playback/record; colored keys; subtitles and audio language.
+Power On and Off remain on the main switch. Every button sends its separately
+learned signal; no TV protocol or manufacturer code is assumed. Select each
+button in the learning card at the bottom, then learn it from the original remote.
+Native SmartThings uses individual button rows, rather than a graphical keypad.
+
+Normal controls precede setup/learning cards in all profiles. Signal learning no
+longer adds a status tile to the dashboard. Generated AC protocols use the
+`ac-protocol-generated` profile, which omits both learning capabilities and the
+legacy learning preference. Selecting **Learn states** restores the learning
+profile. Profile changes retain stored codes. Existing devices request the new
+profile revision on startup; reopen the device page after installing.
+
+SmartThings groups status and command cards separately; exact rendering remains
+under app control. See [Device Configurations](https://developer.smartthings.com/docs/devices/configurations-and-presentations/device-configurations).
 
 ## Registered capabilities
 
@@ -34,7 +68,7 @@ On the blaster page, select **Remote type**, edit **Remote name**, and press
 **Create remote**. Creation status changes after the child is confirmed. A pending
 request blocks repeated taps; a timed-out retry reuses the same child key.
 
-On an ordinary remote, select **Power on** or **Power off**, press **Learn selected
+On an ordinary remote, select the desired button (TV) or **Power on** / **Power off**, press **Learn selected
 signal**, and press the original remote's button while the status asks for it.
 **Test saved signal** sends that selection; **Delete selected signal** removes it.
 **Cancel learning** cancels only this child's capture. The parent blaster handles

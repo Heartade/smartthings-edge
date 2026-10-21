@@ -429,19 +429,29 @@ end
 
 local function initialize_device(driver, device)
   gui.child_added(driver, device)
+  if not gui.learning_enabled(device) then
+    device:set_field("gui_ac_draft", nil)
+    local parent = gui.parent(device)
+    local active = gui.busy(device)
+    if parent and active and active.kind == "learn" and active.owner == device.id then
+      driver:cancel_ir_learning(parent, device)
+    end
+  end
   -- Existing children must select the new profile revision to receive the new
   -- capabilities. Keep their model, preferences and learned-state fields.
   local profile = gui.profile(device)
   if profile and gui.needs_profile(device, profile) then
-    if device:get_field("gui_profile_migration_requested") then return end
+    if device:get_field("gui_profile_migration_requested") == profile then return end
     local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
     if ok then
-      device:set_field("gui_profile_migration_requested", true)
+      device:set_field("gui_profile_revision", 2, { persist = true })
+      device:set_field("gui_profile_migration_requested", profile)
       return -- infoChanged publishes the new capability events after migration.
     end
     device.log.warn("Could not update setup controls: " .. tostring(err))
     return
   end
+  device:set_field("gui_profile_migration_requested", nil)
   gui.initialize(driver, device)
   if not is_ac_device(device) then return end
   local current = ac_state_for(device)
@@ -532,6 +542,7 @@ local function send_switch_action(driver, device, action, value)
   local code = store:get(action)
   if not code then
     device.log.warn("No learned IR action named " .. action)
+    gui.failure(device, "Learn the " .. action .. " button first")
     return
   end
 
@@ -652,6 +663,15 @@ for command_name, fan in pairs({
   end)
 end
 
+-- TV buttons share the same capture store and parent transfer ownership as power.
+for _, button in ipairs(require("ir.tv_buttons").buttons) do
+  local action = button.action
+  add_capability_handler(gui_module.IDS.tv, button.command, function(driver, device)
+    if device.model ~= "remote-tv" then return end
+    send_switch_action(driver, device, action, nil)
+  end)
+end
+
 local supported_capabilities = {
   capabilities.refresh, capabilities.switch, capabilities.thermostatMode,
   capabilities.thermostatCoolingSetpoint, capabilities.thermostatHeatingSetpoint,
@@ -686,8 +706,8 @@ function driver:send_ir_code(parent, code, target_device, switch_value, options)
 end
 
 function driver:start_ir_learning(parent, target_device, action)
-  if not target_device or (action ~= "power_on" and action ~= "power_off") then
-    return nil, "a child device and power action are required"
+  if not target_device or is_ac_device(target_device) or not gui.allowed_action(target_device, action) then
+    return nil, "a child device and supported remote button are required"
   end
   local state = state_for(self, parent)
   local result, err = begin_transfer(self, parent, "start_learning")
@@ -699,7 +719,7 @@ function driver:start_ir_learning(parent, target_device, action)
 end
 
 function driver:start_ir_state_learning(parent, target_device, target_state)
-  if not target_device or type(target_state) ~= "table" then
+  if not target_device or not gui.learning_enabled(target_device) or type(target_state) ~= "table" then
     return nil, "a child device and complete AC state are required"
   end
   local validated, err = ac_state.apply(ac_state.initial(), target_state)

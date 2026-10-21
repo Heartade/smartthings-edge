@@ -1,0 +1,133 @@
+{
+  "tag": "en",
+  "label": "TV remote",
+  "attributes": {},
+  "commands": {
+    "powerToggle": {
+      "label": "Power"
+    },
+    "up": {
+      "label": "Up"
+    },
+    "left": {
+      "label": "Left"
+    },
+    "ok": {
+      "label": "OK / Enter"
+    },
+    "right": {
+      "label": "Right"
+    },
+    "down": {
+      "label": "Down"
+    },
+    "back": {
+      "label": "Back"
+    },
+    "home": {
+      "label": "Home"
+    },
+    "menu": {
+      "label": "Menu"
+    },
+    "exit": {
+      "label": "Exit"
+    },
+    "volumeUp": {
+      "label": "Volume +"
+    },
+    "volumeDown": {
+      "label": "Volume −"
+    },
+    "mute": {
+      "label": "Mute"
+    },
+    "channelUp": {
+      "label": "Channel +"
+    },
+    "channelDown": {
+      "label": "Channel −"
+    },
+    "previousChannel": {
+      "label": "Previous channel"
+    },
+    "input": {
+      "label": "Input / Source"
+    },
+    "guide": {
+      "label": "Guide"
+    },
+    "info": {
+      "label": "Info"
+    },
+    "digit0": {
+      "label": "0"
+    },
+    "digit1": {
+      "label": "1"
+    },
+    "digit2": {
+      "label": "2"
+    },
+    "digit3": {
+      "label": "3"
+    },
+    "digit4": {
+      "label": "4"
+    },
+    "digit5": {
+      "label": "5"
+    },
+    "digit6": {
+      "label": "6"
+    },
+    "digit7": {
+      "label": "7"
+    },
+    "digit8": {
+      "label": "8"
+    },
+    "digit9": {
+      "label": "9"
+    },
+    "dash": {
+      "label": "Dash / Subchannel"
+    },
+    "play": {
+      "label": "Play"
+    },
+    "pause": {
+      "label": "Pause"
+    },
+    "stop": {
+      "label": "Stop"
+    },
+    "rewind": {
+      "label": "Rewind"
+    },
+    "fastForward": {
+      "label": "Fast forward"
+    },
+    "record": {
+      "label": "Record"
+    },
+    "red": {
+      "label": "Red"
+    },
+    "green": {
+      "label": "Green"
+    },
+    "yellow": {
+      "label": "Yellow"
+    },
+    "blue": {
+      "label": "Blue"
+    },
+    "subtitles": {
+      "label": "Subtitles"
+    },
+    "audio": {
+      "label": "Audio language"
+    }
+  }
+}

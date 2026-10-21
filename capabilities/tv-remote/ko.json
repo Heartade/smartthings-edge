@@ -1,0 +1,133 @@
+{
+  "tag": "ko",
+  "label": "TV 리모컨",
+  "attributes": {},
+  "commands": {
+    "powerToggle": {
+      "label": "전원"
+    },
+    "up": {
+      "label": "위"
+    },
+    "left": {
+      "label": "왼쪽"
+    },
+    "ok": {
+      "label": "확인"
+    },
+    "right": {
+      "label": "오른쪽"
+    },
+    "down": {
+      "label": "아래"
+    },
+    "back": {
+      "label": "뒤로"
+    },
+    "home": {
+      "label": "홈"
+    },
+    "menu": {
+      "label": "메뉴"
+    },
+    "exit": {
+      "label": "나가기"
+    },
+    "volumeUp": {
+      "label": "음량 +"
+    },
+    "volumeDown": {
+      "label": "음량 −"
+    },
+    "mute": {
+      "label": "음소거"
+    },
+    "channelUp": {
+      "label": "채널 +"
+    },
+    "channelDown": {
+      "label": "채널 −"
+    },
+    "previousChannel": {
+      "label": "이전 채널"
+    },
+    "input": {
+      "label": "외부 입력"
+    },
+    "guide": {
+      "label": "편성표"
+    },
+    "info": {
+      "label": "정보"
+    },
+    "digit0": {
+      "label": "0"
+    },
+    "digit1": {
+      "label": "1"
+    },
+    "digit2": {
+      "label": "2"
+    },
+    "digit3": {
+      "label": "3"
+    },
+    "digit4": {
+      "label": "4"
+    },
+    "digit5": {
+      "label": "5"
+    },
+    "digit6": {
+      "label": "6"
+    },
+    "digit7": {
+      "label": "7"
+    },
+    "digit8": {
+      "label": "8"
+    },
+    "digit9": {
+      "label": "9"
+    },
+    "dash": {
+      "label": "하위 채널 (−)"
+    },
+    "play": {
+      "label": "재생"
+    },
+    "pause": {
+      "label": "일시 정지"
+    },
+    "stop": {
+      "label": "정지"
+    },
+    "rewind": {
+      "label": "되감기"
+    },
+    "fastForward": {
+      "label": "빨리 감기"
+    },
+    "record": {
+      "label": "녹화"
+    },
+    "red": {
+      "label": "빨강"
+    },
+    "green": {
+      "label": "초록"
+    },
+    "yellow": {
+      "label": "노랑"
+    },
+    "blue": {
+      "label": "파랑"
+    },
+    "subtitles": {
+      "label": "자막"
+    },
+    "audio": {
+      "label": "음성 언어"
+    }
+  }
+}

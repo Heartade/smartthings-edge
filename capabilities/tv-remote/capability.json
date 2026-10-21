@@ -1,0 +1,174 @@
+{
+  "name": "IR TV Remote",
+  "attributes": {},
+  "commands": {
+    "powerToggle": {
+      "name": "powerToggle",
+      "arguments": []
+    },
+    "up": {
+      "name": "up",
+      "arguments": []
+    },
+    "left": {
+      "name": "left",
+      "arguments": []
+    },
+    "ok": {
+      "name": "ok",
+      "arguments": []
+    },
+    "right": {
+      "name": "right",
+      "arguments": []
+    },
+    "down": {
+      "name": "down",
+      "arguments": []
+    },
+    "back": {
+      "name": "back",
+      "arguments": []
+    },
+    "home": {
+      "name": "home",
+      "arguments": []
+    },
+    "menu": {
+      "name": "menu",
+      "arguments": []
+    },
+    "exit": {
+      "name": "exit",
+      "arguments": []
+    },
+    "volumeUp": {
+      "name": "volumeUp",
+      "arguments": []
+    },
+    "volumeDown": {
+      "name": "volumeDown",
+      "arguments": []
+    },
+    "mute": {
+      "name": "mute",
+      "arguments": []
+    },
+    "channelUp": {
+      "name": "channelUp",
+      "arguments": []
+    },
+    "channelDown": {
+      "name": "channelDown",
+      "arguments": []
+    },
+    "previousChannel": {
+      "name": "previousChannel",
+      "arguments": []
+    },
+    "input": {
+      "name": "input",
+      "arguments": []
+    },
+    "guide": {
+      "name": "guide",
+      "arguments": []
+    },
+    "info": {
+      "name": "info",
+      "arguments": []
+    },
+    "digit0": {
+      "name": "digit0",
+      "arguments": []
+    },
+    "digit1": {
+      "name": "digit1",
+      "arguments": []
+    },
+    "digit2": {
+      "name": "digit2",
+      "arguments": []
+    },
+    "digit3": {
+      "name": "digit3",
+      "arguments": []
+    },
+    "digit4": {
+      "name": "digit4",
+      "arguments": []
+    },
+    "digit5": {
+      "name": "digit5",
+      "arguments": []
+    },
+    "digit6": {
+      "name": "digit6",
+      "arguments": []
+    },
+    "digit7": {
+      "name": "digit7",
+      "arguments": []
+    },
+    "digit8": {
+      "name": "digit8",
+      "arguments": []
+    },
+    "digit9": {
+      "name": "digit9",
+      "arguments": []
+    },
+    "dash": {
+      "name": "dash",
+      "arguments": []
+    },
+    "play": {
+      "name": "play",
+      "arguments": []
+    },
+    "pause": {
+      "name": "pause",
+      "arguments": []
+    },
+    "stop": {
+      "name": "stop",
+      "arguments": []
+    },
+    "rewind": {
+      "name": "rewind",
+      "arguments": []
+    },
+    "fastForward": {
+      "name": "fastForward",
+      "arguments": []
+    },
+    "record": {
+      "name": "record",
+      "arguments": []
+    },
+    "red": {
+      "name": "red",
+      "arguments": []
+    },
+    "green": {
+      "name": "green",
+      "arguments": []
+    },
+    "yellow": {
+      "name": "yellow",
+      "arguments": []
+    },
+    "blue": {
+      "name": "blue",
+      "arguments": []
+    },
+    "subtitles": {
+      "name": "subtitles",
+      "arguments": []
+    },
+    "audio": {
+      "name": "audio",
+      "arguments": []
+    }
+  }
+}
