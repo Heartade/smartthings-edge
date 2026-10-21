@@ -52,7 +52,7 @@
       "key": "tvRemote",
       "registeredId": "againmusic09479.irTvRemote",
       "registeredVersion": 1,
-      "registrationPending": true,
+      "registrationPending": false,
       "definition": "tv-remote/capability.json",
       "presentation": "tv-remote/presentation.json",
       "translations": {
@@ -65,7 +65,7 @@
       "key": "tvKeypad",
       "registeredId": "againmusic09479.irTvKeypad",
       "registeredVersion": 1,
-      "registrationPending": true,
+      "registrationPending": false,
       "definition": "tv-keypad/capability.json",
       "presentation": "tv-keypad/presentation.json",
       "translations": {
@@ -78,7 +78,7 @@
       "key": "tvMedia",
       "registeredId": "againmusic09479.irTvMedia",
       "registeredVersion": 1,
-      "registrationPending": true,
+      "registrationPending": false,
       "definition": "tv-media/capability.json",
       "presentation": "tv-media/presentation.json",
       "translations": {
