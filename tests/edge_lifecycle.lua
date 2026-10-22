@@ -47,4 +47,23 @@ assert(created[1].parent_device_id == "parent")
 template.lifecycle_handlers.infoChanged(driver_object, parent, "infoChanged",
   { old_st_store = { preferences = { addRemoteRequest = "001|ac-protocol|Bedroom AC" } } })
 assert(#created == 1)
-print("Edge lifecycle request test passed")
+
+local child_fields, child_events, metadata_updates = {}, {}, {}
+local child = {
+  id = "child", model = "remote-generic", preferences = {},
+  parent_assigned_child_key = "remote-test",
+  log = { info = function() end, warn = function() end },
+  get_parent_device = function() return parent end,
+  get_field = function(_, k) return child_fields[k] end,
+  set_field = function(_, k, v) child_fields[k] = v end,
+  supports_capability = function(_, cap) return cap == capability.switch end,
+  try_update_metadata = function(_, metadata) metadata_updates[#metadata_updates + 1] = metadata end,
+  emit_event = function(_, event) child_events[#child_events + 1] = event end
+}
+template.lifecycle_handlers.init(driver_object, child)
+assert(#metadata_updates == 1 and metadata_updates[1].profile == "remote-generic")
+assert(child_fields.gui_profile_revision == 8)
+assert(child_fields.gui_profile_migration_requested == "remote-generic")
+assert(#child_events == 1 and child_events[1].value == "off")
+
+print("Edge lifecycle request and migration-state tests passed")

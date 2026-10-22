@@ -497,18 +497,24 @@ local function initialize_device(driver, device)
   -- capabilities. Keep their model, preferences and learned-state fields.
   local profile = gui.profile(device)
   if profile and gui.needs_profile(device, profile) then
-    if device:get_field("gui_profile_migration_requested") == profile then return end
-    device.log.info("Updating remote profile to " .. profile)
-    local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
-    if ok then
-      device:set_field("gui_profile_revision", 8, { persist = true })
-      device:set_field("gui_profile_migration_requested", profile)
-      return -- infoChanged publishes the new capability events after migration.
+    if device:get_field("gui_profile_migration_requested") ~= profile then
+      device.log.info("Updating remote profile to " .. profile)
+      local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
+      if ok then
+        device:set_field("gui_profile_revision", 8, { persist = true })
+        device:set_field("gui_profile_migration_requested", profile)
+      else
+        device.log.warn("Could not update setup controls: " .. tostring(err))
+        return
+      end
     end
-    device.log.warn("Could not update setup controls: " .. tostring(err))
-    return
+  else
+    device:set_field("gui_profile_migration_requested", nil)
   end
-  device:set_field("gui_profile_migration_requested", nil)
+
+  -- Profile metadata updates are asynchronous. Publish state for every
+  -- capability supported by the currently installed profile immediately rather
+  -- than waiting for a follow-up infoChanged event that may never arrive.
   gui.initialize(driver, device)
   if gui.kind(device) == "remote-tv" and capabilities.keypadInput then
     local keys = { "UP", "DOWN", "LEFT", "RIGHT", "SELECT", "BACK", "EXIT", "MENU", "HOME", "SETTINGS" }
