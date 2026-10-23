@@ -12,7 +12,7 @@
 
 ## 드라이버 설치 및 IR 리모컨 연결
 
-1. [SmartThings Generic IR Remote 채널](https://callaway.smartthings.com/channels/fd5a6ac8-0c02-4cd0-983e-5e94287e96d2)을 열고 삼성 계정으로 로그인합니다.
+1. [SmartThings Generic IR Remote 채널](https://bestow-regional.api.smartthings.com/invite/kVlnvQmk16l4)을 열고 삼성 계정으로 로그인합니다.
 2. 집에 있는 SmartThings 허브를 채널에 등록(Enroll)합니다.
 3. **Available Drivers**에서 **SmartThings Generic IR Remote**를 선택해 허브에 설치합니다.
 4. 아직 등록하지 않은 IR 리모컨이라면 SmartThings 앱에서 **기기 추가 → 주변 기기 검색**을 실행하고, 리모컨의 페어링 절차를 시작합니다.
@@ -20,7 +20,7 @@
 
 드라이버 설치를 보여 주는 화면:
 
-![SmartThings 기기 화면에서 드라이버를 선택하는 예](assets/1.png)
+<img src="assets/1.png" alt="SmartThings 기기 화면에서 드라이버를 선택하는 예" height="480">
 
 기기가 검색되지 않거나 페어링되지 않으면 정확한 모델과 Zigbee 지원 여부를 확인하세요. TS1201 호환 기기라도 하드웨어 리비전마다 동작이 다를 수 있습니다.
 
@@ -35,9 +35,9 @@
 
 프로토콜 방식은 에어컨의 상태 전체를 담은 IR 신호를 생성합니다. 목록의 선택지는 소프트웨어 프로토콜/모델 변형이며, 목록에 있다고 해서 특정 실물 에어컨에서 검증되었다는 뜻은 아닙니다.
 
-![에어컨 리모컨 생성 및 프로토콜 선택 화면](assets/2.png)
+<img src="assets/2.png" alt="에어컨 리모컨 생성 및 프로토콜 선택 화면" height="480">
 
-![에어컨 기기 화면과 프로토콜 선택 예](assets/4.png)
+<img src="assets/4.png" alt="에어컨 기기 화면과 프로토콜 선택 예" height="480">
 
 ### 에어컨 신호를 직접 학습해야 할 때
 
@@ -58,7 +58,7 @@
 - **일반 IR 스위치**: 전원 켜기/끄기 신호를 학습해 스위치로 사용합니다.
 - **일반 IR 버튼**: 신호 하나를 학습하고 **누르기(Push)** 명령으로 반복 송신합니다.
 
-![TV 리모컨이 기기 목록에 표시된 예](assets/3.png)
+<img src="assets/3.png" alt="TV 리모컨이 기기 목록에 표시된 예" height="480">
 
 ## 신호 학습 및 테스트
 
@@ -69,7 +69,7 @@
 
 TV의 일부 신호는 기기 화면에 보이는 버튼 목록과 다르게 표시될 수 있습니다. 학습할 신호 목록에서 원하는 동작을 확인하세요.
 
-![TV 키패드와 신호 학습 화면](assets/5.png)
+<img src="assets/5.png" alt="TV 키패드와 신호 학습 화면" height="480">
 
 ## 문제 해결 및 참고 사항
 

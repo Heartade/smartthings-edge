@@ -12,7 +12,7 @@ This guide explains how to install the SmartThings Edge driver and control air c
 
 ## Install the driver and connect the IR remote
 
-1. Open the [SmartThings Generic IR Remote channel](https://callaway.smartthings.com/channels/fd5a6ac8-0c02-4cd0-983e-5e94287e96d2) and sign in with your Samsung account.
+1. Open the [SmartThings Generic IR Remote channel](https://bestow-regional.api.smartthings.com/invite/kVlnvQmk16l4) and sign in with your Samsung account.
 2. Enroll your SmartThings hub in the channel.
 3. Select **SmartThings Generic IR Remote** under **Available Drivers** to install it on the hub.
 4. If the IR remote is not paired yet, use **Add device → Scan nearby** in the SmartThings app and start the remote's pairing procedure.
@@ -20,7 +20,7 @@ This guide explains how to install the SmartThings Edge driver and control air c
 
 Example of selecting the driver from the SmartThings device page:
 
-![Selecting the driver from the SmartThings device page](assets/1.png)
+<img src="assets/1.png" alt="Selecting the driver from the SmartThings device page" height="480">
 
 If the device is not discovered or does not pair, check its exact model and confirm that it is a Zigbee device. TS1201-compatible devices can still behave differently across hardware revisions.
 
@@ -35,9 +35,9 @@ If the device is not discovered or does not pair, check its exact model and conf
 
 Protocol mode generates IR signals containing the air conditioner's full state. The choices are software protocol/model variants; an entry in the list does not mean that it has been verified on a specific physical air conditioner.
 
-![Creating an air conditioner remote and selecting its protocol](assets/2.png)
+<img src="assets/2.png" alt="Creating an air conditioner remote and selecting its protocol" height="480">
 
-![Air conditioner controls and an example protocol selection](assets/4.png)
+<img src="assets/4.png" alt="Air conditioner controls and an example protocol selection" height="480">
 
 ### Learn AC states when needed
 
@@ -58,7 +58,7 @@ Use the same remote-creation steps and choose the appropriate **Remote type**:
 - **Generic IR switch**: Learns power-on and power-off signals for a switch device.
 - **Generic IR button**: Learns one signal and replays it with the **Push** command.
 
-![A TV remote shown in the device list](assets/3.png)
+<img src="assets/3.png" alt="A TV remote shown in the device list" height="480">
 
 ## Learn and test signals
 
@@ -69,7 +69,7 @@ Use the same remote-creation steps and choose the appropriate **Remote type**:
 
 Some TV signals may appear in the learning list even when the corresponding button is not visible on the device page. Look for the action in the signal list.
 
-![TV keypad and signal-learning controls](assets/5.png)
+<img src="assets/5.png" alt="TV keypad and signal-learning controls" height="480">
 
 ## Troubleshooting and notes
 
