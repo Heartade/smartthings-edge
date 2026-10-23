@@ -1,0 +1,82 @@
+{
+  "name": "IR TV Remote",
+  "attributes": {},
+  "commands": {
+    "powerToggle": {
+      "name": "powerToggle",
+      "arguments": []
+    },
+    "up": {
+      "name": "up",
+      "arguments": []
+    },
+    "left": {
+      "name": "left",
+      "arguments": []
+    },
+    "ok": {
+      "name": "ok",
+      "arguments": []
+    },
+    "right": {
+      "name": "right",
+      "arguments": []
+    },
+    "down": {
+      "name": "down",
+      "arguments": []
+    },
+    "back": {
+      "name": "back",
+      "arguments": []
+    },
+    "home": {
+      "name": "home",
+      "arguments": []
+    },
+    "menu": {
+      "name": "menu",
+      "arguments": []
+    },
+    "exit": {
+      "name": "exit",
+      "arguments": []
+    },
+    "volumeUp": {
+      "name": "volumeUp",
+      "arguments": []
+    },
+    "volumeDown": {
+      "name": "volumeDown",
+      "arguments": []
+    },
+    "mute": {
+      "name": "mute",
+      "arguments": []
+    },
+    "channelUp": {
+      "name": "channelUp",
+      "arguments": []
+    },
+    "channelDown": {
+      "name": "channelDown",
+      "arguments": []
+    },
+    "previousChannel": {
+      "name": "previousChannel",
+      "arguments": []
+    },
+    "input": {
+      "name": "input",
+      "arguments": []
+    },
+    "guide": {
+      "name": "guide",
+      "arguments": []
+    },
+    "info": {
+      "name": "info",
+      "arguments": []
+    }
+  }
+}

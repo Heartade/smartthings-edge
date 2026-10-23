@@ -1,0 +1,276 @@
+{
+  "name": "IR Signal Learning",
+  "attributes": {
+    "action": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "power_on",
+              "power_off",
+              "ac_state",
+              "power_toggle",
+              "up",
+              "left",
+              "ok",
+              "right",
+              "down",
+              "back",
+              "home",
+              "menu",
+              "exit",
+              "volume_up",
+              "volume_down",
+              "mute",
+              "channel_up",
+              "channel_down",
+              "previous_channel",
+              "input",
+              "guide",
+              "info",
+              "digit_0",
+              "digit_1",
+              "digit_2",
+              "digit_3",
+              "digit_4",
+              "digit_5",
+              "digit_6",
+              "digit_7",
+              "digit_8",
+              "digit_9",
+              "dash",
+              "play",
+              "pause",
+              "stop",
+              "rewind",
+              "fast_forward",
+              "record",
+              "red",
+              "green",
+              "yellow",
+              "blue",
+              "subtitles",
+              "audio",
+              "settings",
+              "press"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "setter": "selectAction"
+    },
+    "supportedActions": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "power_on",
+                "power_off",
+                "ac_state",
+                "power_toggle",
+                "up",
+                "left",
+                "ok",
+                "right",
+                "down",
+                "back",
+                "home",
+                "menu",
+                "exit",
+                "volume_up",
+                "volume_down",
+                "mute",
+                "channel_up",
+                "channel_down",
+                "previous_channel",
+                "input",
+                "guide",
+                "info",
+                "digit_0",
+                "digit_1",
+                "digit_2",
+                "digit_3",
+                "digit_4",
+                "digit_5",
+                "digit_6",
+                "digit_7",
+                "digit_8",
+                "digit_9",
+                "dash",
+                "play",
+                "pause",
+                "stop",
+                "rewind",
+                "fast_forward",
+                "record",
+                "red",
+                "green",
+                "yellow",
+                "blue",
+                "subtitles",
+                "audio",
+                "settings",
+                "press"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 47,
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    },
+    "learningStatus": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "idle",
+              "learning",
+              "learned",
+              "testing",
+              "sent",
+              "cancelled",
+              "timeout",
+              "busy",
+              "error",
+              "deleted"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    },
+    "signalStatus": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "empty",
+              "saved"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    },
+    "statusMessage": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 160
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "commands": {
+    "selectAction": {
+      "arguments": [
+        {
+          "name": "action",
+          "optional": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "power_on",
+              "power_off",
+              "ac_state",
+              "power_toggle",
+              "up",
+              "left",
+              "ok",
+              "right",
+              "down",
+              "back",
+              "home",
+              "menu",
+              "exit",
+              "volume_up",
+              "volume_down",
+              "mute",
+              "channel_up",
+              "channel_down",
+              "previous_channel",
+              "input",
+              "guide",
+              "info",
+              "digit_0",
+              "digit_1",
+              "digit_2",
+              "digit_3",
+              "digit_4",
+              "digit_5",
+              "digit_6",
+              "digit_7",
+              "digit_8",
+              "digit_9",
+              "dash",
+              "play",
+              "pause",
+              "stop",
+              "rewind",
+              "fast_forward",
+              "record",
+              "red",
+              "green",
+              "yellow",
+              "blue",
+              "subtitles",
+              "audio",
+              "settings",
+              "press"
+            ]
+          }
+        }
+      ],
+      "name": "selectAction"
+    },
+    "learn": {
+      "arguments": [],
+      "name": "learn"
+    },
+    "cancel": {
+      "arguments": [],
+      "name": "cancel"
+    },
+    "test": {
+      "arguments": [],
+      "name": "test"
+    },
+    "deleteSignal": {
+      "arguments": [],
+      "name": "deleteSignal"
+    }
+  }
+}

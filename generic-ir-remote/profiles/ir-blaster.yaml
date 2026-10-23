@@ -1,0 +1,21 @@
+name: ir-blaster
+components:
+  - id: main
+    capabilities:
+      - id: refresh
+        version: 1
+      - id: battery
+        version: 1
+      - id: againmusic09479.irRemoteCreation
+        version: 1
+    categories:
+      - name: RemoteController
+preferences:
+  - title: Add remote request
+    name: addRemoteRequest
+    description: 'Enter unique-token|profile|name, e.g. living-ac|ac-protocol|Bedroom AC'
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      maxLength: 100

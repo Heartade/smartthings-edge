@@ -1,0 +1,33 @@
+name: remote-generic
+components:
+  - id: main
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+      - id: againmusic09479.irSignalLearning
+        version: 1
+        config:
+          values:
+            - key: action.value
+              enabledValues:
+                - power_on
+                - power_off
+                - power_toggle
+            - key: selectAction
+              enabledValues:
+                - power_on
+                - power_off
+                - power_toggle
+    categories:
+      - name: Switch
+preferences:
+  - title: Learn or cancel a power action
+    name: learnActionRequest
+    description: 'Enter a new token|power_on, token|power_off, token|power_toggle, or token|cancel to capture or cancel a capture.'
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      maxLength: 40

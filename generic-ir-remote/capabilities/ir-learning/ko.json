@@ -1,0 +1,227 @@
+{
+  "tag": "ko",
+  "label": "IR 신호 학습",
+  "attributes": {
+    "action": {
+      "label": "학습할 신호",
+      "i18n": {
+        "value": {
+          "power_on": {
+            "label": "전원 켜기"
+          },
+          "power_off": {
+            "label": "전원 끄기"
+          },
+          "ac_state": {
+            "label": "현재 에어컨 설정"
+          },
+          "power_toggle": {
+            "label": "전원"
+          },
+          "up": {
+            "label": "위"
+          },
+          "left": {
+            "label": "왼쪽"
+          },
+          "ok": {
+            "label": "확인"
+          },
+          "right": {
+            "label": "오른쪽"
+          },
+          "down": {
+            "label": "아래"
+          },
+          "back": {
+            "label": "뒤로"
+          },
+          "home": {
+            "label": "홈"
+          },
+          "menu": {
+            "label": "메뉴"
+          },
+          "exit": {
+            "label": "나가기"
+          },
+          "volume_up": {
+            "label": "음량 +"
+          },
+          "volume_down": {
+            "label": "음량 −"
+          },
+          "mute": {
+            "label": "음소거"
+          },
+          "channel_up": {
+            "label": "채널 +"
+          },
+          "channel_down": {
+            "label": "채널 −"
+          },
+          "previous_channel": {
+            "label": "이전 채널"
+          },
+          "input": {
+            "label": "외부 입력"
+          },
+          "guide": {
+            "label": "편성표"
+          },
+          "info": {
+            "label": "정보"
+          },
+          "digit_0": {
+            "label": "0"
+          },
+          "digit_1": {
+            "label": "1"
+          },
+          "digit_2": {
+            "label": "2"
+          },
+          "digit_3": {
+            "label": "3"
+          },
+          "digit_4": {
+            "label": "4"
+          },
+          "digit_5": {
+            "label": "5"
+          },
+          "digit_6": {
+            "label": "6"
+          },
+          "digit_7": {
+            "label": "7"
+          },
+          "digit_8": {
+            "label": "8"
+          },
+          "digit_9": {
+            "label": "9"
+          },
+          "dash": {
+            "label": "하위 채널 (−)"
+          },
+          "play": {
+            "label": "재생"
+          },
+          "pause": {
+            "label": "일시 정지"
+          },
+          "stop": {
+            "label": "정지"
+          },
+          "rewind": {
+            "label": "되감기"
+          },
+          "fast_forward": {
+            "label": "빨리 감기"
+          },
+          "record": {
+            "label": "녹화"
+          },
+          "red": {
+            "label": "빨강"
+          },
+          "green": {
+            "label": "초록"
+          },
+          "yellow": {
+            "label": "노랑"
+          },
+          "blue": {
+            "label": "파랑"
+          },
+          "subtitles": {
+            "label": "자막"
+          },
+          "audio": {
+            "label": "음성 언어"
+          },
+          "settings": {
+            "label": "설정"
+          },
+          "press": {
+            "label": "버튼 누르기"
+          }
+        }
+      }
+    },
+    "supportedActions": {
+      "label": "지원하는 신호"
+    },
+    "learningStatus": {
+      "label": "학습 상태",
+      "i18n": {
+        "value": {
+          "idle": {
+            "label": "대기"
+          },
+          "learning": {
+            "label": "리모컨 버튼을 눌러 주세요"
+          },
+          "learned": {
+            "label": "학습 완료"
+          },
+          "testing": {
+            "label": "테스트 중"
+          },
+          "sent": {
+            "label": "전송 완료"
+          },
+          "cancelled": {
+            "label": "취소됨"
+          },
+          "timeout": {
+            "label": "학습 시간 초과"
+          },
+          "busy": {
+            "label": "IR 송수신기 사용 중"
+          },
+          "error": {
+            "label": "오류"
+          },
+          "deleted": {
+            "label": "저장된 신호 삭제됨"
+          }
+        }
+      }
+    },
+    "signalStatus": {
+      "label": "저장 여부",
+      "i18n": {
+        "value": {
+          "empty": {
+            "label": "저장된 신호 없음"
+          },
+          "saved": {
+            "label": "신호 저장됨"
+          }
+        }
+      }
+    },
+    "statusMessage": {
+      "label": "상세 안내"
+    }
+  },
+  "commands": {
+    "selectAction": {
+      "label": "학습할 신호 선택"
+    },
+    "learn": {
+      "label": "신호 학습 시작"
+    },
+    "cancel": {
+      "label": "학습 취소"
+    },
+    "test": {
+      "label": "저장된 신호 테스트"
+    },
+    "deleteSignal": {
+      "label": "선택한 신호 삭제"
+    }
+  }
+}

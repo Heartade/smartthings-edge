@@ -1,0 +1,109 @@
+{
+  "capabilities": [
+    {
+      "key": "remoteCreation",
+      "registeredId": "againmusic09479.irRemoteCreation",
+      "registeredVersion": 1,
+      "definition": "remote-creation/capability.json",
+      "presentation": "remote-creation/presentation.json",
+      "translations": {
+        "en": "remote-creation/en.json",
+        "ko": "remote-creation/ko.json"
+      },
+      "profiles": [
+        "ir-blaster"
+      ]
+    },
+    {
+      "key": "irLearning",
+      "registeredId": "againmusic09479.irSignalLearning",
+      "registeredVersion": 1,
+      "definition": "ir-learning/capability.json",
+      "presentation": "ir-learning/presentation.json",
+      "translations": {
+        "en": "ir-learning/en.json",
+        "ko": "ir-learning/ko.json"
+      },
+      "profiles": [
+        "remote-tv",
+        "remote-fan",
+        "remote-generic",
+        "ac-learned-state",
+        "ac-protocol-learning",
+        "remote-button"
+      ]
+    },
+    {
+      "key": "acLearningSetup",
+      "registeredId": "againmusic09479.acLearningSetup",
+      "registeredVersion": 1,
+      "definition": "ac-learning-setup/capability.json",
+      "presentation": "ac-learning-setup/presentation.json",
+      "translations": {
+        "en": "ac-learning-setup/en.json",
+        "ko": "ac-learning-setup/ko.json"
+      },
+      "profiles": [
+        "ac-learned-state",
+        "ac-protocol-learning"
+      ]
+    },
+    {
+      "key": "tvRemote",
+      "registeredId": "againmusic09479.irTvRemote",
+      "registeredVersion": 1,
+      "registrationPending": false,
+      "definition": "tv-remote/capability.json",
+      "presentation": "tv-remote/presentation.json",
+      "translations": {
+        "en": "tv-remote/en.json",
+        "ko": "tv-remote/ko.json"
+      },
+      "profiles": []
+    },
+    {
+      "key": "tvKeypad",
+      "registeredId": "againmusic09479.irTvKeypad",
+      "registeredVersion": 1,
+      "registrationPending": false,
+      "definition": "tv-keypad/capability.json",
+      "presentation": "tv-keypad/presentation.json",
+      "translations": {
+        "en": "tv-keypad/en.json",
+        "ko": "tv-keypad/ko.json"
+      },
+      "profiles": []
+    },
+    {
+      "key": "tvMedia",
+      "registeredId": "againmusic09479.irTvMedia",
+      "registeredVersion": 1,
+      "registrationPending": false,
+      "definition": "tv-media/capability.json",
+      "presentation": "tv-media/presentation.json",
+      "translations": {
+        "en": "tv-media/en.json",
+        "ko": "tv-media/ko.json"
+      },
+      "profiles": []
+    },
+    {
+      "key": "acProtocolSelection",
+      "registeredId": "againmusic09479.acProtocolSelection",
+      "registeredVersion": 1,
+      "registrationPending": false,
+      "definition": "ac-protocol-selection/capability.json",
+      "presentation": "ac-protocol-selection/presentation.json",
+      "translations": {
+        "en": "ac-protocol-selection/en.json",
+        "ko": "ac-protocol-selection/ko.json"
+      },
+      "profiles": [
+        "ac-learned-state",
+        "ac-protocol",
+        "ac-protocol-generated",
+        "ac-protocol-learning"
+      ]
+    }
+  ]
+}

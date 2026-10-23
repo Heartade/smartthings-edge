@@ -1,0 +1,64 @@
+{
+  "tag": "en",
+  "label": "IR TV Remote",
+  "attributes": {},
+  "commands": {
+    "powerToggle": {
+      "label": "Power"
+    },
+    "up": {
+      "label": "Up"
+    },
+    "left": {
+      "label": "Left"
+    },
+    "ok": {
+      "label": "OK / Enter"
+    },
+    "right": {
+      "label": "Right"
+    },
+    "down": {
+      "label": "Down"
+    },
+    "back": {
+      "label": "Back"
+    },
+    "home": {
+      "label": "Home"
+    },
+    "menu": {
+      "label": "Menu"
+    },
+    "exit": {
+      "label": "Exit"
+    },
+    "volumeUp": {
+      "label": "Volume +"
+    },
+    "volumeDown": {
+      "label": "Volume −"
+    },
+    "mute": {
+      "label": "Mute"
+    },
+    "channelUp": {
+      "label": "Channel +"
+    },
+    "channelDown": {
+      "label": "Channel −"
+    },
+    "previousChannel": {
+      "label": "Previous channel"
+    },
+    "input": {
+      "label": "Input / Source"
+    },
+    "guide": {
+      "label": "Guide"
+    },
+    "info": {
+      "label": "Info"
+    }
+  }
+}

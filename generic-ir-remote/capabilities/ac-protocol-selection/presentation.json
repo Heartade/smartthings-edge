@@ -1,0 +1,950 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.attributes.selection.label}}",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setSelection",
+          "alternatives": [
+            {
+              "key": "learned_state",
+              "value": "{{i18n.attributes.selection.i18n.value.learned_state.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_airton_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_airton_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_airwell_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_airwell_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_amcor_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_amcor_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_argo_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_argo_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_argo_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_argo_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_bosch144_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_bosch144_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_carrier_ac64_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_carrier_ac64_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_coolix_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_coolix_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_corona_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_corona_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin128_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin128_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin152_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin152_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin160_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin160_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin176_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin176_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin2_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin2_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin216_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin216_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin312_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin312_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin64_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin64_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_delonghi_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_delonghi_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_ecoclim_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_ecoclim_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_electra_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_electra_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_eurom_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_eurom_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m4",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m4.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m5",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m5.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m6",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m6.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_goodweather_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_goodweather_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_gree_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_gree_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_gree_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_gree_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_gree_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_gree_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac160_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac160_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac176_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac176_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac176_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac176_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac_yrw02_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac_yrw02_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac1_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac1_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac1_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac1_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac264_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac264_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac296_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac296_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac344_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac344_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac424_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac424_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_kelon_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_kelon_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_kelvinator_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_kelvinator_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg_m5",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg_m5.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg2_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg2_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg2_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg2_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg2_m4",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg2_m4.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_midea_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_midea_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mirage_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mirage_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mirage_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mirage_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi112_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi112_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi136_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi136_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi_heavy_152_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi_heavy_152_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi_heavy_88_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi_heavy_88_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_neoclima_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_neoclima_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m4",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m4.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m5",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m5.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m6",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m6.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac32_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac32_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_rhoss_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_rhoss_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_samsung_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_samsung_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sanyo_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sanyo_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sanyo_ac88_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sanyo_ac88_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sharp_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sharp_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sharp_ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sharp_ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sharp_ac_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sharp_ac_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_tcl112ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_tcl112ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_tcl112ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_tcl112ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_technibel_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_technibel_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_teco_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_teco_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_teknopoint_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_teknopoint_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_toshiba_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_toshiba_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_toshiba_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_toshiba_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_transcold_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_transcold_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_trotec_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_trotec_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_trotec_3550_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_trotec_3550_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_truma_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_truma_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_vestel_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_vestel_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_voltas_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_voltas_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_voltas_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_voltas_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_whirlpool_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_whirlpool_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_whirlpool_ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_whirlpool_ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_york_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_york_m0.label}}",
+              "type": "active"
+            }
+          ]
+        },
+        "state": {
+          "value": "selection.value",
+          "valueType": "string",
+          "alternatives": [
+            {
+              "key": "learned_state",
+              "value": "{{i18n.attributes.selection.i18n.value.learned_state.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_airton_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_airton_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_airwell_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_airwell_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_amcor_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_amcor_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_argo_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_argo_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_argo_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_argo_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_bosch144_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_bosch144_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_carrier_ac64_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_carrier_ac64_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_coolix_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_coolix_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_corona_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_corona_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin128_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin128_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin152_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin152_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin160_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin160_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin176_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin176_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin2_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin2_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin216_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin216_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin312_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin312_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_daikin64_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_daikin64_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_delonghi_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_delonghi_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_ecoclim_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_ecoclim_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_electra_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_electra_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_eurom_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_eurom_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m4",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m4.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m5",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m5.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_fujitsu_ac_m6",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_fujitsu_ac_m6.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_goodweather_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_goodweather_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_gree_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_gree_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_gree_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_gree_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_gree_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_gree_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac160_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac160_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac176_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac176_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac176_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac176_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_haier_ac_yrw02_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_haier_ac_yrw02_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac1_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac1_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac1_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac1_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac264_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac264_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac296_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac296_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac344_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac344_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_hitachi_ac424_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_hitachi_ac424_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_kelon_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_kelon_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_kelvinator_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_kelvinator_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg_m5",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg_m5.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg2_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg2_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg2_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg2_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_lg2_m4",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_lg2_m4.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_midea_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_midea_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mirage_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mirage_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mirage_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mirage_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi112_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi112_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi136_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi136_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi_heavy_152_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi_heavy_152_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_mitsubishi_heavy_88_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_mitsubishi_heavy_88_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_neoclima_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_neoclima_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m4",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m4.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m5",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m5.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac_m6",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac_m6.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_panasonic_ac32_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_panasonic_ac32_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_rhoss_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_rhoss_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_samsung_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_samsung_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sanyo_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sanyo_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sanyo_ac88_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sanyo_ac88_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sharp_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sharp_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sharp_ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sharp_ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_sharp_ac_m3",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_sharp_ac_m3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_tcl112ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_tcl112ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_tcl112ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_tcl112ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_technibel_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_technibel_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_teco_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_teco_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_teknopoint_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_teknopoint_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_toshiba_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_toshiba_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_toshiba_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_toshiba_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_transcold_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_transcold_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_trotec_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_trotec_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_trotec_3550_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_trotec_3550_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_truma_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_truma_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_vestel_ac_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_vestel_ac_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_voltas_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_voltas_m0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_voltas_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_voltas_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_whirlpool_ac_m1",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_whirlpool_ac_m1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_whirlpool_ac_m2",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_whirlpool_ac_m2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "irac_york_m0",
+              "value": "{{i18n.attributes.selection.i18n.value.irac_york_m0.label}}",
+              "type": "active"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  },
+  "version": 1
+}

@@ -1,0 +1,27 @@
+name: remote-button
+components:
+  - id: main
+    capabilities:
+      - id: momentary
+        version: 1
+      - id: refresh
+        version: 1
+      - id: againmusic09479.irSignalLearning
+        version: 1
+        config:
+          values:
+            - key: action.value
+              enabledValues: [press]
+            - key: selectAction
+              enabledValues: [press]
+    categories:
+      - name: Button
+preferences:
+  - title: Learn or cancel the button signal
+    name: learnActionRequest
+    description: 'Enter a new token|press to learn the button, or token|cancel.'
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      maxLength: 40

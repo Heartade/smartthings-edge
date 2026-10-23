@@ -1,0 +1,614 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.attributes.action.label}}",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "selectAction",
+          "alternatives": [
+            {
+              "key": "power_on",
+              "value": "{{i18n.attributes.action.i18n.value.power_on.label}}",
+              "type": "active"
+            },
+            {
+              "key": "power_off",
+              "value": "{{i18n.attributes.action.i18n.value.power_off.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ac_state",
+              "value": "{{i18n.attributes.action.i18n.value.ac_state.label}}",
+              "type": "active"
+            },
+            {
+              "key": "power_toggle",
+              "value": "{{i18n.attributes.action.i18n.value.power_toggle.label}}",
+              "type": "active"
+            },
+            {
+              "key": "up",
+              "value": "{{i18n.attributes.action.i18n.value.up.label}}",
+              "type": "active"
+            },
+            {
+              "key": "left",
+              "value": "{{i18n.attributes.action.i18n.value.left.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ok",
+              "value": "{{i18n.attributes.action.i18n.value.ok.label}}",
+              "type": "active"
+            },
+            {
+              "key": "right",
+              "value": "{{i18n.attributes.action.i18n.value.right.label}}",
+              "type": "active"
+            },
+            {
+              "key": "down",
+              "value": "{{i18n.attributes.action.i18n.value.down.label}}",
+              "type": "active"
+            },
+            {
+              "key": "back",
+              "value": "{{i18n.attributes.action.i18n.value.back.label}}",
+              "type": "active"
+            },
+            {
+              "key": "home",
+              "value": "{{i18n.attributes.action.i18n.value.home.label}}",
+              "type": "active"
+            },
+            {
+              "key": "menu",
+              "value": "{{i18n.attributes.action.i18n.value.menu.label}}",
+              "type": "active"
+            },
+            {
+              "key": "exit",
+              "value": "{{i18n.attributes.action.i18n.value.exit.label}}",
+              "type": "active"
+            },
+            {
+              "key": "volume_up",
+              "value": "{{i18n.attributes.action.i18n.value.volume_up.label}}",
+              "type": "active"
+            },
+            {
+              "key": "volume_down",
+              "value": "{{i18n.attributes.action.i18n.value.volume_down.label}}",
+              "type": "active"
+            },
+            {
+              "key": "mute",
+              "value": "{{i18n.attributes.action.i18n.value.mute.label}}",
+              "type": "active"
+            },
+            {
+              "key": "channel_up",
+              "value": "{{i18n.attributes.action.i18n.value.channel_up.label}}",
+              "type": "active"
+            },
+            {
+              "key": "channel_down",
+              "value": "{{i18n.attributes.action.i18n.value.channel_down.label}}",
+              "type": "active"
+            },
+            {
+              "key": "previous_channel",
+              "value": "{{i18n.attributes.action.i18n.value.previous_channel.label}}",
+              "type": "active"
+            },
+            {
+              "key": "input",
+              "value": "{{i18n.attributes.action.i18n.value.input.label}}",
+              "type": "active"
+            },
+            {
+              "key": "guide",
+              "value": "{{i18n.attributes.action.i18n.value.guide.label}}",
+              "type": "active"
+            },
+            {
+              "key": "info",
+              "value": "{{i18n.attributes.action.i18n.value.info.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_0",
+              "value": "{{i18n.attributes.action.i18n.value.digit_0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_1",
+              "value": "{{i18n.attributes.action.i18n.value.digit_1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_2",
+              "value": "{{i18n.attributes.action.i18n.value.digit_2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_3",
+              "value": "{{i18n.attributes.action.i18n.value.digit_3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_4",
+              "value": "{{i18n.attributes.action.i18n.value.digit_4.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_5",
+              "value": "{{i18n.attributes.action.i18n.value.digit_5.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_6",
+              "value": "{{i18n.attributes.action.i18n.value.digit_6.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_7",
+              "value": "{{i18n.attributes.action.i18n.value.digit_7.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_8",
+              "value": "{{i18n.attributes.action.i18n.value.digit_8.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_9",
+              "value": "{{i18n.attributes.action.i18n.value.digit_9.label}}",
+              "type": "active"
+            },
+            {
+              "key": "dash",
+              "value": "{{i18n.attributes.action.i18n.value.dash.label}}",
+              "type": "active"
+            },
+            {
+              "key": "play",
+              "value": "{{i18n.attributes.action.i18n.value.play.label}}",
+              "type": "active"
+            },
+            {
+              "key": "pause",
+              "value": "{{i18n.attributes.action.i18n.value.pause.label}}",
+              "type": "active"
+            },
+            {
+              "key": "stop",
+              "value": "{{i18n.attributes.action.i18n.value.stop.label}}",
+              "type": "active"
+            },
+            {
+              "key": "rewind",
+              "value": "{{i18n.attributes.action.i18n.value.rewind.label}}",
+              "type": "active"
+            },
+            {
+              "key": "fast_forward",
+              "value": "{{i18n.attributes.action.i18n.value.fast_forward.label}}",
+              "type": "active"
+            },
+            {
+              "key": "record",
+              "value": "{{i18n.attributes.action.i18n.value.record.label}}",
+              "type": "active"
+            },
+            {
+              "key": "red",
+              "value": "{{i18n.attributes.action.i18n.value.red.label}}",
+              "type": "active"
+            },
+            {
+              "key": "green",
+              "value": "{{i18n.attributes.action.i18n.value.green.label}}",
+              "type": "active"
+            },
+            {
+              "key": "yellow",
+              "value": "{{i18n.attributes.action.i18n.value.yellow.label}}",
+              "type": "active"
+            },
+            {
+              "key": "blue",
+              "value": "{{i18n.attributes.action.i18n.value.blue.label}}",
+              "type": "active"
+            },
+            {
+              "key": "subtitles",
+              "value": "{{i18n.attributes.action.i18n.value.subtitles.label}}",
+              "type": "active"
+            },
+            {
+              "key": "audio",
+              "value": "{{i18n.attributes.action.i18n.value.audio.label}}",
+              "type": "active"
+            },
+            {
+              "key": "settings",
+              "value": "{{i18n.attributes.action.i18n.value.settings.label}}",
+              "type": "active"
+            },
+            {
+              "key": "press",
+              "value": "{{i18n.attributes.action.i18n.value.press.label}}",
+              "type": "active"
+            }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "action.value",
+          "valueType": "string",
+          "alternatives": [
+            {
+              "key": "power_on",
+              "value": "{{i18n.attributes.action.i18n.value.power_on.label}}",
+              "type": "active"
+            },
+            {
+              "key": "power_off",
+              "value": "{{i18n.attributes.action.i18n.value.power_off.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ac_state",
+              "value": "{{i18n.attributes.action.i18n.value.ac_state.label}}",
+              "type": "active"
+            },
+            {
+              "key": "power_toggle",
+              "value": "{{i18n.attributes.action.i18n.value.power_toggle.label}}",
+              "type": "active"
+            },
+            {
+              "key": "up",
+              "value": "{{i18n.attributes.action.i18n.value.up.label}}",
+              "type": "active"
+            },
+            {
+              "key": "left",
+              "value": "{{i18n.attributes.action.i18n.value.left.label}}",
+              "type": "active"
+            },
+            {
+              "key": "ok",
+              "value": "{{i18n.attributes.action.i18n.value.ok.label}}",
+              "type": "active"
+            },
+            {
+              "key": "right",
+              "value": "{{i18n.attributes.action.i18n.value.right.label}}",
+              "type": "active"
+            },
+            {
+              "key": "down",
+              "value": "{{i18n.attributes.action.i18n.value.down.label}}",
+              "type": "active"
+            },
+            {
+              "key": "back",
+              "value": "{{i18n.attributes.action.i18n.value.back.label}}",
+              "type": "active"
+            },
+            {
+              "key": "home",
+              "value": "{{i18n.attributes.action.i18n.value.home.label}}",
+              "type": "active"
+            },
+            {
+              "key": "menu",
+              "value": "{{i18n.attributes.action.i18n.value.menu.label}}",
+              "type": "active"
+            },
+            {
+              "key": "exit",
+              "value": "{{i18n.attributes.action.i18n.value.exit.label}}",
+              "type": "active"
+            },
+            {
+              "key": "volume_up",
+              "value": "{{i18n.attributes.action.i18n.value.volume_up.label}}",
+              "type": "active"
+            },
+            {
+              "key": "volume_down",
+              "value": "{{i18n.attributes.action.i18n.value.volume_down.label}}",
+              "type": "active"
+            },
+            {
+              "key": "mute",
+              "value": "{{i18n.attributes.action.i18n.value.mute.label}}",
+              "type": "active"
+            },
+            {
+              "key": "channel_up",
+              "value": "{{i18n.attributes.action.i18n.value.channel_up.label}}",
+              "type": "active"
+            },
+            {
+              "key": "channel_down",
+              "value": "{{i18n.attributes.action.i18n.value.channel_down.label}}",
+              "type": "active"
+            },
+            {
+              "key": "previous_channel",
+              "value": "{{i18n.attributes.action.i18n.value.previous_channel.label}}",
+              "type": "active"
+            },
+            {
+              "key": "input",
+              "value": "{{i18n.attributes.action.i18n.value.input.label}}",
+              "type": "active"
+            },
+            {
+              "key": "guide",
+              "value": "{{i18n.attributes.action.i18n.value.guide.label}}",
+              "type": "active"
+            },
+            {
+              "key": "info",
+              "value": "{{i18n.attributes.action.i18n.value.info.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_0",
+              "value": "{{i18n.attributes.action.i18n.value.digit_0.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_1",
+              "value": "{{i18n.attributes.action.i18n.value.digit_1.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_2",
+              "value": "{{i18n.attributes.action.i18n.value.digit_2.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_3",
+              "value": "{{i18n.attributes.action.i18n.value.digit_3.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_4",
+              "value": "{{i18n.attributes.action.i18n.value.digit_4.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_5",
+              "value": "{{i18n.attributes.action.i18n.value.digit_5.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_6",
+              "value": "{{i18n.attributes.action.i18n.value.digit_6.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_7",
+              "value": "{{i18n.attributes.action.i18n.value.digit_7.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_8",
+              "value": "{{i18n.attributes.action.i18n.value.digit_8.label}}",
+              "type": "active"
+            },
+            {
+              "key": "digit_9",
+              "value": "{{i18n.attributes.action.i18n.value.digit_9.label}}",
+              "type": "active"
+            },
+            {
+              "key": "dash",
+              "value": "{{i18n.attributes.action.i18n.value.dash.label}}",
+              "type": "active"
+            },
+            {
+              "key": "play",
+              "value": "{{i18n.attributes.action.i18n.value.play.label}}",
+              "type": "active"
+            },
+            {
+              "key": "pause",
+              "value": "{{i18n.attributes.action.i18n.value.pause.label}}",
+              "type": "active"
+            },
+            {
+              "key": "stop",
+              "value": "{{i18n.attributes.action.i18n.value.stop.label}}",
+              "type": "active"
+            },
+            {
+              "key": "rewind",
+              "value": "{{i18n.attributes.action.i18n.value.rewind.label}}",
+              "type": "active"
+            },
+            {
+              "key": "fast_forward",
+              "value": "{{i18n.attributes.action.i18n.value.fast_forward.label}}",
+              "type": "active"
+            },
+            {
+              "key": "record",
+              "value": "{{i18n.attributes.action.i18n.value.record.label}}",
+              "type": "active"
+            },
+            {
+              "key": "red",
+              "value": "{{i18n.attributes.action.i18n.value.red.label}}",
+              "type": "active"
+            },
+            {
+              "key": "green",
+              "value": "{{i18n.attributes.action.i18n.value.green.label}}",
+              "type": "active"
+            },
+            {
+              "key": "yellow",
+              "value": "{{i18n.attributes.action.i18n.value.yellow.label}}",
+              "type": "active"
+            },
+            {
+              "key": "blue",
+              "value": "{{i18n.attributes.action.i18n.value.blue.label}}",
+              "type": "active"
+            },
+            {
+              "key": "subtitles",
+              "value": "{{i18n.attributes.action.i18n.value.subtitles.label}}",
+              "type": "active"
+            },
+            {
+              "key": "audio",
+              "value": "{{i18n.attributes.action.i18n.value.audio.label}}",
+              "type": "active"
+            },
+            {
+              "key": "settings",
+              "value": "{{i18n.attributes.action.i18n.value.settings.label}}",
+              "type": "active"
+            },
+            {
+              "key": "press",
+              "value": "{{i18n.attributes.action.i18n.value.press.label}}",
+              "type": "active"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "{{i18n.attributes.signalStatus.label}}",
+      "displayType": "state",
+      "state": {
+        "label": "{{signalStatus.value}}",
+        "alternatives": [
+          {
+            "key": "empty",
+            "value": "{{i18n.attributes.signalStatus.i18n.value.empty.label}}",
+            "type": "inactive"
+          },
+          {
+            "key": "saved",
+            "value": "{{i18n.attributes.signalStatus.i18n.value.saved.label}}",
+            "type": "active"
+          }
+        ]
+      }
+    },
+    {
+      "label": "{{i18n.commands.learn.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "learn"
+      }
+    },
+    {
+      "label": "{{i18n.commands.cancel.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "cancel"
+      }
+    },
+    {
+      "label": "{{i18n.commands.test.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "test"
+      }
+    },
+    {
+      "label": "{{i18n.commands.deleteSignal.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "deleteSignal"
+      }
+    },
+    {
+      "label": "{{i18n.attributes.learningStatus.label}}",
+      "displayType": "state",
+      "state": {
+        "label": "{{learningStatus.value}}",
+        "alternatives": [
+          {
+            "key": "idle",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.idle.label}}",
+            "type": "inactive"
+          },
+          {
+            "key": "learning",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.learning.label}}",
+            "type": "active"
+          },
+          {
+            "key": "learned",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.learned.label}}",
+            "type": "active"
+          },
+          {
+            "key": "testing",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.testing.label}}",
+            "type": "active"
+          },
+          {
+            "key": "sent",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.sent.label}}",
+            "type": "active"
+          },
+          {
+            "key": "cancelled",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.cancelled.label}}",
+            "type": "active"
+          },
+          {
+            "key": "timeout",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.timeout.label}}",
+            "type": "active"
+          },
+          {
+            "key": "busy",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.busy.label}}",
+            "type": "active"
+          },
+          {
+            "key": "error",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.error.label}}",
+            "type": "active"
+          },
+          {
+            "key": "deleted",
+            "value": "{{i18n.attributes.learningStatus.i18n.value.deleted.label}}",
+            "type": "active"
+          }
+        ]
+      }
+    },
+    {
+      "label": "{{i18n.attributes.statusMessage.label}}",
+      "displayType": "state",
+      "state": {
+        "label": "{{statusMessage.value}}"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  },
+  "version": 1
+}

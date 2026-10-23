@@ -1,0 +1,97 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.commands.play.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "play"
+      }
+    },
+    {
+      "label": "{{i18n.commands.pause.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "pause"
+      }
+    },
+    {
+      "label": "{{i18n.commands.stop.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "stop"
+      }
+    },
+    {
+      "label": "{{i18n.commands.rewind.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "rewind"
+      }
+    },
+    {
+      "label": "{{i18n.commands.fastForward.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "fastForward"
+      }
+    },
+    {
+      "label": "{{i18n.commands.record.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "record"
+      }
+    },
+    {
+      "label": "{{i18n.commands.red.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "red"
+      }
+    },
+    {
+      "label": "{{i18n.commands.green.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "green"
+      }
+    },
+    {
+      "label": "{{i18n.commands.yellow.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "yellow"
+      }
+    },
+    {
+      "label": "{{i18n.commands.blue.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "blue"
+      }
+    },
+    {
+      "label": "{{i18n.commands.subtitles.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "subtitles"
+      }
+    },
+    {
+      "label": "{{i18n.commands.audio.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "audio"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  },
+  "version": 1
+}

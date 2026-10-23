@@ -1,0 +1,83 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.commands.powerToggle.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "powerToggle"
+      }
+    },
+    {
+      "label": "{{i18n.commands.volumeUp.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "volumeUp"
+      }
+    },
+    {
+      "label": "{{i18n.commands.volumeDown.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "volumeDown"
+      }
+    },
+    {
+      "label": "{{i18n.commands.mute.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "mute"
+      }
+    },
+    {
+      "label": "{{i18n.commands.channelUp.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "channelUp"
+      }
+    },
+    {
+      "label": "{{i18n.commands.channelDown.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "channelDown"
+      }
+    },
+    {
+      "label": "{{i18n.commands.previousChannel.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "previousChannel"
+      }
+    },
+    {
+      "label": "{{i18n.commands.input.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "input"
+      }
+    },
+    {
+      "label": "{{i18n.commands.guide.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "guide"
+      }
+    },
+    {
+      "label": "{{i18n.commands.info.label}}",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "info"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  },
+  "version": 1
+}

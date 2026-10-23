@@ -1,0 +1,70 @@
+{
+  "tag": "en",
+  "label": "Add IR remote",
+  "attributes": {
+    "remoteType": {
+      "label": "Remote type",
+      "i18n": {
+        "value": {
+          "remote-tv": {
+            "label": "TV"
+          },
+          "remote-fan": {
+            "label": "Fan"
+          },
+          "remote-generic": {
+            "label": "Generic IR switch"
+          },
+          "ac-learned-state": {
+            "label": "AC: learned states"
+          },
+          "ac-protocol": {
+            "label": "AC: generated protocol"
+          },
+          "ac-protocol-learning": {
+            "label": "AC protocol with learning"
+          },
+          "remote-button": {
+            "label": "Generic IR button"
+          }
+        }
+      }
+    },
+    "remoteName": {
+      "label": "Remote name"
+    },
+    "creationStatus": {
+      "label": "Creation status",
+      "i18n": {
+        "value": {
+          "idle": {
+            "label": "Ready"
+          },
+          "creating": {
+            "label": "Creating remote"
+          },
+          "created": {
+            "label": "Remote created"
+          },
+          "error": {
+            "label": "Error"
+          }
+        }
+      }
+    },
+    "statusMessage": {
+      "label": "Details"
+    }
+  },
+  "commands": {
+    "setRemoteType": {
+      "label": "Select remote type"
+    },
+    "setRemoteName": {
+      "label": "Set remote name"
+    },
+    "createRemote": {
+      "label": "Create remote"
+    }
+  }
+}

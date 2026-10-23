@@ -1,0 +1,227 @@
+{
+  "tag": "en",
+  "label": "Learn IR signal",
+  "attributes": {
+    "action": {
+      "label": "Signal to learn",
+      "i18n": {
+        "value": {
+          "power_on": {
+            "label": "Power on"
+          },
+          "power_off": {
+            "label": "Power off"
+          },
+          "ac_state": {
+            "label": "Current AC state"
+          },
+          "power_toggle": {
+            "label": "Power"
+          },
+          "up": {
+            "label": "Up"
+          },
+          "left": {
+            "label": "Left"
+          },
+          "ok": {
+            "label": "OK / Enter"
+          },
+          "right": {
+            "label": "Right"
+          },
+          "down": {
+            "label": "Down"
+          },
+          "back": {
+            "label": "Back"
+          },
+          "home": {
+            "label": "Home"
+          },
+          "menu": {
+            "label": "Menu"
+          },
+          "exit": {
+            "label": "Exit"
+          },
+          "volume_up": {
+            "label": "Volume +"
+          },
+          "volume_down": {
+            "label": "Volume −"
+          },
+          "mute": {
+            "label": "Mute"
+          },
+          "channel_up": {
+            "label": "Channel +"
+          },
+          "channel_down": {
+            "label": "Channel −"
+          },
+          "previous_channel": {
+            "label": "Previous channel"
+          },
+          "input": {
+            "label": "Input / Source"
+          },
+          "guide": {
+            "label": "Guide"
+          },
+          "info": {
+            "label": "Info"
+          },
+          "digit_0": {
+            "label": "0"
+          },
+          "digit_1": {
+            "label": "1"
+          },
+          "digit_2": {
+            "label": "2"
+          },
+          "digit_3": {
+            "label": "3"
+          },
+          "digit_4": {
+            "label": "4"
+          },
+          "digit_5": {
+            "label": "5"
+          },
+          "digit_6": {
+            "label": "6"
+          },
+          "digit_7": {
+            "label": "7"
+          },
+          "digit_8": {
+            "label": "8"
+          },
+          "digit_9": {
+            "label": "9"
+          },
+          "dash": {
+            "label": "Dash / Subchannel"
+          },
+          "play": {
+            "label": "Play"
+          },
+          "pause": {
+            "label": "Pause"
+          },
+          "stop": {
+            "label": "Stop"
+          },
+          "rewind": {
+            "label": "Rewind"
+          },
+          "fast_forward": {
+            "label": "Fast forward"
+          },
+          "record": {
+            "label": "Record"
+          },
+          "red": {
+            "label": "Red"
+          },
+          "green": {
+            "label": "Green"
+          },
+          "yellow": {
+            "label": "Yellow"
+          },
+          "blue": {
+            "label": "Blue"
+          },
+          "subtitles": {
+            "label": "Subtitles"
+          },
+          "audio": {
+            "label": "Audio language"
+          },
+          "settings": {
+            "label": "Settings"
+          },
+          "press": {
+            "label": "Button press"
+          }
+        }
+      }
+    },
+    "supportedActions": {
+      "label": "Supported signals"
+    },
+    "learningStatus": {
+      "label": "Learning status",
+      "i18n": {
+        "value": {
+          "idle": {
+            "label": "Ready"
+          },
+          "learning": {
+            "label": "Press the original remote button"
+          },
+          "learned": {
+            "label": "Signal learned"
+          },
+          "testing": {
+            "label": "Testing signal"
+          },
+          "sent": {
+            "label": "Transfer completed"
+          },
+          "cancelled": {
+            "label": "Cancelled"
+          },
+          "timeout": {
+            "label": "Learning timed out"
+          },
+          "busy": {
+            "label": "IR blaster busy"
+          },
+          "error": {
+            "label": "Error"
+          },
+          "deleted": {
+            "label": "Saved signal deleted"
+          }
+        }
+      }
+    },
+    "signalStatus": {
+      "label": "Saved signal",
+      "i18n": {
+        "value": {
+          "empty": {
+            "label": "No saved signal"
+          },
+          "saved": {
+            "label": "Signal saved"
+          }
+        }
+      }
+    },
+    "statusMessage": {
+      "label": "Details"
+    }
+  },
+  "commands": {
+    "selectAction": {
+      "label": "Select signal"
+    },
+    "learn": {
+      "label": "Learn selected signal"
+    },
+    "cancel": {
+      "label": "Cancel learning"
+    },
+    "test": {
+      "label": "Test saved signal"
+    },
+    "deleteSignal": {
+      "label": "Delete selected signal"
+    }
+  }
+}

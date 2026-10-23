@@ -1,0 +1,64 @@
+{
+  "tag": "ko",
+  "label": "TV 탐색 및 음량",
+  "attributes": {},
+  "commands": {
+    "powerToggle": {
+      "label": "전원"
+    },
+    "up": {
+      "label": "위"
+    },
+    "left": {
+      "label": "왼쪽"
+    },
+    "ok": {
+      "label": "확인"
+    },
+    "right": {
+      "label": "오른쪽"
+    },
+    "down": {
+      "label": "아래"
+    },
+    "back": {
+      "label": "뒤로"
+    },
+    "home": {
+      "label": "홈"
+    },
+    "menu": {
+      "label": "메뉴"
+    },
+    "exit": {
+      "label": "나가기"
+    },
+    "volumeUp": {
+      "label": "음량 +"
+    },
+    "volumeDown": {
+      "label": "음량 −"
+    },
+    "mute": {
+      "label": "음소거"
+    },
+    "channelUp": {
+      "label": "채널 +"
+    },
+    "channelDown": {
+      "label": "채널 −"
+    },
+    "previousChannel": {
+      "label": "이전 채널"
+    },
+    "input": {
+      "label": "외부 입력"
+    },
+    "guide": {
+      "label": "편성표"
+    },
+    "info": {
+      "label": "정보"
+    }
+  }
+}

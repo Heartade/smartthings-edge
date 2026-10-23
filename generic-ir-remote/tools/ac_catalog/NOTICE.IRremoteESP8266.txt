@@ -1,0 +1,93 @@
+IRremoteESP8266 by David Conran and contributors
+https://github.com/crankyoldgit/IRremoteESP8266
+Pinned revision: 1e2f0f3ef0a93cbf2a8ddb2e95130f8f4c584b3f
+Generated waveform data is derived from upstream state encoders and transmitters.
+Original source copyright notices (deduplicated):
+
+* Copyright 2009 Ken Shirriff
+* Copyright 2022 IRremoteESP8266 project and others
+// Copyright 2009 Ken Shirriff
+// Copyright 2013 mpflaga
+// Copyright 2015 Darryl Smith
+// Copyright 2015 Kristian Lauszus
+// Copyright 2015 Mark Szabo
+// Copyright 2015 Sebastien Warin
+// Copyright 2015 cheaplin
+// Copyright 2015 kitlaan
+// Copyright 2016 David Conran
+// Copyright 2016 Hisham Khalifa
+// Copyright 2016 Massimiliano Pinto
+// Copyright 2016 marcosamarinho
+// Copyright 2016 sillyfrog
+// Copyright 2016-2022 David Conran
+// Copyright 2017 David Conran
+// Copyright 2017 Jason kendall, David Conran
+// Copyright 2017 Jonny Graham
+// Copyright 2017 Schmolders
+// Copyright 2017 Ville Skyttä (scop)
+// Copyright 2017 bwze, crankyoldgit
+// Copyright 2017 sillyfrog, crankyoldgit
+// Copyright 2017 stufisher
+// Copyright 2017, 2018 David Conran
+// Copyright 2017, 2019 David Conran
+// Copyright 2017,2019 David Conran
+// Copyright 2017,2020 David Conran
+// Copyright 2017-2021 David Conran
+// Copyright 2017-2022 David Conran
+// Copyright 2018 Brett T. Warden
+// Copyright 2018 David Conran
+// Copyright 2018 Denes Varga
+// Copyright 2018 Erdem U. Altinyurt
+// Copyright 2018 Kamil Palczewski
+// Copyright 2018-2019 David Conran
+// Copyright 2018-2020 David Conran
+// Copyright 2018-2021 David Conran
+// Copyright 2018-2021 crankyoldgit
+// Copyright 2018-2022 David Conran
+// Copyright 2018-2022 crankyoldgit
+// Copyright 2019 - David Conran (@crankyoldgit)
+// Copyright 2019 David Conran
+// Copyright 2019 David Conran (crankyoldgit)
+// Copyright 2019 Fabien Valthier
+// Copyright 2019 Mark Kuchel
+// Copyright 2019 crankyoldgit
+// Copyright 2019 pasna (IRDaikin160 class / Daikin176 class)
+// Copyright 2019 ribeirodanielf
+// Copyright 2019 s-hadinger
+// Copyright 2019, 2021 David Conran
+// Copyright 2019, 2021, 2022 David Conran
+// Copyright 2019-2020 David Conran
+// Copyright 2019-2021 - David Conran (@crankyoldgit)
+// Copyright 2019-2021 David Conran
+// Copyright 2019-2022 - David Conran (@crankyoldgit)
+// Copyright 2020 Chandrashekar Shetty (iamDshetty)
+// Copyright 2020 Christian (nikize)
+// Copyright 2020 Christian Nilsson
+// Copyright 2020 Christian Nilsson (nikize)
+// Copyright 2020 David Conran
+// Copyright 2020 David Conran (crankyoldgit)
+// Copyright 2020 Quentin Briollant
+// Copyright 2020 crankyoldgit
+// Copyright 2020 manj9501
+// Copyright 2020-2021 David Conran
+// Copyright 2020-2021 David Conran (crankyoldgit)
+// Copyright 2020-2022 David Conran
+// Copyright 2021 David Conran
+// Copyright 2021 David Conran (crankyoldgit)
+// Copyright 2021 Davide Depau
+// Copyright 2021 Tom Rosenback
+// Copyright 2021 Victor Mukayev (vitos1k)
+// Copyright 2021 parsnip42
+// Copyright 2021 siriuslzx
+// Copyright 2022 Daniele Gobbetti
+// Copyright 2022 David Conran
+// Copyright 2022 David Conran (crankyoldgit)
+// Copyright 2022 Leonardo Ascione (leonardfactory)
+// Copyright 2022 Mateusz Bronk (mbronk)
+// Copyright 2022 Nico Thien
+// Copyright 2022 benjy3gg
+// Copyright 2022 crankyoldgit
+// Copyright 2024 Harsh Bhosale (harshbhosale01)
+// Copyright 2025 GottemHams
+// Copyright Todd Treece
+// Copyright bakrus

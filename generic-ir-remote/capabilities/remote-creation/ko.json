@@ -1,0 +1,70 @@
+{
+  "tag": "ko",
+  "label": "리모컨 추가",
+  "attributes": {
+    "remoteType": {
+      "label": "리모컨 종류",
+      "i18n": {
+        "value": {
+          "remote-tv": {
+            "label": "TV"
+          },
+          "remote-fan": {
+            "label": "선풍기"
+          },
+          "remote-generic": {
+            "label": "일반 IR 스위치"
+          },
+          "ac-learned-state": {
+            "label": "에어컨 · 신호 학습"
+          },
+          "ac-protocol": {
+            "label": "에어컨 · 프로토콜"
+          },
+          "ac-protocol-learning": {
+            "label": "에어컨 · 프로토콜 및 신호 학습"
+          },
+          "remote-button": {
+            "label": "일반 IR 버튼"
+          }
+        }
+      }
+    },
+    "remoteName": {
+      "label": "리모컨 이름"
+    },
+    "creationStatus": {
+      "label": "생성 상태",
+      "i18n": {
+        "value": {
+          "idle": {
+            "label": "대기"
+          },
+          "creating": {
+            "label": "생성 중"
+          },
+          "created": {
+            "label": "생성 완료"
+          },
+          "error": {
+            "label": "오류"
+          }
+        }
+      }
+    },
+    "statusMessage": {
+      "label": "상세 안내"
+    }
+  },
+  "commands": {
+    "setRemoteType": {
+      "label": "리모컨 종류 선택"
+    },
+    "setRemoteName": {
+      "label": "리모컨 이름 입력"
+    },
+    "createRemote": {
+      "label": "리모컨 만들기"
+    }
+  }
+}

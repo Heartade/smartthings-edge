@@ -1,0 +1,24 @@
+{
+  "tag": "ko",
+  "label": "에어컨 학습 준비",
+  "attributes": {
+    "setupMode": {
+      "label": "전송 없이 학습할 설정 편집",
+      "i18n": {
+        "value": {
+          "off": {
+            "label": "일반 제어"
+          },
+          "on": {
+            "label": "학습할 설정 편집 중"
+          }
+        }
+      }
+    }
+  },
+  "commands": {
+    "setSetupMode": {
+      "label": "에어컨 학습 준비 설정"
+    }
+  }
+}

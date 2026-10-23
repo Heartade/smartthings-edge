@@ -1,0 +1,48 @@
+zigbeeManufacturer:
+  - id: zosung-ir-ot6ewjvmejq5ekhl
+    deviceLabel: IR Blaster (development)
+    manufacturer: _TZ3290_ot6ewjvmejq5ekhl
+    model: TS1201
+    deviceProfileName: ir-blaster
+  - id: zosung-ir-acv1iuslxi3shaaj
+    deviceLabel: IR Blaster (development)
+    manufacturer: _TZ3290_acv1iuslxi3shaaj
+    model: TS1201
+    deviceProfileName: ir-blaster
+  - id: zosung-ir-j37rooaxrcdcqo5n
+    deviceLabel: IR Blaster (development)
+    manufacturer: _TZ3290_j37rooaxrcdcqo5n
+    model: TS1201
+    deviceProfileName: ir-blaster
+  - id: zosung-ir-7v1k4vufotpowp9z
+    deviceLabel: IR Blaster (development)
+    manufacturer: _TZ3290_7v1k4vufotpowp9z
+    model: TS1201
+    deviceProfileName: ir-blaster
+  - id: zosung-ir-gnl5a6a5xvql7c2a
+    deviceLabel: IR Blaster (development)
+    manufacturer: _TZ3290_gnl5a6a5xvql7c2a
+    model: TS1201
+    deviceProfileName: ir-blaster
+  - id: zosung-ir-u9xac5rv
+    deviceLabel: IR Blaster (development)
+    manufacturer: _TZ3290_u9xac5rv
+    model: TS1201
+    deviceProfileName: ir-blaster
+  - id: zosung-ir-zqrvetpkqltiuzro
+    deviceLabel: IR Blaster (development)
+    manufacturer: _TZ3290_zqrvetpkqltiuzro
+    model: TS1201
+    deviceProfileName: ir-blaster
+
+zigbeeGeneric:
+  - id: zosung-ir-transport
+    deviceLabel: IR Blaster (development)
+    deviceProfileName: ir-blaster
+    zigbeeProfiles:
+      - 0x0104
+    clusters:
+      server:
+        - 0xED00
+        - 0xE004
+        - 0x0001

@@ -1,0 +1,294 @@
+{
+  "tag": "ko",
+  "label": "에어컨 프로토콜 선택",
+  "attributes": {
+    "selection": {
+      "label": "에어컨 프로토콜 / 모델",
+      "i18n": {
+        "value": {
+          "learned_state": {
+            "label": "AC 상태 학습"
+          },
+          "irac_airton_m0": {
+            "label": "AIRTON"
+          },
+          "irac_airwell_m0": {
+            "label": "AIRWELL"
+          },
+          "irac_amcor_m0": {
+            "label": "AMCOR"
+          },
+          "irac_argo_m1": {
+            "label": "ARGO 1: SAC_WREM2"
+          },
+          "irac_argo_m2": {
+            "label": "ARGO 2: SAC_WREM3"
+          },
+          "irac_bosch144_m0": {
+            "label": "BOSCH144"
+          },
+          "irac_carrier_ac64_m0": {
+            "label": "CARRIER AC64"
+          },
+          "irac_coolix_m0": {
+            "label": "COOLIX"
+          },
+          "irac_corona_ac_m0": {
+            "label": "CORONA AC"
+          },
+          "irac_daikin_m0": {
+            "label": "DAIKIN"
+          },
+          "irac_daikin128_m0": {
+            "label": "DAIKIN128"
+          },
+          "irac_daikin152_m0": {
+            "label": "DAIKIN152"
+          },
+          "irac_daikin160_m0": {
+            "label": "DAIKIN160"
+          },
+          "irac_daikin176_m0": {
+            "label": "DAIKIN176"
+          },
+          "irac_daikin2_m0": {
+            "label": "DAIKIN2"
+          },
+          "irac_daikin216_m0": {
+            "label": "DAIKIN216"
+          },
+          "irac_daikin312_m0": {
+            "label": "DAIKIN312"
+          },
+          "irac_daikin64_m0": {
+            "label": "DAIKIN64"
+          },
+          "irac_delonghi_ac_m0": {
+            "label": "DELONGHI AC"
+          },
+          "irac_ecoclim_m0": {
+            "label": "ECOCLIM"
+          },
+          "irac_electra_ac_m0": {
+            "label": "ELECTRA AC"
+          },
+          "irac_eurom_m0": {
+            "label": "EUROM"
+          },
+          "irac_fujitsu_ac_m1": {
+            "label": "FUJITSU AC 1: ARRAH2E"
+          },
+          "irac_fujitsu_ac_m2": {
+            "label": "FUJITSU AC 2: ARDB1"
+          },
+          "irac_fujitsu_ac_m3": {
+            "label": "FUJITSU AC 3: ARREB1E"
+          },
+          "irac_fujitsu_ac_m4": {
+            "label": "FUJITSU AC 4: ARJW2"
+          },
+          "irac_fujitsu_ac_m5": {
+            "label": "FUJITSU AC 5: ARRY4"
+          },
+          "irac_fujitsu_ac_m6": {
+            "label": "FUJITSU AC 6: ARREW4E"
+          },
+          "irac_goodweather_m0": {
+            "label": "GOODWEATHER"
+          },
+          "irac_gree_m1": {
+            "label": "GREE 1: YAW1F"
+          },
+          "irac_gree_m2": {
+            "label": "GREE 2: YBOFB"
+          },
+          "irac_gree_m3": {
+            "label": "GREE 3: YX1FSF"
+          },
+          "irac_haier_ac_m0": {
+            "label": "HAIER AC"
+          },
+          "irac_haier_ac160_m0": {
+            "label": "HAIER AC160"
+          },
+          "irac_haier_ac176_m1": {
+            "label": "HAIER AC176 1: V9014557_A"
+          },
+          "irac_haier_ac176_m2": {
+            "label": "HAIER AC176 2: V9014557_B"
+          },
+          "irac_haier_ac_yrw02_m0": {
+            "label": "HAIER AC YRW02"
+          },
+          "irac_hitachi_ac_m0": {
+            "label": "HITACHI AC"
+          },
+          "irac_hitachi_ac1_m1": {
+            "label": "HITACHI AC1 1: R_LT0541_HTA_A"
+          },
+          "irac_hitachi_ac1_m2": {
+            "label": "HITACHI AC1 2: R_LT0541_HTA_B"
+          },
+          "irac_hitachi_ac264_m0": {
+            "label": "HITACHI AC264"
+          },
+          "irac_hitachi_ac296_m0": {
+            "label": "HITACHI AC296"
+          },
+          "irac_hitachi_ac344_m0": {
+            "label": "HITACHI AC344"
+          },
+          "irac_hitachi_ac424_m0": {
+            "label": "HITACHI AC424"
+          },
+          "irac_kelon_m0": {
+            "label": "KELON"
+          },
+          "irac_kelvinator_m0": {
+            "label": "KELVINATOR"
+          },
+          "irac_lg_m1": {
+            "label": "LG 1: GE6711AR2853M"
+          },
+          "irac_lg_m5": {
+            "label": "LG 5: LG6711A20083V"
+          },
+          "irac_lg2_m2": {
+            "label": "LG2 2: AKB75215403"
+          },
+          "irac_lg2_m3": {
+            "label": "LG2 3: AKB74955603"
+          },
+          "irac_lg2_m4": {
+            "label": "LG2 4: AKB73757604"
+          },
+          "irac_midea_m0": {
+            "label": "MIDEA"
+          },
+          "irac_mirage_m1": {
+            "label": "MIRAGE 1: KKG9AC1"
+          },
+          "irac_mirage_m2": {
+            "label": "MIRAGE 2: KKG29AC1"
+          },
+          "irac_mitsubishi112_m0": {
+            "label": "MITSUBISHI112"
+          },
+          "irac_mitsubishi136_m0": {
+            "label": "MITSUBISHI136"
+          },
+          "irac_mitsubishi_ac_m0": {
+            "label": "MITSUBISHI AC"
+          },
+          "irac_mitsubishi_heavy_152_m0": {
+            "label": "MITSUBISHI HEAVY 152"
+          },
+          "irac_mitsubishi_heavy_88_m0": {
+            "label": "MITSUBISHI HEAVY 88"
+          },
+          "irac_neoclima_m0": {
+            "label": "NEOCLIMA"
+          },
+          "irac_panasonic_ac_m1": {
+            "label": "Panasonic AC 1: Lke"
+          },
+          "irac_panasonic_ac_m2": {
+            "label": "Panasonic AC 2: Nke"
+          },
+          "irac_panasonic_ac_m3": {
+            "label": "Panasonic AC 3: Dke"
+          },
+          "irac_panasonic_ac_m4": {
+            "label": "Panasonic AC 4: Jke"
+          },
+          "irac_panasonic_ac_m5": {
+            "label": "Panasonic AC 5: Ckp"
+          },
+          "irac_panasonic_ac_m6": {
+            "label": "Panasonic AC 6: Rkr"
+          },
+          "irac_panasonic_ac32_m0": {
+            "label": "PANASONIC AC32"
+          },
+          "irac_rhoss_m0": {
+            "label": "RHOSS"
+          },
+          "irac_samsung_ac_m0": {
+            "label": "SAMSUNG AC"
+          },
+          "irac_sanyo_ac_m0": {
+            "label": "SANYO AC"
+          },
+          "irac_sanyo_ac88_m0": {
+            "label": "SANYO AC88"
+          },
+          "irac_sharp_ac_m1": {
+            "label": "SHARP AC 1: A907"
+          },
+          "irac_sharp_ac_m2": {
+            "label": "SHARP AC 2: A705"
+          },
+          "irac_sharp_ac_m3": {
+            "label": "SHARP AC 3: A903"
+          },
+          "irac_tcl112ac_m1": {
+            "label": "TCL112AC 1: TAC09CHSD"
+          },
+          "irac_tcl112ac_m2": {
+            "label": "TCL112AC 2: GZ055BE1"
+          },
+          "irac_technibel_ac_m0": {
+            "label": "TECHNIBEL AC"
+          },
+          "irac_teco_m0": {
+            "label": "TECO"
+          },
+          "irac_teknopoint_m2": {
+            "label": "TEKNOPOINT 2: GZ055BE1"
+          },
+          "irac_toshiba_ac_m0": {
+            "label": "Toshiba AC 0: Generic A"
+          },
+          "irac_toshiba_ac_m1": {
+            "label": "Toshiba AC 1: Generic B"
+          },
+          "irac_transcold_m0": {
+            "label": "TRANSCOLD"
+          },
+          "irac_trotec_m0": {
+            "label": "TROTEC"
+          },
+          "irac_trotec_3550_m0": {
+            "label": "TROTEC 3550"
+          },
+          "irac_truma_m0": {
+            "label": "TRUMA"
+          },
+          "irac_vestel_ac_m0": {
+            "label": "VESTEL AC"
+          },
+          "irac_voltas_m0": {
+            "label": "Voltas 0: Unknown"
+          },
+          "irac_voltas_m1": {
+            "label": "Voltas 1: 122LZF"
+          },
+          "irac_whirlpool_ac_m1": {
+            "label": "WHIRLPOOL AC 1: DG11J13A"
+          },
+          "irac_whirlpool_ac_m2": {
+            "label": "WHIRLPOOL AC 2: DG11J191"
+          },
+          "irac_york_m0": {
+            "label": "YORK"
+          }
+        }
+      }
+    }
+  },
+  "commands": {
+    "setSelection": {
+      "label": "에어컨 프로토콜 및 모델 선택"
+    }
+  }
+}
