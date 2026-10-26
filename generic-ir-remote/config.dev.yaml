@@ -1,0 +1,6 @@
+name: SmartThings Generic IR Remote (dev)
+packageKey: heartade.ir-remote.dev
+description: Unstable TS1201 IR remote development builds
+vendorSupportInformation: Heartade
+permissions:
+  zigbee: {}
