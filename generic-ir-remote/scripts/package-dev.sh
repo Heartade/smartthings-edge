@@ -12,4 +12,4 @@ trap 'rm -rf "$TMP_DIR"' EXIT
 cp -R "$DRIVER_DIR"/. "$TMP_DIR"/
 cp "$DRIVER_DIR/config.dev.yaml" "$TMP_DIR/config.yaml"
 
-exec smartthings edge:drivers:package "$TMP_DIR" "$@"
+smartthings edge:drivers:package "$TMP_DIR" "$@"
