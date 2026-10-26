@@ -3,6 +3,7 @@ local children = require "children"
 local actions = require "ir.learned_actions"
 local ac_store = require "ac.learned_state"
 local ac_state = require "ac.state"
+local ac_registry = require "ac.registry"
 local ac_selection = require "ac.selection"
 local tv_buttons = require "ir.tv_buttons"
 local definitions = require "capability_definitions"
@@ -47,6 +48,15 @@ function M.new(capabilities, services)
     local ok, result, err = pcall(function()
       return device:emit_event(cap[attribute]({ value = value },
         attribute == "supportedActions" and { state_change = true } or nil))
+    end)
+    if not ok or result == false or err ~= nil then
+      device.log.warn("Could not publish " .. attribute .. ": " .. tostring(ok and err or result))
+    end
+  end
+  local function emit_standard(device, cap, attribute, value)
+    if not supports(device, cap) or not cap[attribute] then return end
+    local ok, result, err = pcall(function()
+      return device:emit_event(cap[attribute](value))
     end)
     if not ok or result == false or err ~= nil then
       device.log.warn("Could not publish " .. attribute .. ": " .. tostring(ok and err or result))
@@ -184,9 +194,23 @@ function M.new(capabilities, services)
     end
     return selected(device), actions.new(device:get_field("learned_ir_actions")):get(selected(device))
   end
+  local function fan_modes(device)
+    local selected = g.ac_selection(device)
+    if selected and not selected.learned then
+      local family = selected.protocol_key and selected.protocol_key:match("^irac_(.+)$")
+      if family then
+        local features = ac_registry.describe("irac-" .. family:gsub("_", "-"), selected.model)
+        if features and type(features.fan_modes) == "table" and #features.fan_modes > 0 then
+          return features.fan_modes
+        end
+      end
+    end
+    return { "auto", "low", "medium", "high" }
+  end
   function g.refresh(device)
     if services.is_ac(device) then
       emit(device, "acSelection", "selection", g.selection_key(device))
+      emit_standard(device, capabilities.fanMode, "supportedFanModes", fan_modes(device))
     end
     if g.learning_enabled(device) and supports(device, g.caps.learning) then
       local valid, code = saved_code(device)
