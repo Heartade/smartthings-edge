@@ -17,7 +17,8 @@ return {
               "ac-learned-state",
               "ac-protocol",
               "ac-protocol-learning",
-              "remote-button"
+              "remote-button",
+              "ir-logger"
             ]
           }
         },
@@ -95,7 +96,8 @@ return {
               "ac-learned-state",
               "ac-protocol",
               "ac-protocol-learning",
-              "remote-button"
+              "remote-button",
+              "ir-logger"
             ]
           }
         }
@@ -122,8 +124,7 @@ return {
       "name": "createRemote"
     }
   }
-}
-]=],
+}]=],
   learning = [=[{
   "name": "IR Signal Learning",
   "attributes": {
@@ -399,8 +400,7 @@ return {
       "name": "deleteSignal"
     }
   }
-}
-]=],
+}]=],
   setup = [=[{
   "name": "AC Learning Setup",
   "attributes": {
@@ -442,8 +442,7 @@ return {
       "name": "setSetupMode"
     }
   }
-}
-]=],
+}]=],
   acSelection = [=[{
   "name": "AC Protocol Selection",
   "attributes": {
@@ -667,6 +666,48 @@ return {
       "name": "setSelection"
     }
   }
-}
-]=],
+}]=],
+  logger = [=[{
+  "name": "IR Signal Logger",
+  "attributes": {
+    "captureStatus": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["idle", "learning", "captured", "cancelled", "timeout", "busy", "error"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "captureReport": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "maxLength": 10000 }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "captureMessage": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "maxLength": 160 }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {
+    "capture": { "arguments": [], "name": "capture" },
+    "cancelCapture": { "arguments": [], "name": "cancelCapture" },
+    "clearCapture": { "arguments": [], "name": "clearCapture" }
+  }
+}]=],
 }

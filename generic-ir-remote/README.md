@@ -49,6 +49,13 @@ and send its command. Use **Test** to transmit the saved state. Disable setup mo
 to restore normal controls; captures remain saved. Legacy token-based Settings
 requests continue to work. See the [GUI guide](capabilities/README.md).
 
+Choose **IR signal logger** from **Remote type** to create a diagnostic child.
+Tap **Capture IR signal**, then press a remote button toward the blaster. Its
+detail page shows the assumed carrier, timing counts, total duration, and signed
+microsecond timings (`+` mark, `-` space). The log keeps the three most recent
+captures and does not claim to identify the remote's protocol. Use **Clear log**
+to reset it.
+
 ## How to run
 
 Run commands from this driver folder, `generic-ir-remote/`.
@@ -202,6 +209,9 @@ to address the exact selected signal, without substituting toggle codes.
   through SmartThings' standard `momentary` capability. Learn **Button press**,
   then tap Push (or invoke it in a Routine) to replay that signal every time.
   It has no switch capability, On/Off state, or power-state updates.
+- **IR signal logger** (`ir-logger`) captures a button press and displays a
+  bounded history of decoded mark/space timings. It does not transmit or classify
+  the signal.
 
 Create either type from the blaster's **Remote type** selector. Legacy creation
 requests also work, e.g. `doorbell|remote-button|Doorbell` and

@@ -1,0 +1,25 @@
+{
+  "tag": "en",
+  "label": "IR Signal Logger",
+  "attributes": {
+    "captureStatus": {
+      "label": "Capture status",
+      "i18n": { "value": {
+        "idle": { "label": "Ready" },
+        "learning": { "label": "Waiting for remote" },
+        "captured": { "label": "Captured" },
+        "cancelled": { "label": "Cancelled" },
+        "timeout": { "label": "Timed out" },
+        "busy": { "label": "Blaster busy" },
+        "error": { "label": "Error" }
+      } }
+    },
+    "captureReport": { "label": "Captured signal timings" },
+    "captureMessage": { "label": "Status details" }
+  },
+  "commands": {
+    "capture": { "label": "Capture IR signal" },
+    "cancelCapture": { "label": "Cancel capture" },
+    "clearCapture": { "label": "Clear log" }
+  }
+}

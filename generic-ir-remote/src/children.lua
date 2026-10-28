@@ -3,7 +3,8 @@
 local M = {}
 local profiles = {
   ["remote-tv"] = true, ["remote-fan"] = true, ["remote-generic"] = true, ["remote-button"] = true,
-  ["ac-protocol-learning"] = true, ["ac-button"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true
+  ["ac-protocol-learning"] = true, ["ac-button"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true,
+  ["ir-logger"] = true
 }
 
 function M.parse(request)

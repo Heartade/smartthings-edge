@@ -1,0 +1,43 @@
+{
+  "name": "IR Signal Logger",
+  "attributes": {
+    "captureStatus": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["idle", "learning", "captured", "cancelled", "timeout", "busy", "error"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "captureReport": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "maxLength": 10000 }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "captureMessage": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "maxLength": 160 }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {
+    "capture": { "arguments": [], "name": "capture" },
+    "cancelCapture": { "arguments": [], "name": "cancelCapture" },
+    "clearCapture": { "arguments": [], "name": "clearCapture" }
+  }
+}

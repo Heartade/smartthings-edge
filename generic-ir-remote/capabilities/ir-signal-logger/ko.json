@@ -1,0 +1,25 @@
+{
+  "tag": "ko",
+  "label": "IR 신호 로거",
+  "attributes": {
+    "captureStatus": {
+      "label": "캡처 상태",
+      "i18n": { "value": {
+        "idle": { "label": "대기" },
+        "learning": { "label": "리모컨 신호 대기 중" },
+        "captured": { "label": "캡처 완료" },
+        "cancelled": { "label": "취소됨" },
+        "timeout": { "label": "시간 초과" },
+        "busy": { "label": "블라스터 사용 중" },
+        "error": { "label": "오류" }
+      } }
+    },
+    "captureReport": { "label": "캡처한 신호 타이밍" },
+    "captureMessage": { "label": "상태 안내" }
+  },
+  "commands": {
+    "capture": { "label": "IR 신호 캡처" },
+    "cancelCapture": { "label": "캡처 취소" },
+    "clearCapture": { "label": "로그 지우기" }
+  }
+}

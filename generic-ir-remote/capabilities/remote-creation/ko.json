@@ -26,6 +26,9 @@
           },
           "remote-button": {
             "label": "일반 IR 버튼"
+          },
+          "ir-logger": {
+            "label": "IR 신호 로거"
           }
         }
       }

@@ -11,10 +11,11 @@ local M = {
   IDS = { creation = "againmusic09479.irRemoteCreation",
     learning = "againmusic09479.irSignalLearning", setup = "againmusic09479.acLearningSetup",
     acSelection = "againmusic09479.acProtocolSelection",
+    logger = "againmusic09479.irSignalLogger",
     tv = "againmusic09479.irTvRemote", tvKeypad = "againmusic09479.irTvKeypad",
     tvMedia = "againmusic09479.irTvMedia" }
 }
-local remote_types = { ["remote-tv"] = true, ["remote-fan"] = true,
+local remote_types = { ["remote-tv"] = true, ["remote-fan"] = true, ["ir-logger"] = true,
   ["remote-generic"] = true, ["remote-button"] = true, ["ac-learned-state"] = true, ["ac-protocol"] = true, ["ac-protocol-learning"] = true }
 
 function M.new(capabilities, services)
@@ -123,7 +124,7 @@ function M.new(capabilities, services)
   end
   function g.needs_profile(device, profile)
     if not device.try_update_metadata then return false end
-    if device:get_field("gui_profile_revision") ~= 9 then return true end
+    if device:get_field("gui_profile_revision") ~= 10 then return true end
     if profile == "ir-blaster" then
       return (g.caps.creation and not supports(device, g.caps.creation)) or
         (capabilities.battery and not supports(device, capabilities.battery))
@@ -136,6 +137,9 @@ function M.new(capabilities, services)
       return not supports(device, g.caps.learning) or not supports(device, g.caps.setup)
     end
     if remote_types[profile] then
+      if profile == "ir-logger" then
+        return not supports(device, g.caps.logger)
+      end
       if profile == "remote-button" and
           (not supports(device, capabilities.momentary) or supports(device, capabilities.switch)) then return true end
       if profile == "remote-tv" then
@@ -156,6 +160,7 @@ function M.new(capabilities, services)
     return g.ac_selection(device).learned
   end
   function g.allowed_action(device, action)
+    if g.kind(device) == "ir-logger" then return action == "press" end
     if services.is_ac(device) then return action == "ac_state" end
     if g.kind(device) == "remote-tv" then return tv_buttons.valid[action] == true end
     if g.kind(device) == "remote-button" then return action == "press" end
@@ -185,6 +190,11 @@ function M.new(capabilities, services)
     return selected(device), actions.new(device:get_field("learned_ir_actions")):get(selected(device))
   end
   function g.refresh(device)
+    if g.kind(device) == "ir-logger" then
+      emit(device, "logger", "captureStatus", device:get_field("ir_logger_status") or "idle")
+      emit(device, "logger", "captureMessage", device:get_field("ir_logger_message") or "Tap Capture, then press a button on the remote.")
+      emit(device, "logger", "captureReport", device:get_field("ir_logger_report") or "No captures yet.")
+    end
     if services.is_ac(device) then
       emit(device, "acSelection", "selection", g.selection_key(device))
     end
@@ -205,6 +215,12 @@ function M.new(capabilities, services)
     end
   end
   function g.status(device, status, detail)
+    if g.kind(device) == "ir-logger" then
+      device:set_field("ir_logger_status", status, { persist = true })
+      device:set_field("ir_logger_message", tostring(detail or ""), { persist = true })
+      g.refresh(device)
+      return
+    end
     device:set_field("gui_learning_status", status)
     device:set_field("gui_learning_message", message(detail))
     g.refresh(device)
@@ -339,7 +355,7 @@ function M.new(capabilities, services)
         device.log.info("Updating AC controls profile to " .. profile)
         local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
         if ok then
-          device:set_field("gui_profile_revision", 9, { persist = true })
+          device:set_field("gui_profile_revision", 10, { persist = true })
           device:set_field("gui_profile_migration_requested", profile)
         else
           device.log.warn("Could not update AC controls profile: " .. tostring(err))
@@ -402,6 +418,30 @@ function M.new(capabilities, services)
         if result then device:set_field("learned_ir_actions", store.codes, { persist = true }) end
       end
       if result then g.status(device, "deleted", "") else g.failure(device, err) end
+    end)
+    add(M.IDS.logger, "capture", function(driver, device)
+      if g.kind(device) ~= "ir-logger" then return end
+      local parent = g.parent(device)
+      if not parent then g.status(device, "error", "IR blaster parent is unavailable"); return end
+      local result, err = driver:start_ir_learning(parent, device, "press")
+      if not result then g.status(device, "error", tostring(err)) end
+    end)
+    add(M.IDS.logger, "cancelCapture", function(driver, device)
+      if g.kind(device) ~= "ir-logger" then return end
+      local parent = g.parent(device)
+      local result, err
+      if parent then result, err = driver:cancel_ir_learning(parent, device) end
+      if not result then g.status(device, "error", err or "No logger capture is active") end
+    end)
+    add(M.IDS.logger, "clearCapture", function(_, device)
+      if g.kind(device) ~= "ir-logger" then return end
+      device:set_field("ir_logger_code", nil, { persist = true })
+      device:set_field("ir_logger_history", {}, { persist = true })
+      device:set_field("ir_logger_capture_count", 0, { persist = true })
+      device:set_field("ir_logger_report", "No captures yet.", { persist = true })
+      device:set_field("ir_logger_message", "Capture log cleared.", { persist = true })
+      device:set_field("ir_logger_status", "idle", { persist = true })
+      g.refresh(device)
     end)
     add(M.IDS.setup, "setSetupMode", function(driver, device, command)
       if not services.is_ac(device) or not g.learning_enabled(device) then return end

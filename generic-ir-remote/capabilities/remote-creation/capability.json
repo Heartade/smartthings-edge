@@ -14,7 +14,8 @@
               "ac-learned-state",
               "ac-protocol",
               "ac-protocol-learning",
-              "remote-button"
+              "remote-button",
+              "ir-logger"
             ]
           }
         },
@@ -92,7 +93,8 @@
               "ac-learned-state",
               "ac-protocol",
               "ac-protocol-learning",
-              "remote-button"
+              "remote-button",
+              "ir-logger"
             ]
           }
         }

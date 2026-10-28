@@ -26,6 +26,9 @@
           },
           "remote-button": {
             "label": "Generic IR button"
+          },
+          "ir-logger": {
+            "label": "IR signal logger"
           }
         }
       }
