@@ -1,7 +1,10 @@
 [CmdletBinding(PositionalBinding = $false)]
 param(
-  [Parameter(ValueFromRemainingArguments = $true)]
-  [string[]] $CliArgs
+  [switch] $Install,
+  [string] $Channel,
+  [string] $Hub,
+  [string] $BuildOnly,
+  [string[]] $AdditionalCliArgs = @()
 )
 
 $ErrorActionPreference = 'Stop'
@@ -14,6 +17,14 @@ try {
     Copy-Item -LiteralPath $_.FullName -Destination $TempDir -Recurse -Force
   }
   Copy-Item -LiteralPath (Join-Path $DriverDir 'config.dev.yaml') -Destination (Join-Path $TempDir 'config.yaml') -Force
+  Remove-Item -LiteralPath (Join-Path $TempDir 'config.dev.yaml') -Force
+
+  $CliArgs = @()
+  if ($Install) { $CliArgs += '--install' }
+  if ($Channel) { $CliArgs += @('--channel', $Channel) }
+  if ($Hub) { $CliArgs += @('--hub', $Hub) }
+  if ($BuildOnly) { $CliArgs += @('--build-only', $BuildOnly) }
+  $CliArgs += $AdditionalCliArgs
 
   & smartthings edge:drivers:package $TempDir @CliArgs
   if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
