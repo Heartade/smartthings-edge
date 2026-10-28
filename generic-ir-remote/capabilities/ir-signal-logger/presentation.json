@@ -1,0 +1,51 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.commands.capture.label}}",
+      "displayType": "pushButton",
+      "pushButton": { "command": "capture" }
+    },
+    {
+      "label": "{{i18n.commands.cancelCapture.label}}",
+      "displayType": "pushButton",
+      "pushButton": { "command": "cancelCapture" }
+    },
+    {
+      "label": "{{i18n.commands.clearCapture.label}}",
+      "displayType": "pushButton",
+      "pushButton": { "command": "clearCapture" }
+    },
+    {
+      "label": "{{i18n.attributes.captureStatus.label}}",
+      "displayType": "state",
+      "state": {
+        "label": "{{captureStatus.value}}",
+        "alternatives": [
+          { "key": "idle", "value": "{{i18n.attributes.captureStatus.i18n.value.idle.label}}", "type": "inactive" },
+          { "key": "learning", "value": "{{i18n.attributes.captureStatus.i18n.value.learning.label}}", "type": "active" },
+          { "key": "captured", "value": "{{i18n.attributes.captureStatus.i18n.value.captured.label}}", "type": "active" },
+          { "key": "cancelled", "value": "{{i18n.attributes.captureStatus.i18n.value.cancelled.label}}", "type": "inactive" },
+          { "key": "timeout", "value": "{{i18n.attributes.captureStatus.i18n.value.timeout.label}}", "type": "inactive" },
+          { "key": "busy", "value": "{{i18n.attributes.captureStatus.i18n.value.busy.label}}", "type": "inactive" },
+          { "key": "error", "value": "{{i18n.attributes.captureStatus.i18n.value.error.label}}", "type": "inactive" }
+        ]
+      }
+    },
+    {
+      "label": "{{i18n.attributes.captureMessage.label}}",
+      "displayType": "state",
+      "state": { "label": "{{captureMessage.value}}" }
+    },
+    {
+      "label": "{{i18n.attributes.captureReport.label}}",
+      "displayType": "state",
+      "state": { "label": "{{captureReport.value}}" }
+    }
+  ],
+  "automation": { "conditions": [], "actions": [] },
+  "version": 1
+}

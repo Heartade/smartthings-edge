@@ -104,6 +104,21 @@
         "ac-protocol-generated",
         "ac-protocol-learning"
       ]
+    },
+    {
+      "key": "irSignalLogger",
+      "registeredId": "againmusic09479.irSignalLogger",
+      "registeredVersion": 1,
+      "registrationPending": true,
+      "definition": "ir-signal-logger/capability.json",
+      "presentation": "ir-signal-logger/presentation.json",
+      "translations": {
+        "en": "ir-signal-logger/en.json",
+        "ko": "ir-signal-logger/ko.json"
+      },
+      "profiles": [
+        "ir-logger"
+      ]
     }
   ]
 }

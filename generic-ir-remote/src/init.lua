@@ -16,6 +16,7 @@ local capabilities = startup_require("st.capabilities")
 local clusters = startup_require("st.zigbee.zcl.clusters")
 local children = startup_require("children")
 local learned_actions = startup_require("ir.learned_actions")
+local signal_logger = startup_require("ir.signal_logger")
 local ac_state = startup_require("ac.state")
 local ac_learned_state = startup_require("ac.learned_state")
 local ac_registry = startup_require("ac.registry")
@@ -402,36 +403,58 @@ local function zosung_message(driver, device, zb_rx)
     local target = state.learn_target
     state.learn_target = nil
     if target then
-      local saved, key, err = pcall(function()
-        if target.state then
-          local store = ac_learned_state.new(target.device:get_field("learned_ac_states"))
-          local saved_key, save_err = store:put(target.state, detail)
-          if saved_key then
-            target.device:set_field("learned_ac_states", store.codes, { persist = true })
-          end
-          return saved_key, save_err
-        end
-
-        local store = learned_actions.new(target.device:get_field("learned_ir_actions"))
-        local saved_key, save_err = store:put(target.action, detail)
-        if saved_key then
-          target.device:set_field("learned_ir_actions", store.codes, { persist = true })
-        end
-        return saved_key, save_err
-      end)
-      if not saved then
-        gui.status(target.device, "error", "Could not save learned signal: " .. tostring(key))
-        target.device.log.warn("Could not save learned IR code: " .. tostring(key))
-      elseif key then
-        gui.status(target.device, "learned", "Signal saved")
-        if target.state then
-          target.device.log.info("Learned AC state saved: " .. key)
+      if target.logger then
+        local report, report_err = signal_logger.report(detail, 38000)
+        if not report then
+          gui.status(target.device, "error", "Could not decode capture: " .. tostring(report_err))
+          target.device.log.warn("Could not decode captured IR signal: " .. tostring(report_err))
         else
-          target.device.log.info("Learned IR action saved: " .. target.action)
+          target.device:set_field("ir_logger_code", detail, { persist = true })
+          local history = target.device:get_field("ir_logger_history") or {}
+          local capture_number = (target.device:get_field("ir_logger_capture_count") or 0) + 1
+          target.device:set_field("ir_logger_capture_count", capture_number, { persist = true })
+          table.insert(history, 1, string.format("Capture #%d\n%s", capture_number, report))
+          while #history > 3 do table.remove(history) end
+          target.device:set_field("ir_logger_history", history, { persist = true })
+          target.device:set_field("ir_logger_report", table.concat(history, "\n\n--- Previous capture ---\n\n"), { persist = true })
+          target.device:set_field("ir_logger_status", "captured", { persist = true })
+          target.device:set_field("ir_logger_message", "Capture complete. Capture again to add another entry.", { persist = true })
+          gui.refresh(target.device)
+          target.device.log.info("IR signal capture decoded for the logger child")
         end
       else
-        gui.status(target.device, "error", "Could not save learned signal: " .. tostring(err))
-        target.device.log.warn("Could not save learned IR code: " .. tostring(err))
+        local saved, key, err = pcall(function()
+          if target.state then
+            local store = ac_learned_state.new(target.device:get_field("learned_ac_states"))
+            local saved_key, save_err = store:put(target.state, detail)
+            if saved_key then
+              target.device:set_field("learned_ac_states", store.codes, { persist = true })
+            end
+            return saved_key, save_err
+          end
+
+          local store = learned_actions.new(target.device:get_field("learned_ir_actions"))
+          local saved_key, save_err = store:put(target.action, detail)
+          if saved_key then
+            target.device:set_field("learned_ir_actions", store.codes, { persist = true })
+          end
+          return saved_key, save_err
+        end)
+        if not saved then
+          gui.status(target.device, "error", "Could not save learned signal: " .. tostring(key))
+          target.device.log.warn("Could not save learned IR code: " .. tostring(key))
+        elseif key then
+          gui.status(target.device, "learned", "Signal saved")
+          if target.state then
+            target.device.log.info("Learned AC state saved: " .. key)
+          else
+            target.device.log.info("Learned IR action saved: " .. target.action)
+          end
+        else
+          gui.status(target.device, "error", "Could not save learned signal: " .. tostring(err))
+          target.device.log.warn("Could not save learned IR code: " .. tostring(err))
+        end
+      end
       end
     else
       device.log.warn("IR capture completed without a child action target")
@@ -546,11 +569,11 @@ local function initialize_device(driver, device)
       if battery_profile_missing then migration_key = profile .. ":battery" end
     end
     if device:get_field("gui_profile_migration_requested") ~= migration_key or
-        device:get_field("gui_profile_revision") ~= 9 or battery_profile_missing then
+        device:get_field("gui_profile_revision") ~= 10 or battery_profile_missing then
       device.log.info("Updating remote profile to " .. profile)
       local ok, err = pcall(device.try_update_metadata, device, { profile = profile })
       if ok then
-        device:set_field("gui_profile_revision", 9, { persist = true })
+        device:set_field("gui_profile_revision", 10, { persist = true })
         device:set_field("gui_profile_migration_requested", migration_key)
       else
         device.log.warn("Could not update setup controls: " .. tostring(err))
@@ -894,13 +917,14 @@ function driver:send_ir_code(parent, code, target_device, switch_value, options)
 end
 
 function driver:start_ir_learning(parent, target_device, action)
-  if not target_device or is_ac_device(target_device) or not gui.allowed_action(target_device, action) then
+  local is_logger = target_device and gui.kind(target_device) == "ir-logger"
+  if not target_device or (is_ac_device(target_device) and not is_logger) or not gui.allowed_action(target_device, action) then
     return nil, "a child device and supported remote button are required"
   end
   local state = state_for(self, parent)
   local result, err = begin_transfer(self, parent, "start_learning")
   if result then
-    state.learn_target = { device = target_device, action = action }
+    state.learn_target = { device = target_device, action = action, logger = is_logger }
     target_device.log.info("IR learning started for " .. action .. " on blaster " .. parent.id)
     gui.status(target_device, "learning", "Press the original remote button")
   end

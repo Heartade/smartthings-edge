@@ -20,6 +20,7 @@ operations. A child routes requests through its parent.
 | `remote-fan` | Learned power actions | Switch, learning card | `power_on` and `power_off` |
 | `remote-generic` | Generic IR switch | Switch, learning card | `power_on`, `power_off`, and `power_toggle` fallback |
 | `remote-button` | Stateless generic button | `momentary.push`, learning card | One `press` signal |
+| `ir-logger` | IR diagnostics | Capture, cancel, clear, timing report | Three most recent signals as signed microsecond durations |
 | `ac-learned-state` | Exact learned full-state frames | AC controls, protocol/model selector, setup and learning cards | Capture complete AC states |
 | `ac-protocol` / `ac-protocol-generated` | Generated full-state frames | AC controls and protocol/model selector | No learning capability |
 | `ac-protocol-learning` | Generated or learned full-state frames | AC controls, protocol/model selector, setup and learning cards | Use learning when **Learn AC states** is selected |
@@ -41,6 +42,8 @@ attached to an active profile; the TV page uses SmartThings' native keypad.
    navigation/keys; the learning card can also capture and test other listed
    signals. Fan and generic switch children learn power actions. Generic IR
    button children learn `press` and replay it with **Push**.
+   An **IR signal logger** child captures a button press and displays the raw
+   mark/space timings; it does not transmit or identify the protocol.
 4. On a learned-state AC child, choose **Learn AC states** in the combined
    protocol/model selector. Enable **Edit capture state without sending**, set
    power/mode/temperature/fan/swing to match the original remote, and capture

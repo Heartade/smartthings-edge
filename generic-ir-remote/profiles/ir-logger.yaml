@@ -1,0 +1,8 @@
+name: ir-logger
+components:
+  - id: main
+    capabilities:
+      - id: againmusic09479.irSignalLogger
+        version: 1
+    categories:
+      - name: RemoteController

@@ -13,7 +13,7 @@ components:
 preferences:
   - title: Add remote request
     name: addRemoteRequest
-    description: 'Enter unique-token|profile|name, e.g. living-ac|ac-protocol|Bedroom AC'
+    description: 'Enter unique-token|profile|name, e.g. living-ac|ac-protocol|Bedroom AC or logger|ir-logger|IR Logger'
     required: false
     preferenceType: string
     definition:

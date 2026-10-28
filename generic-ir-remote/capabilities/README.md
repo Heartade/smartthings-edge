@@ -11,9 +11,10 @@ device profiles; it is an installer/development manifest, not an API payload.
 | `ir-learning` | Selected signal, saved status, Learn, Cancel, Test, Delete, learning status and details |
 | `ac-learning-setup` | Switch between normal AC operation and editing a capture draft without transmitting |
 | `ac-protocol-selection` | One AC detail-screen selector combining protocol and known remote model |
+| `ir-signal-logger` | Capture controls, status, and a readable history of raw timings |
 
 The child-creation UI offers TV, fan, generic IR switch, generic IR button,
-learned-state AC, protocol-only AC, and protocol AC with learning. The `ac-button`
+IR signal logger, learned-state AC, protocol-only AC, and protocol AC with learning. The `ac-button`
 profile is not offered. Fan learning currently covers `power_on` and
 `power_off`; generic IR switches also support `power_toggle`, generic IR buttons
 use `press`, and AC learning captures `ac_state`. TV learning offers the actions
@@ -71,12 +72,15 @@ under app control. See [Device Configurations](https://developer.smartthings.com
 | Signal learning | `againmusic09479.irSignalLearning` | 1 |
 | AC learning setup | `againmusic09479.acLearningSetup` | 1 |
 | AC protocol/model selector | `againmusic09479.acProtocolSelection` | 1 |
+| IR signal logger | `againmusic09479.irSignalLogger` | 1 |
 
 The profiles and driver reference these registered IDs. Only the namespace
-owner can update their definitions. Driver users install a build that references
-the published IDs and reopen device pages; they do not need to register the
-capabilities. Existing child profiles request updates on startup, preserving
-preferences and learned signals.
+owner can update their definitions. The registration script creates the logger
+capability on its first full run, then updates its definition and presentation
+on later runs. Driver users install a build that references the published IDs
+and reopen device pages; they do not need to register the capabilities. Existing
+child profiles request updates on startup, preserving preferences and learned
+signals.
 
 ## Using the GUI
 
@@ -89,6 +93,12 @@ signal**, and press the original remote's button while the status asks for it.
 **Test saved signal** sends that selection; **Delete selected signal** removes it.
 **Cancel learning** cancels only this child's capture. The parent blaster handles
 one capture or transmission at a time.
+
+An **IR signal logger** child provides **Capture IR signal**, **Cancel capture**,
+and **Clear log**. Each completed capture is decoded from the TS1201 compressed
+timing stream and shown as alternating mark/space durations in microseconds. Up
+to three captures are kept. The display is a raw timing log; it does not infer a
+protocol or button name.
 
 On an AC remote, turn on **Edit capture state without sending**. The normal power,
 mode, temperature, fan and swing controls now edit a capture draft. Set the original
