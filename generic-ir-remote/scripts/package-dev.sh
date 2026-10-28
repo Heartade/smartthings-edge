@@ -11,5 +11,6 @@ trap 'rm -rf "$TMP_DIR"' EXIT
 # package key and should normally be published to a separate dev channel.
 cp -R "$DRIVER_DIR"/. "$TMP_DIR"/
 cp "$DRIVER_DIR/config.dev.yaml" "$TMP_DIR/config.yaml"
+rm -f "$TMP_DIR/config.dev.yaml"
 
 smartthings edge:drivers:package "$TMP_DIR" "$@"
