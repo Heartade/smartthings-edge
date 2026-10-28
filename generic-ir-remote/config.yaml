@@ -1,6 +1,6 @@
 name: SmartThings Generic IR Remote
 packageKey: heartade.ir-remote
-description: TS1201 blaster with separate logical remotes (development)
+description: TS1201 blaster with separate logical remotes
 vendorSupportInformation: Heartade
 permissions:
   zigbee: {}

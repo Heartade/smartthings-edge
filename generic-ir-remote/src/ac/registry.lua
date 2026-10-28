@@ -28,7 +28,8 @@ function M.describe(id, model)
     min_temperature = encoder.min_temperature or 16,
     max_temperature = encoder.max_temperature or 30,
     swing_modes = encoder.swing_modes or { "off" },
-    modes = encoder.modes or { "auto", "cool", "heat", "dry", "fan" }
+    modes = encoder.modes or { "auto", "cool", "heat", "dry", "fan" },
+    fan_modes = encoder.fan_modes or { "auto", "low", "medium", "high" }
   }
 end
 
@@ -36,6 +37,25 @@ function M.encode(id, current, patch, model, previous)
   local encoder = encoders[id]
   if not encoder then return nil, "protocol not implemented: " .. tostring(id) end
   if type(patch) ~= "table" then return nil, "state patch must be a table" end
+  local limits = encoder.describe and encoder.describe(model) or encoder
+
+  -- A user can switch from a protocol that supports more fan choices to one
+  -- that supports fewer. Keep the explicit command strict, but if some other
+  -- field is being changed, repair the stale stored fan to the protocol's first
+  -- supported choice so power/mode/setpoint commands do not get stuck.
+  if patch.fan == nil and type(limits.fan_modes) == "table" and #limits.fan_modes > 0 then
+    local current_supported = false
+    for _, fan in ipairs(limits.fan_modes) do
+      if fan == current.fan then current_supported = true; break end
+    end
+    if not current_supported then
+      local adjusted = {}
+      for key, value in pairs(patch) do adjusted[key] = value end
+      adjusted.fan = limits.fan_modes[1]
+      patch = adjusted
+    end
+  end
+
   local defaults = encoder.mode_defaults and encoder.mode_defaults[patch.mode]
   if defaults then
     local adjusted = {}
@@ -45,7 +65,6 @@ function M.encode(id, current, patch, model, previous)
     end
     patch = adjusted
   end
-  local limits = encoder.describe and encoder.describe(model) or encoder
   local validation = { min_temperature = limits.min_temperature,
     max_temperature = limits.max_temperature,
     supports = function(s) return encoder.supports(s, model) end }

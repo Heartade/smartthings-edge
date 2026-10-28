@@ -11,8 +11,12 @@ for _, entry in ipairs(catalog.index) do
   for _, model in ipairs(entry.models) do
     models = models + 1
     local features = registry.describe(id, model.value)
+    assert(type(features.fan_modes) == "table" and #features.fan_modes > 0,
+      id .. "/" .. model.value .. ": missing fan modes")
+    local supported = {}
+    for _, fan in ipairs(features.fan_modes) do supported[fan] = true end
     for _, mode in ipairs(features.modes) do
-      for _, fan in ipairs({"auto", "low", "medium", "high"}) do
+      for _, fan in ipairs(features.fan_modes) do
         for _, power in ipairs({true, false}) do
           local current = state.initial()
           local desired, frames = registry.encode(id, current, {
@@ -27,8 +31,23 @@ for _, entry in ipairs(catalog.index) do
         end
       end
     end
+    for _, fan in ipairs({"auto", "low", "medium", "high"}) do
+      if not supported[fan] then
+        local current = state.initial()
+        local desired, err = registry.encode(id, current, {
+          power = true, mode = features.modes[1], fan = fan,
+          temperature = math.max(features.min_temperature, math.min(24, features.max_temperature))
+        }, model.value, current)
+        assert(not desired and tostring(err):match("Fan mode is not supported"),
+          id .. "/" .. model.value .. ": unsupported fan was accepted: " .. fan)
+      end
+    end
   end
 end
+-- LG6711A20083V preserves four distinct common fan choices in the pinned
+-- upstream implementation even though its native LG fan codes differ by model.
+local lg = registry.describe("irac-lg", 5)
+assert(table.concat(lg.fan_modes, ",") == "auto,low,medium,high")
 -- Long idle continuations are accepted only after a full uint16 idle.
 assert(zosung.encode_timings({500,65535,0,40000}))
 assert(not pcall(zosung.encode_timings,{0,500}))
