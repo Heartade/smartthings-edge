@@ -34,7 +34,10 @@ for _, entry in ipairs(catalog.index) do
     for _, fan in ipairs({"auto", "low", "medium", "high"}) do
       if not supported[fan] then
         local current = state.initial()
-        local desired, err = registry.encode(id, current, { power = true, fan = fan }, model.value, current)
+        local desired, err = registry.encode(id, current, {
+          power = true, mode = features.modes[1], fan = fan,
+          temperature = math.max(features.min_temperature, math.min(24, features.max_temperature))
+        }, model.value, current)
         assert(not desired and tostring(err):match("Fan mode is not supported"),
           id .. "/" .. model.value .. ": unsupported fan was accepted: " .. fan)
       end
